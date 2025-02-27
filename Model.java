@@ -105,7 +105,7 @@ public class Model
                 break;
             case PASSWORD:
                 // we were waiting for a password - save the number we have as the password
-                // and then cotnact the bank with accumber and accPasswd to try and login to
+                // and then contact the bank with accumber and accPasswd to try and login to
                 // an account
                 accPasswd = number;
                 number = 0;
@@ -121,13 +121,26 @@ public class Model
                     initialise("Unknown account/password");
                 }
                 break;
-            case LOGGED_IN:     
+                
+                //added LOGGED_IN function to use below withdraw, deposit, balance and finish options hopefully works
+            case LOGGED_IN: 
+                processWithdraw();
+                processDeposit();
+                processBalance();
+                processFinish();
             default: 
                 // do nothing in any other state (ie logged in)
         }  
         display();  // update the GUI
     }
 
+    public int getInput(){
+        return accNumber;
+    }
+    public int getOnput(){
+        return accPasswd;
+    }
+    
     // Withdraw button - check we are logged in and if so try and withdraw some money from
     // the bank (number is the amount showing in the interface display)
     public void processWithdraw()

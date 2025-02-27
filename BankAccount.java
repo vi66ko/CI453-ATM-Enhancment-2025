@@ -11,7 +11,7 @@ public class BankAccount
 {
     public int accNumber = 0;
     public int accPasswd = 0;
-    public int balance = 0;
+    public int balance = 100;
     
     public BankAccount()
     { // an empty construtor
@@ -20,9 +20,17 @@ public class BankAccount
     
     public BankAccount(int n, int p, int b)
     {
-    
+        this.accNumber  = n;
+        this.accPasswd = p;
+        this.balance = b;
     }
     
+    public int getaccNumber(){
+        return accNumber;
+    }
+    public int getaccPassword(){
+        return accPasswd;
+    }
     // withdraw money from the account. Return true if successful, or 
     // false if the amount is negative, or less than the amount in the account 
     public boolean withdraw( int amount ) 
@@ -48,6 +56,6 @@ public class BankAccount
         Debug.trace( "LocalBank::getBalance" ); 
 
         // CHANGE CODE HERE TO RETURN THE BALANCE
-        return 0;
+        return -1;
     }
 }
