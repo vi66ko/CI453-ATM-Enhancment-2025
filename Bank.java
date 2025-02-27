@@ -15,6 +15,8 @@ public class Bank
     int numAccounts = 0;        // the number of accounts currently in the bank
     BankAccount[] accounts = new BankAccount[maxAccounts];  // array to hold the bank accounts
     BankAccount account = null; // currently logged in acccount ('null' if no-one is logged in)
+    
+    
 
     // Constructor method - this provides a couple of example bank accounts to work with
     public Bank()
@@ -54,7 +56,7 @@ public class Bank
     {
         return addBankAccount(makeBankAccount(accNumber, accPasswd, balance));
     }    
-    
+    public int user = -1;
     // Check whether the current saved account and password correspond to 
     // an actual bank account, and if so login to it (by setting 'account' to it)
     // and return true. Otherwise, reset the account to null and return false
@@ -63,16 +65,27 @@ public class Bank
     { 
         Debug.trace( "Bank::login: accNumber = " + newAccNumber);       
         logout(); // logout of any previous account
+        int currentAccount = 0;        
 
+        
         // search the array to find a bank account with matching account and password.
         // If you find it, store it in the variable currentAccount and return true.
         // If you don't find it, reset everything and return false
         
-        // YOU NEED TO ADD CODE HERE TO FIND THE RIGHT ACCOUNT IN THE accounts ARRAY, 
-        // SET THE account VARIABLE AND RETURN true
+        for (BankAccount bank:accounts){
+            if (bank.getaccNumber()==(newAccNumber)) {
+                if (bank.getaccPassword()==(newAccPasswd)) {
+                    currentAccount = newAccNumber;
+                    return true;
+            }
+            // YOU NEED TO ADD CODE HERE TO FIND THE RIGHT ACCOUNT IN THE accounts ARRAY, 
+            // SET THE account VARIABLE AND RETURN true
         
-
-        // not found - return false
+        }
+            // not found - return false
+            
+            
+        }  
         account = null;
         return false;
     }
@@ -86,6 +99,7 @@ public class Bank
             account = null;
         }
     }
+    
     
     // test whether the bank is logged in to an account or not
     public boolean loggedIn()

@@ -20,9 +20,16 @@ public class BankAccount
     
     public BankAccount(int n, int p, int b)
     {
-    
+        this.accNumber  = n;
+        this.accPasswd = p;
     }
     
+    public int getaccNumber(){
+        return accNumber;
+    }
+    public int getaccPassword(){
+        return accPasswd;
+    }
     // withdraw money from the account. Return true if successful, or 
     // false if the amount is negative, or less than the amount in the account 
     public boolean withdraw( int amount ) 
