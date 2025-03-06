@@ -38,14 +38,14 @@ public class BankAccount
     { 
         Debug.trace( "BankAccount::withdraw: amount =" + amount ); 
         if (amount <= 0){
-        
+            return false;
         }
         else{
             balance -= amount;
         }
 
         // CHANGE CODE HERE TO WITHDRAW MONEY FROM THE ACCOUNT
-        return false;
+        return true;
     }
     
     // deposit the amount of money into the account. Return true if successful,
