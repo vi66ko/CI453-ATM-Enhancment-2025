@@ -36,6 +36,12 @@ public class BankAccount
     public boolean withdraw( int amount ) 
     { 
         Debug.trace( "BankAccount::withdraw: amount =" + amount ); 
+        if (amount <= 0){
+        
+        }
+        else{
+            balance -= amount;
+        }
 
         // CHANGE CODE HERE TO WITHDRAW MONEY FROM THE ACCOUNT
         return false;
@@ -47,6 +53,13 @@ public class BankAccount
     { 
         Debug.trace( "LocalBank::deposit: amount = " + amount ); 
         // CHANGE CODE HERE TO DEPOSIT MONEY INTO THE ACCOUNT
+        if (amount <= 0){
+        
+        }
+        else{
+            balance += amount;
+        }
+        
         return false;
     }
 
@@ -55,7 +68,6 @@ public class BankAccount
     { 
         Debug.trace( "LocalBank::getBalance" ); 
 
-        // CHANGE CODE HERE TO RETURN THE BALANCE
-        return -1;
+        return balance;
     }
 }
