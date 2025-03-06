@@ -23,6 +23,7 @@ public class BankAccount
         this.accNumber  = n;
         this.accPasswd = p;
         this.balance = b;
+
     }
     
     public int getaccNumber(){
