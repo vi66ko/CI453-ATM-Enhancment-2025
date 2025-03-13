@@ -2,5 +2,5 @@ package states;
 
 public enum ATM {
     IDLE,
-    LOGEDIN
+    LOGED_IN
 }

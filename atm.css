@@ -15,3 +15,10 @@
 .button {
     -fx-font: bold 16pt "courier new";
 }
+
+
+
+/* -------- LOGIN ------------- */
+#login-grid #logo {
+    -fx-font-size: 30px;
+}

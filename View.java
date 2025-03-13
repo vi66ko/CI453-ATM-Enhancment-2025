@@ -15,11 +15,12 @@ import javafx.stage.Stage;
 import javafx.util.*;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
 
 class View implements EventHandler<KeyEvent> {
-    int H = 420; // Height of window pixels
-    int W = 500; // Width of window pixels
+    int sceneHeight = 420; // Height of window pixels
+    int sceneWidth = 500; // Width of window pixels
     Stage window = null;
     // variables for components of the user interface
     Label title; // Title area (not the window title)
@@ -105,10 +106,11 @@ class View implements EventHandler<KeyEvent> {
         grid.add(buttonPane, 0, 3); // add the tiled pane of buttons to the grid
 
         // add the complete GUI to the window and display it
-        Scene scene = new Scene(grid, W, H);
+        Scene scene = new Scene(grid, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("atm.css"); // tell the app to use our css file
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this);
         window.setScene(scene);
+        this.login();
         window.show();
     }
 
@@ -132,9 +134,31 @@ class View implements EventHandler<KeyEvent> {
     }
 
     public void login() {
-        GridPane grid = new GridPane;
-        System.out.println();
-        System.out.
+        GridPane grid = new GridPane();
+
+        Text logo = new Text("ATM");
+        Label labelAccountNumber = new Label("Account Numbers");
+        TextField accountNumber = new TextField();
+        Label labelPassword = new Label("Password");
+        PasswordField passwordField = new PasswordField();
+        Button btn = new Button("Submit");
+
+        grid.setId("login-grid");
+        logo.setId("logo");
+        btn.setId("btn-login");
+
+        grid.add(logo, 0, 0);
+        grid.add(labelAccountNumber, 0, 1);
+        grid.add(accountNumber, 0, 2);
+        grid.add(labelPassword, 0, 3);
+        grid.add(passwordField, 0, 4);
+        grid.add(btn, 0, 7);
+        btn.setMaxWidth(200);
+
+        Scene loginScene = new Scene(grid, this.sceneWidth, this.sceneHeight);
+        loginScene.getStylesheets().add(View.class.getResource("login.css").toExternalForm());
+        this.window.setScene(loginScene);
+
     }
 
     // This is how the Model talks to the View

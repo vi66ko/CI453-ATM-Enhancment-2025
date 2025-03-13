@@ -1,0 +1,12 @@
+.root {
+   -fx-alignment: center;
+   -fx-padding: 25px;
+   -fx-hgap: 15px;
+   -fx-vgap: 15px;
+}
+
+ #logo {
+    -fx-font-size: 76px;
+    -fx-text-alignment: right;
+}
+

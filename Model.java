@@ -18,7 +18,7 @@ public class Model {
     final String LOGGED_IN = "logged_in";
 
     // variables representing the ATM model
-    String state = ACCOUNT_NO; // the state it is currently in
+    ATM state = ATM.IDLE; // the state it is currently in
     int number = 0; // current number displayed in GUI (as a number, not a string)
     Bank bank = null; // The ATM talks to a bank, represented by the Bank object.
     int accNumber = -1; // Account number typed in
@@ -44,7 +44,7 @@ public class Model {
     // set state to ACCOUNT_NO, number to zero, and display message
     // provided as argument and standard instruction message
     public void initialise(String message) {
-        setState(ACCOUNT_NO);
+        setState(ATM.IDLE);
         number = 0;
         display1 = message;
         display2 = "Enter your account number\n" +
@@ -54,9 +54,9 @@ public class Model {
     // use this method to change state - mainly so we print a debugging message
     // whenever
     // the state changes
-    public void setState(String newState) {
+    public void setState(ATM newState) {
         if (!state.equals(newState)) {
-            String oldState = state;
+            ATM oldState = state;
             state = newState;
             Debug.trace("Model::setState: changed state from " + oldState + " to " + newState);
         }
@@ -92,18 +92,19 @@ public class Model {
     public void processEnter() {
         // Enter was pressed - what we do depends what state the ATM is already in
         switch (state) {
-            case ACCOUNT_NO:
+            case ATM.IDLE:
+                view.login();
                 // we were waiting for a complete account number - save the number we have
                 // reset the tyed in number to 0 and change to the state where we are expecting
                 // a password
                 accNumber = number;
                 number = 0;
-                setState(PASSWORD);
+                // setState(PASSWORD);
                 display1 = "";
                 display2 = "Now enter your password\n" +
                         "Followed by \"Ent\"";
                 break;
-            case PASSWORD:
+            case ATM.LOGED_IN:
                 // we were waiting for a password - save the number we have as the password
                 // and then contact the bank with accumber and accPasswd to try and login to
                 // an account
@@ -113,7 +114,7 @@ public class Model {
                 // now check the account/password combination. If it's ok go into the LOGGED_IN
                 // state, otherwise go back to the start (by re-initialsing)
                 if (bank.login(accNumber, accPasswd)) {
-                    setState(LOGGED_IN);
+                    setState(ATM.LOGED_IN);
                     display2 = "Accepted\n" +
                             "Now enter the transaction you require";
                 } else {
@@ -123,11 +124,11 @@ public class Model {
 
             // added LOGGED_IN function to use below withdraw, deposit, balance and finish
             // options hopefully works
-            case LOGGED_IN:
-                processWithdraw();
-                processDeposit();
-                processBalance();
-                processFinish();
+            // case LOGGED_IN:
+            // processWithdraw();
+            // processDeposit();
+            // processBalance();
+            // processFinish();
             default:
                 // do nothing in any other state (ie logged in)
         }
@@ -191,7 +192,7 @@ public class Model {
     public void processFinish() {
         if (state.equals(LOGGED_IN)) {
             // go back to the log in state
-            setState(ACCOUNT_NO);
+            // setState(ACCOUNT_NO);
             number = 0;
             display2 = "Welcome: Enter your account number";
             bank.logout();
