@@ -54,13 +54,83 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
+        this.setLoginUI();
+        window.show();
+    }
+
+    public void handle(KeyEvent event) {
+        this.controller.userKeyInput(event);
+    }
+
+    // This is how the View talks to the Controller
+    // This method is called when a button is pressed
+    // It fetches the label on the button and passes it to the controller's process
+    // method
+    public void buttonClicked(ActionEvent event) {
+        // this line asks the event to provide the actual Button object that was clicked
+        Button b = ((Button) event.getSource());
+        if (controller != null) {
+            String label = b.getText(); // get the button label
+            Debug.trace("View::buttonClicked: label = " + label);
+            // Try setting a breakpoint here
+            controller.process(label); // Pass it to the controller's process method
+        }
+    }
+
+    public void setLoginUI() {
+        GridPane grid = new GridPane();
+
+        Text logo = new Text("ATM");
+        Label labelAccountNumber = new Label("Account Numbers");
+        TextField accountNumberField = new TextField();
+        Label labelPassword = new Label("Password");
+        PasswordField passwordField = new PasswordField();
+        Text feedback = new Text();
+        Button btn = new Button("Submit");
+        // User input
+        grid.setId("login-grid");
+        logo.setId("logo");
+        btn.setId("btn-login");
+
+        grid.add(logo, 0, 0);
+        grid.add(labelAccountNumber, 0, 1);
+        grid.add(accountNumberField, 0, 2);
+        grid.add(labelPassword, 0, 3);
+        grid.add(passwordField, 0, 4);
+        grid.add(feedback, 0, 5);
+        grid.add(btn, 0, 7);
+        btn.setMaxWidth(200);
+        btn.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent arg0) {
+                        String accountNumerInput = accountNumberField.getText();
+                        String passwordInput = passwordField.getText();
+
+                        if (accountNumerInput.length() == 0 || passwordInput.length() == 0) {
+                            return;
+                        }
+                        Debug.trace("View::setOnAction: " + accountNumerInput.length());
+                        Debug.trace("View::setOnAction: " + accountNumerInput);
+                        String message = controller.login(accountNumerInput, passwordInput);
+                        feedback.setText(message);
+                        Debug.trace("View::setOnAction: " + arg0);
+                    }
+                });
+
+        Scene loginScene = new Scene(grid, this.sceneWidth, this.sceneHeight);
+        loginScene.getStylesheets().add(View.class.getResource("login.css").toExternalForm());
+        this.window.setScene(loginScene);
+    }
+
+    public void setActiveUI() {
         grid = new GridPane();
         grid.setId("Layout"); // assign an id to be used in css file
         buttonPane = new TilePane();
         buttonPane.setId("Buttons"); // assign an id to be used in css file
 
         // controls
-        title = new Label(); // Message bar at the top for the title
+        this.title = new Label("Best ATM"); // Message bar at the top for the title
         grid.add(title, 0, 0); // Add to GUI at the top
 
         message = new TextField(); // text field for numbers and error messages
@@ -109,55 +179,8 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(grid, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("atm.css"); // tell the app to use our css file
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this);
-        window.setScene(scene);
-        this.login();
-        window.show();
-    }
-
-    public void handle(KeyEvent event) {
-        this.controller.userKeyInput(event);
-    }
-
-    // This is how the View talks to the Controller
-    // This method is called when a button is pressed
-    // It fetches the label on the button and passes it to the controller's process
-    // method
-    public void buttonClicked(ActionEvent event) {
-        // this line asks the event to provide the actual Button object that was clicked
-        Button b = ((Button) event.getSource());
-        if (controller != null) {
-            String label = b.getText(); // get the button label
-            Debug.trace("View::buttonClicked: label = " + label);
-            // Try setting a breakpoint here
-            controller.process(label); // Pass it to the controller's process method
-        }
-    }
-
-    public void login() {
-        GridPane grid = new GridPane();
-
-        Text logo = new Text("ATM");
-        Label labelAccountNumber = new Label("Account Numbers");
-        TextField accountNumber = new TextField();
-        Label labelPassword = new Label("Password");
-        PasswordField passwordField = new PasswordField();
-        Button btn = new Button("Submit");
-
-        grid.setId("login-grid");
-        logo.setId("logo");
-        btn.setId("btn-login");
-
-        grid.add(logo, 0, 0);
-        grid.add(labelAccountNumber, 0, 1);
-        grid.add(accountNumber, 0, 2);
-        grid.add(labelPassword, 0, 3);
-        grid.add(passwordField, 0, 4);
-        grid.add(btn, 0, 7);
-        btn.setMaxWidth(200);
-
-        Scene loginScene = new Scene(grid, this.sceneWidth, this.sceneHeight);
-        loginScene.getStylesheets().add(View.class.getResource("login.css").toExternalForm());
-        this.window.setScene(loginScene);
+        // scene.setOnKeyPressed(this);
+        this.window.setScene(scene);
 
     }
 
@@ -166,14 +189,14 @@ class View implements EventHandler<KeyEvent> {
     // It fetches th title, display1 and display2 variables from the model
     // and displays them in the GUI
     public void update() {
-        if (model != null) {
-            Debug.trace("View::update");
-            String message1 = model.title; // get the new title from the model
-            title.setText(message1); // set the message text to be the title
-            String message2 = model.display1; // get the new message1 from the model
-            message.setText(message2); // add it as text of GUI control output1
-            String message3 = model.display2; // get the new message2 from the model
-            reply.setText(message3); // add it as text of GUI control output2
-        }
+        // if (model != null) {
+        // Debug.trace("View::update");
+        // String message1 = model.title; // get the new title from the model
+        // title.setText(message1); // set the message text to be the title
+        // String message2 = model.display1; // get the new message1 from the model
+        // message.setText(message2); // add it as text of GUI control output1
+        // String message3 = model.display2; // get the new message2 from the model
+        // reply.setText(message3); // add it as text of GUI control output2
+        // }
     }
 }

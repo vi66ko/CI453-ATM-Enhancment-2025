@@ -74,7 +74,7 @@ public class Controller {
         switch (pressedKey) {
             case NUMPAD1:
             case DIGIT1:
-                this.process("1"); 
+                this.process("1");
                 break;
             case NUMPAD2:
             case DIGIT2:
@@ -111,11 +111,36 @@ public class Controller {
             case NUMPAD0:
             case DIGIT0:
                 this.process("0");
-                break;                
+                break;
             default:
                 break;
         }
 
     }
 
+    public String login(String accountNumber, String password) {
+        // making the security cehck if the fields are only numbers
+        int accountNumberInt = 0;
+        try {
+            accountNumberInt = Integer.parseInt(accountNumber);
+        } catch (Exception error) {
+
+            System.out.println("---- Exception ----");
+
+            System.out.println(error.getClass().getSimpleName());
+            System.out.println(error.getClass());
+            System.out.println(error);
+            System.out.println("---- / Exception ----");
+            return "Invalid account number.";
+        }
+
+        String hasCharactersRegEx = ".*[a-zA-Z].*";
+
+        // if (accountNumber.matches(hasCharactersRegEx) ||
+        // password.matches(hasCharactersRegEx)) {
+        // return "This is the return from the moduel";
+        // }
+        return model.login(accountNumberInt, password);
+
+    }
 }

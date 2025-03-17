@@ -93,7 +93,7 @@ public class Model {
         // Enter was pressed - what we do depends what state the ATM is already in
         switch (state) {
             case ATM.IDLE:
-                view.login();
+                view.setLoginUI();
                 // we were waiting for a complete account number - save the number we have
                 // reset the tyed in number to 0 and change to the state where we are expecting
                 // a password
@@ -113,22 +113,22 @@ public class Model {
                 display1 = "";
                 // now check the account/password combination. If it's ok go into the LOGGED_IN
                 // state, otherwise go back to the start (by re-initialsing)
-                if (bank.login(accNumber, accPasswd)) {
-                    setState(ATM.LOGED_IN);
-                    display2 = "Accepted\n" +
-                            "Now enter the transaction you require";
-                } else {
-                    initialise("Unknown account/password");
-                }
-                break;
+                // if (bank.login(accNumber, accPasswd)) {
+                // setState(ATM.LOGED_IN);
+                // display2 = "Accepted\n" +
+                // "Now enter the transaction you require";
+                // } else {
+                // initialise("Unknown account/password");
+                // }
+                // break;
 
-            // added LOGGED_IN function to use below withdraw, deposit, balance and finish
-            // options hopefully works
-            // case LOGGED_IN:
-            // processWithdraw();
-            // processDeposit();
-            // processBalance();
-            // processFinish();
+                // added LOGGED_IN function to use below withdraw, deposit, balance and finish
+                // options hopefully works
+                // case LOGGED_IN:
+                // processWithdraw();
+                // processDeposit();
+                // processBalance();
+                // processFinish();
             default:
                 // do nothing in any other state (ie logged in)
         }
@@ -216,6 +216,21 @@ public class Model {
         }
 
         System.out.println("clearCharacter is pressed");
+    }
+
+    // Should return string message if password do not match
+    // reduce the number of try
+    public String login(int newAccNumber, String newAccPasswd) {
+
+        Boolean response = this.bank.login(newAccNumber, newAccPasswd);
+        Debug.trace("Modell::login: response " + response);
+        if (response) {
+            this.setState(ATM.LOGED_IN);
+            this.view.setActiveUI();
+            return "Successfull";
+        }
+        return "Wrong password";
+
     }
 
     // Any other key results in an error message and a reset of the GUI
