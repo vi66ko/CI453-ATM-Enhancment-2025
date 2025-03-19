@@ -1,0 +1,8 @@
+/* Is .root class base on the name of the variable or based on its role ??*/
+.root {
+    -fx-alignment: center;
+}
+
+.root #goodbyeText {
+    -fx-font-size: 50px;
+}

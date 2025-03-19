@@ -54,7 +54,7 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        this.setLoginUI();
+        this.setGoodBye();
         window.show();
     }
 
@@ -62,7 +62,7 @@ class View implements EventHandler<KeyEvent> {
         this.controller.userKeyInput(event);
     }
 
-    // This is how the View talks to the Controller
+    // This is how the zRew talks to the Controller
     // This method is called when a button is pressed
     // It fetches the label on the button and passes it to the controller's process
     // method
@@ -182,6 +182,59 @@ class View implements EventHandler<KeyEvent> {
         // scene.setOnKeyPressed(this);
         this.window.setScene(scene);
 
+    }
+
+    public void setPasswordResset() {
+        GridPane root = new GridPane();
+        // Should we add a field for entering the old password
+        // for a security reason even though he is already logged in
+        // a case could be when a user leave he app open and is not around.
+        Label labelPassword = new Label("New password");
+        PasswordField passwordField = new PasswordField();
+        Label labelPasswordConfirmation = new Label("Password Confirmation");
+        PasswordField passwordConfirmation = new PasswordField();
+        Button btnConfirm = new Button("confirm");
+        btnConfirm.setMinWidth(200);
+
+        root.add(labelPassword, 0, 0);
+        root.add(passwordField, 0, 1);
+        root.add(labelPasswordConfirmation, 0, 2);
+        root.add(passwordConfirmation, 0, 3);
+        root.add(btnConfirm, 0, 5);
+
+        btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent args) {
+            }
+        });
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("password_reset.css");
+        this.window.setScene(scene);
+
+    }
+
+    public void setWelcoming() {
+        GridPane root = new GridPane();
+        Text greetings = new Text("Welcome\nto\n best ATM");
+        greetings.setId("greetingText");
+
+        root.add(greetings, 0, 0);
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("welcoming.css");
+        this.window.setScene(scene);
+    }
+
+    public void setGoodBye() {
+        GridPane root = new GridPane();
+
+        Text goodbyeText = new Text("Fareway\nmy friend!");
+        goodbyeText.setId("goodbyeText");
+        root.add(goodbyeText, 0, 0);
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("goodbye.css");
+        this.window.setScene(scene);
     }
 
     // This is how the Model talks to the View

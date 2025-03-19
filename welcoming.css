@@ -1,0 +1,7 @@
+.root {
+    -fx-alignment: center;
+}
+.root #greetingText {
+    -fx-font-size: 50px;
+    -fx-text-alignment: center;
+}
