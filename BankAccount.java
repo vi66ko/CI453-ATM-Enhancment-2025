@@ -30,6 +30,14 @@ public class BankAccount {
         return accPasswd;
     }
 
+    // ===================????????????????????==========================
+    // Where is the beset place to do security password?
+    // here; bank; model; controller?
+    public boolean setPassword(String newPasswod) {
+        this.accPasswd = newPasswod;
+        return true;
+    }
+
     // withdraw money from the account. Return true if successful, or
     // false if the amount is negative, or less than the amount in the account
     public boolean withdraw(int amount) {

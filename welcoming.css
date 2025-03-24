@@ -1,7 +1,28 @@
 .root {
     -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-background-color: green;
+    -fx-background-color
 }
-.root #greetingText {
+
+.root #greeting-text {
     -fx-font-size: 50px;
     -fx-text-alignment: center;
+    -fx-alignment: center-right;
 }
+
+.root #btn-container {
+    -fx-fill: orange;
+    -fx-alignment: center-right;
+    -fx-padding: 0px 0px 20px 0px;
+    -fx-border-color: coral;
+}
+
+.root #btn-container .button {
+    -fx-border-color: lightgray;
+    -fx-pref-width: 200px;
+    -fx-font-size: 30px;
+    -fx-padding: 15px;
+    -fx-background-insets: 0, 0, 0, 0;
+}
+

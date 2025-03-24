@@ -1,11 +1,11 @@
-ssssLayout {
+slayout {
     -fx-grid-lines-visible: false;
     -fx-hgap: 5;
     -fx-vgap: 5;
     -fx-padding: 10;
 }
 
-#Buttons {
+#buttons {
     -fx-pref-columns: 6;
     -fx-pref-tile-width: 75;
     -fx-hgap: 5;

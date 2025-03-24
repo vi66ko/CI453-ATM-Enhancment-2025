@@ -15,8 +15,8 @@ public class Main extends Application {
         Debug.set(true);
         Debug.trace("atm starting");
         Debug.trace("Main::start");
-
-        // Create a Bank object for this ATM
+        
+        // Create a Bank object for this ATM
         Bank b = new Bank();
         // add some test bank accounts
         b.addBankAccount(101, "1", 300);

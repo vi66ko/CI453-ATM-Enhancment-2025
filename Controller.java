@@ -118,6 +118,18 @@ public class Controller {
 
     }
 
+    public void goToWelcomeUI() {
+        view.setWelcomingUI();
+    }
+
+    public void goToLoginUI() {
+        // There is not need to go to the model as there is not any business logic
+        // but just swiching GUI
+        // and is here instead directly in the view, in this way the view only building
+        // the GUI and the controller is controll it.
+        view.setLoginUI();
+    }
+
     public String login(String accountNumber, String password) {
         // making the security cehck if the fields are only numbers
         int accountNumberInt = 0;

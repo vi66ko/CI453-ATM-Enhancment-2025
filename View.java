@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import javafx.util.*;
 
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
 
@@ -54,7 +55,8 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        this.setGoodBye();
+        this.setWelcomingUI();
+        // this.setLoginUI();
         window.show();
     }
 
@@ -78,34 +80,38 @@ class View implements EventHandler<KeyEvent> {
     }
 
     public void setLoginUI() {
+        // Layout
+        VBox root = new VBox();
         GridPane grid = new GridPane();
+        grid.setId("login-grid");
+        HBox btnContainer = new HBox();
+        btnContainer.setId("btn-container");
 
+        // Controls
         Text logo = new Text("ATM");
+        logo.setId("logo");
+        GridPane.setHalignment(logo, HPos.CENTER);
         Label labelAccountNumber = new Label("Account Numbers");
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
         Text feedback = new Text();
-        Button btn = new Button("Submit");
-        // User input
-        grid.setId("login-grid");
-        logo.setId("logo");
-        btn.setId("btn-login");
+        Button btnBack = new Button("back");
+        btnBack.setId("btn-back");
+        Button btnLogin = new Button("login");
+        btnLogin.setId("btn-login");
 
-        grid.add(logo, 0, 0);
-        grid.add(labelAccountNumber, 0, 1);
-        grid.add(accountNumberField, 0, 2);
-        grid.add(labelPassword, 0, 3);
-        grid.add(passwordField, 0, 4);
-        grid.add(feedback, 0, 5);
-        grid.add(btn, 0, 7);
-        btn.setMaxWidth(200);
-        btn.setOnAction(
+        // User input
+        btnLogin.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
-                    public void handle(ActionEvent arg0) {
+                    public void handle(ActionEvent event) {
                         String accountNumerInput = accountNumberField.getText();
                         String passwordInput = passwordField.getText();
+                        // ################
+                        // moving the check to the controller so here will be not any validation or
+                        // verification
+                        // it will just the visual representation of the app
 
                         if (accountNumerInput.length() == 0 || passwordInput.length() == 0) {
                             return;
@@ -114,20 +120,44 @@ class View implements EventHandler<KeyEvent> {
                         Debug.trace("View::setOnAction: " + accountNumerInput);
                         String message = controller.login(accountNumerInput, passwordInput);
                         feedback.setText(message);
-                        Debug.trace("View::setOnAction: " + arg0);
+                        Debug.trace("View::setOnAction: " + event);
                     }
                 });
 
-        Scene loginScene = new Scene(grid, this.sceneWidth, this.sceneHeight);
+        btnBack.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToWelcomeUI();
+            }
+        });
+        // HBox
+        btnContainer.setSpacing(100);
+        btnContainer.getChildren().addAll(btnBack, btnLogin);
+
+        // Grid constraints
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setHgrow(Priority.ALWAYS);
+        grid.getColumnConstraints().add(col1);
+
+        grid.add(logo, 0, 0);
+        grid.add(labelAccountNumber, 0, 1);
+        grid.add(accountNumberField, 0, 2);
+        grid.add(labelPassword, 0, 3);
+        grid.add(passwordField, 0, 4);
+        grid.add(feedback, 0, 5);
+
+        root.getChildren().addAll(grid, btnContainer);
+
+        Scene loginScene = new Scene(root, this.sceneWidth, this.sceneHeight);
         loginScene.getStylesheets().add(View.class.getResource("login.css").toExternalForm());
         this.window.setScene(loginScene);
     }
 
     public void setActiveUI() {
         grid = new GridPane();
-        grid.setId("Layout"); // assign an id to be used in css file
+        grid.setId("layout"); // assign an id to be used in css file
         buttonPane = new TilePane();
-        buttonPane.setId("Buttons"); // assign an id to be used in css file
+        buttonPane.setId("buttons"); // assign an id to be used in css file
 
         // controls
         this.title = new Label("Best ATM"); // Message bar at the top for the title
@@ -186,6 +216,8 @@ class View implements EventHandler<KeyEvent> {
 
     public void setPasswordResset() {
         GridPane root = new GridPane();
+        HBox btnContainer = new HBox();
+        btnContainer.setId("btn-container");
         // Should we add a field for entering the old password
         // for a security reason even though he is already logged in
         // a case could be when a user leave he app open and is not around.
@@ -204,7 +236,12 @@ class View implements EventHandler<KeyEvent> {
 
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
-            public void handle(ActionEvent args) {
+            public void handle(ActionEvent event) {
+                // got to the controller to reset password
+                // controller verift if the password is valid base on the criterias
+                // after that going to the Controller.(passworedResset) => ATM.passwordReset =>
+                // Bank.paaswordRest()
+                //
             }
         });
 
@@ -214,22 +251,57 @@ class View implements EventHandler<KeyEvent> {
 
     }
 
-    public void setWelcoming() {
+    public void setWelcomingUI() {
         GridPane root = new GridPane();
-        Text greetings = new Text("Welcome\nto\n best ATM");
-        greetings.setId("greetingText");
+        HBox btnContainer = new HBox();
+        btnContainer.setId("btn-container");
 
+        Text greetings = new Text("Welcome\nto\n best ATM");
+        greetings.setId("greeting-text");
+
+        Button btnStart = new Button("Start");
+        btnStart.setDefaultButton(true);
+
+        RowConstraints row1 = new RowConstraints();
+        row1.setVgrow(Priority.ALWAYS);
+        root.getRowConstraints().add(row1);
+
+        ColumnConstraints col1 = new ColumnConstraints();
+        col1.setHgrow(Priority.ALWAYS);
+        root.getColumnConstraints().add(col1);
+
+        btnContainer.getChildren().add(btnStart);
         root.add(greetings, 0, 0);
+        root.add(btnContainer, 0, 1);
+        GridPane.setHalignment(greetings, HPos.CENTER);
+
+        btnStart.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToLoginUI();
+            }
+
+        });
+
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("welcoming.css");
         this.window.setScene(scene);
     }
 
-    public void setGoodBye() {
+    public void setGoodByeUI() {
+        /*
+         * Strugle
+         * removing the outline of the button
+         * Reference:
+         * link -
+         * https://stackoverflow.com/questions/6092500/how-do-i-remove-the-default-
+         * border-glow-of-a-javafx-button-when-selected
+         * user: user2229691 | last comment | date: answered Mar 31, 2013 at 20:19
+         */
         GridPane root = new GridPane();
 
         Text goodbyeText = new Text("Fareway\nmy friend!");
-        goodbyeText.setId("goodbyeText");
+        goodbyeText.setId("goodbye-text");
         root.add(goodbyeText, 0, 0);
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
