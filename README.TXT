@@ -68,3 +68,15 @@ Model => ATM, BANK
 	how to verify a user in the bank model 
 
 
+
+# Reference
+
+For timer: 
+Source https://stackoverflow.com/questions/4044726/how-to-set-a-timer-in-java
+Source2 https://stackoverflow.com/questions/26916640/javafx-not-on-fx-application-thread-when-using-timer
+
+
+
+
+
+

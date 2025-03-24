@@ -5,7 +5,13 @@
 
 // We import lots of JavaFX libraries (we may not use them all, but it
 // saves us having to thinkabout them if we add new code)
+// Java
+import java.util.Timer;
+import java.util.TimerTask;
 
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+// JavaFx
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -100,6 +106,18 @@ class View implements EventHandler<KeyEvent> {
         btnBack.setId("btn-back");
         Button btnLogin = new Button("login");
         btnLogin.setId("btn-login");
+
+        // Timer
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    setWelcomingUI();
+                });
+
+            }
+        }, 2000);
 
         // User input
         btnLogin.setOnAction(
