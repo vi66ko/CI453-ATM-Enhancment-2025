@@ -91,7 +91,7 @@ public class Model {
     // (when you log out)
     public void processEnter() {
         // Enter was pressed - what we do depends what state the ATM is already in
-        switch (state) {
+        /*switch (state) {
             case ATM.IDLE:
                 view.setLoginUI();
                 // we were waiting for a complete account number - save the number we have
@@ -132,7 +132,7 @@ public class Model {
             default:
                 // do nothing in any other state (ie logged in)
         }
-        display(); // update the GUI
+        display(); // update the GUI*/
     }
 
     public int getInput() {
@@ -215,7 +215,7 @@ public class Model {
     // reduce the number of try
     public String login(int newAccNumber, String newAccPasswd) {
 
-        Boolean response = this.bank.login(newAccNumber, newAccPasswd);
+        Boolean response = this.bank.authenticate(newAccNumber, newAccPasswd);
         Debug.trace("Modell::login: response " + response);
         if (response) {
             this.setState(ATM.LOGED_IN);
