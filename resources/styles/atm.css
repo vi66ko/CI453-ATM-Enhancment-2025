@@ -1,0 +1,38 @@
+.root {
+    -fx-grid-lines-visible: true;
+    -fx-alignment: bottom-center;
+    -fx-padding: 0px 0px 20px 0px;
+    -fx-background-color: lightgray;
+    -fx-vgap: 20px;
+    -fx-hgap: 20px;
+    
+}
+
+.button {
+    -fx-pref-width: 200px;
+    -fx-padding: 15px; 
+    -fx-font-size: 17px;
+}
+
+
+
+/*######## OLD styles ##########*/
+slayout {
+    -fx-grid-lines-visible: false;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+    -fx-padding: 10;
+}
+
+#buttons {
+    -fx-pref-columns: 6;
+    -fx-pref-tile-width: 75;
+    -fx-hgap: 5;
+    -fx-vgap: 5;
+}
+
+
+/* -------- LOGIN ------------- */
+#login-grid #logo {
+    -fx-font-size: 30px;
+}

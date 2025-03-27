@@ -155,4 +155,8 @@ public class Controller {
         return model.login(accountNumberInt, password);
 
     }
+
+    public void logout() {
+        model.processFinish();
+    }
 }

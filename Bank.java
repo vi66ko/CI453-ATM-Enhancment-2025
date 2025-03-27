@@ -66,7 +66,7 @@ public class Bank {
     // an actual bank account, and if so login to it (by setting 'account' to it)
     // and return true. Otherwise, reset the account to null and return false
     // YOU NEED TO ADD CODE TO THIS METHOD FOR THE LAB EXERCISE
-    public boolean login(int newAccNumber, String newAccPasswd) {
+    public boolean authenticate(int newAccNumber, String newAccPasswd) {
         Debug.trace("Bank::login: accNumber = " + newAccNumber);
         logout(); // logout of any previous account
         this.account = this.accounts.get(newAccNumber); // If the account does not exist it will it will return null
@@ -88,11 +88,13 @@ public class Bank {
     }
 
     // Reset the bank to a 'logged out' state
-    public void logout() {
+    public boolean logout() {
         if (loggedIn()) {
             Debug.trace("Bank::logout: logging out, accNumber = " + account.getaccNumber());
             account = null;
+            return true;
         }
+        return false;
     }
 
     // test whether the bank is logged in to an account or not

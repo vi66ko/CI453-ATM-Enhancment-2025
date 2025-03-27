@@ -22,8 +22,8 @@ ATM:
 ---------------------------------------------------------------------------
 TODO:
 
-- a way to exit from changing a password
-buttons: left(cancel) right(login)
+- Security: To not store the password as a plain text [Optional: using slat]
+- Should find a way to manage caneling the timer in View.java for this may need to improve the response of the login.
 
 - what to be the time for the goodbye message
 1.5sec
@@ -41,6 +41,9 @@ DONE:
 
 - welcoming page to disapaer 
 button ot the right left corner  START
+- a way to exit from changing a password
+buttons: left(cancel) right(login)
+
 -----------------------------------------------------
 
 -----------------------------------------------------
@@ -68,7 +71,11 @@ Model => ATM, BANK
 	how to verify a user in the bank model 
 
 
-
+# Articles
+UI/UX Case Study: ATM machines and mobile application of Financial entities.
+https://medium.com/@UltimateMachineUi/1-ui-ux-case-study-atm-machines-and-mobile-application-of-financial-entities-e6191de7680a
+ATM UI for Banking Self-Service System
+https://right.studio/projects/atm-interface/
 # Reference
 
 For timer: 

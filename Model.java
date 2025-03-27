@@ -190,16 +190,9 @@ public class Model {
 
     // Finish button - check we are logged in and if so log out
     public void processFinish() {
-        if (state.equals(LOGGED_IN)) {
-            // go back to the log in state
-            // setState(ACCOUNT_NO);
-            number = 0;
-            display2 = "Welcome: Enter your account number";
-            bank.logout();
-        } else {
-            initialise("You are not logged in");
-        }
-        display(); // update the GUI
+        number = 0;
+        bank.logout();
+        view.setGoodByeUI();
     }
 
     public void clearCharacter() {

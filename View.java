@@ -61,8 +61,9 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        this.setWelcomingUI();
+        // this.setWelcomingUI();
         // this.setLoginUI();
+        this.setActiveUI2();
         window.show();
     }
 
@@ -117,13 +118,14 @@ class View implements EventHandler<KeyEvent> {
                 });
 
             }
-        }, 2000);
+        }, 4000);
 
         // User input
         btnLogin.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        timer.cancel();
                         String accountNumerInput = accountNumberField.getText();
                         String passwordInput = passwordField.getText();
                         // ################
@@ -225,11 +227,49 @@ class View implements EventHandler<KeyEvent> {
 
         // add the complete GUI to the window and display it
         Scene scene = new Scene(grid, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("atm.css"); // tell the app to use our css file
+        // scene.getStylesheets().add("atm.css"); // tell the app to use our css file
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this);
         // scene.setOnKeyPressed(this);
         this.window.setScene(scene);
 
+    }
+
+    public void setActiveUI2() {
+        // Layout
+        GridPane root = new GridPane();
+        // Controlls
+        Button finish = new Button("finish");
+        Button balance = new Button("balance");
+        Button deposit = new Button("deposite");
+        Button withdrow = new Button("withdrow");
+        Button passReset = new Button("password resset");
+
+        // Constrains
+        root.add(balance, 0, 0);
+        root.add(passReset, 0, 1);
+        root.add(finish, 0, 2);
+        root.add(deposit, 1, 0);
+        root.add(withdrow, 1, 1);
+
+        GridPane.setHalignment(deposit, HPos.RIGHT);
+        GridPane.setHalignment(withdrow, HPos.RIGHT);
+        GridPane.setFillWidth(finish, true);
+        ColumnConstraints col1 = new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
+        col1.setHgrow(Priority.ALWAYS);
+        col2.setHgrow(Priority.ALWAYS);
+        // finish.setMaxWidth(Double.MAX_VALUE);
+
+        // Event Hanler<ActionEvent>
+        finish.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+            }
+        });
+
+        root.getColumnConstraints().addAll(col1, col2);
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/atm.css");
+        this.window.setScene(scene);
     }
 
     public void setPasswordResset() {
