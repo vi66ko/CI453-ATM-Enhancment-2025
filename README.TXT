@@ -9,5 +9,3 @@ There are four places in the code you need to change:
     given a username and password
 -   in the BankAccount class, the three methods withdraw, deposit and balance
     need code added to make them work properly.
-
-Everyone hates Vlad.
