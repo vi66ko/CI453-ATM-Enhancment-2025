@@ -61,9 +61,9 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        // this.setWelcomingUI();
+        this.setWelcomingUI();
         // this.setLoginUI();
-        this.setActiveUI2();
+        // this.setActiveUI2();
         window.show();
     }
 
@@ -368,6 +368,7 @@ class View implements EventHandler<KeyEvent> {
     }
 
     // This is how the Model talks to the View
+
     // This method gets called BY THE MODEL, whenever the model changes
     // It fetches th title, display1 and display2 variables from the model
     // and displays them in the GUI
@@ -382,4 +383,5 @@ class View implements EventHandler<KeyEvent> {
         // reply.setText(message3); // add it as text of GUI control output2
         // }
     }
+
 }

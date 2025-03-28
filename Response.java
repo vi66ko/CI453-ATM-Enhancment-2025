@@ -1,16 +1,31 @@
-class Response {
-    final Status status = null;
-    final String message = null;
+import type.ErrorType;
 
-    public void Response(Status status, int satusCode, String message) {
+class Response {
+
+    private Boolean status = false;
+    private String message = null;
+    private ErrorType errorType = null;
+
+    public Response(Boolean status, String message) {
         this.status = status;
-        this.satusCode = satusCode
         this.message = message;
     }
-}
 
-enum Status {
-    200,
-    404,
-    400
+    public Response(Boolean status, String message, ErrorType type) {
+        this.status = status;
+        this.message = message;
+        this.errorType = type;
+    }
+
+    public Boolean isSuccessful() {
+        return this.status;
+    }
+
+    public String getMessage() {
+        return this.message;
+    }
+
+    public ErrorType getErrorType() {
+        return errorType;
+    }
 }

@@ -152,8 +152,11 @@ public class Controller {
         // password.matches(hasCharactersRegEx)) {
         // return "This is the return from the moduel";
         // }
-        return model.login(accountNumberInt, password);
 
+        Response response = model.login(accountNumberInt, password);
+        Debug.trace("Controller::login():isSuccessful: " + response.isSuccessful());
+        Debug.trace("Controller::login():getMessage: " + response.getMessage());
+        return response.getMessage();
     }
 
     public void logout() {

@@ -11,10 +11,14 @@
 
 import java.util.HashMap;
 
+// Custome
+import type.ErrorType;
+
 public class Bank {
     // Instance variables containing the bank information
     int maxAccounts = 10; // maximum number of accounts the bank can hold
     int numAccounts = 0; // the number of accounts currently in the bank
+    int numberOfLoginTrys = 3;
     HashMap<Integer, BankAccount> accounts = new HashMap<Integer, BankAccount>();
     // BankAccount[] accounts = new BankAccount[maxAccounts]; // array to hold the
     // bank accounts
@@ -66,7 +70,7 @@ public class Bank {
     // an actual bank account, and if so login to it (by setting 'account' to it)
     // and return true. Otherwise, reset the account to null and return false
     // YOU NEED TO ADD CODE TO THIS METHOD FOR THE LAB EXERCISE
-    public boolean authenticate(int newAccNumber, String newAccPasswd) {
+    public Response authenticate(int newAccNumber, String newAccPasswd) {
         Debug.trace("Bank::login: accNumber = " + newAccNumber);
         logout(); // logout of any previous account
         this.account = this.accounts.get(newAccNumber); // If the account does not exist it will it will return null
@@ -75,16 +79,24 @@ public class Bank {
         // this.account.getaccPassword().equals(newAccPasswd));
         // Debug.trace("Bank::Login: Account is: " + this.account);
         if (this.account == null) {
-            return false;
+            return new Response(false, "The accoount does not exist", ErrorType.WRONG_PASSWORD);
         }
+
+        if (this.numberOfLoginTrys == 0) {
+            // blok the user
+        }
+
         if (!this.account.getaccPassword().equals(newAccPasswd)) {
-            return false;
+            this.numberOfLoginTrys -= 1;
+            return new Response(false, "wrong password " + this.numberOfLoginTrys + " of trys");
         }
         // search the array to find a bank account with matching account and password.
         // If you find it, store it in the variable currentAccount and return true.
         // If you don't find it, reset everything and return false
 
-        return true;
+        // resetting the number of try in case of successful login
+        this.numberOfLoginTrys = 3;
+        return new Response(true, "Welcome");
     }
 
     // Reset the bank to a 'logged out' state
