@@ -7,26 +7,78 @@
 
 // If you choose the ATM for your project, you should make other modifications to 
 // the system yourself, based on similar examples we will cover in lectures and labs.
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+
+// Custome
+
 public class BankAccount {
     private int accNumber = 0;
+    private String accountNumber = null;
     private String accPasswd = null;
-    private int balance = 100;
+    private BigDecimal balance = new BigDecimal(0);
+    private String firstName = null;
+    private String lastName = null;
+    private String address = null;
+
+    private ArrayList<String> emails = new ArrayList<>();
 
     public BankAccount() { // an empty construtor
 
     }
 
-    public BankAccount(int n, String p, int b) {
-        this.accNumber = n;
-        this.accPasswd = p;
-        this.balance = b;
+    public BankAccount(int accountNumber, String password) {
+        this.accNumber = accountNumber;
+        this.accPasswd = password;
+    }
+
+    public BankAccount(int accountNumber, String password, BigDecimal balance) {
+        this.accNumber = accountNumber;
+        this.accPasswd = password;
+        this.balance = balance;
+    }
+
+    public BankAccount(String firstName, String lastName, String address, String email, String accountNumber,
+            String password, BigDecimal balanc) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.emails.add(email);
+        this.accountNumber = accountNumber;
+        this.accPasswd = password;
+
     }
 
     public int getaccNumber() {
         return accNumber;
     }
 
-    public String getaccPassword() {
+    public BigDecimal getBalance() {
+        return balance;
+    }
+
+    public ArrayList<String> getEmails() {
+        return emails;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public int getAccNumber() {
+        return accNumber;
+    }
+
+    public String getAccPasswd() {
         return accPasswd;
     }
 
@@ -38,38 +90,24 @@ public class BankAccount {
         return true;
     }
 
-    // withdraw money from the account. Return true if successful, or
-    // false if the amount is negative, or less than the amount in the account
-    public boolean withdraw(int amount) {
-        Debug.trace("BankAccount::withdraw: amount =" + amount);
-        if (amount <= 0) {
-            return false;
-        } else {
-            balance -= amount;
-        }
-
-        // CHANGE CODE HERE TO WITHDRAW MONEY FROM THE ACCOUNT
-        return true;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    // deposit the amount of money into the account. Return true if successful,
-    // or false if the amount is negative
-    public boolean deposit(int amount) {
-        Debug.trace("LocalBank::deposit: amount = " + amount);
-        // CHANGE CODE HERE TO DEPOSIT MONEY INTO THE ACCOUNT
-        if (amount <= 0) {
-
-        } else {
-            balance += amount;
-        }
-
-        return false;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    // Return the current balance in the account
-    public int getBalance() {
-        Debug.trace("LocalBank::getBalance");
-
-        return balance;
+    public void setAddress(String address) {
+        this.address = address;
     }
+
+    public void addEmail(String email) {
+        this.emails.add(email);
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
 }

@@ -1,3 +1,5 @@
+import java.math.BigDecimal;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -15,13 +17,13 @@ public class Main extends Application {
         Debug.set(true);
         Debug.trace("atm starting");
         Debug.trace("Main::start");
-        
+
         // Create a Bank object for this ATM
         Bank b = new Bank();
         // add some test bank accounts
-        b.addBankAccount(101, "1", 300);
-        b.addBankAccount(10001, "11111", 100);
-        b.addBankAccount(10002, "22222", 50);
+        b.addBankAccount(101, "1", new BigDecimal(300));
+        b.addBankAccount(10001, "11111", new BigDecimal(300));
+        b.addBankAccount(10002, "22222", new BigDecimal(100));
 
         // Create the Model, View and Controller objects
         Model model = new Model(b); // the model needs the Bank object to 'talk to' the bank

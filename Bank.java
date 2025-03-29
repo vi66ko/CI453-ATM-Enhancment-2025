@@ -9,6 +9,7 @@
 // If you choose the ATM for your project, you should make other modifications to 
 // the system yourself, based on similar examples we will cover in lectures and labs.
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 // Custome
@@ -34,7 +35,7 @@ public class Bank {
     // a method to create new BankAccounts - this is known as a 'factory method' and
     // is a more
     // flexible way to do it than just using the 'new' keyword directly.
-    public BankAccount makeBankAccount(int accNumber, String accPasswd, int balance) {
+    public BankAccount makeBankAccount(int accNumber, String accPasswd, BigDecimal balance) {
         return new BankAccount(accNumber, accPasswd, balance);
     }
 
@@ -47,7 +48,7 @@ public class Bank {
             accounts.put(a.getaccNumber(), a);
             numAccounts++;
             Debug.trace("Bank::addBankAccount: added " +
-                    a.getaccNumber() + " " + a.getaccPassword() + " $" + a.getBalance());
+                    a.getaccNumber() + " " + a.getAccPasswd() + " $" + a.getBalance());
             return true;
         } else {
             Debug.trace("Bank::addBankAccount: can't add bank account - too many accounts");
@@ -60,7 +61,9 @@ public class Bank {
     // Using the same name for this method is called 'method overloading' - two
     // methods
     // can have the same name if they take different argument combinations
-    public boolean addBankAccount(int accNumber, String accPasswd, int balance) {
+    public boolean addBankAccount(int accNumber, String accPasswd, BigDecimal balance) {
+
+        Debug.trace("Bank::addBankAccount: " + NumberGenerator.getNumberWithLengthOf(6));
         return addBankAccount(makeBankAccount(accNumber, accPasswd, balance));
     }
 
@@ -86,7 +89,7 @@ public class Bank {
             // blok the user
         }
 
-        if (!this.account.getaccPassword().equals(newAccPasswd)) {
+        if (!this.account.getAccPasswd().equals(newAccPasswd)) {
             this.numberOfLoginTrys -= 1;
             return new Response(false, "wrong password " + this.numberOfLoginTrys + " of trys");
         }
@@ -122,7 +125,8 @@ public class Bank {
     // BankAccount object)
     public boolean deposit(int amount) {
         if (loggedIn()) {
-            return account.deposit(amount);
+            return false;
+            // return account.deposit(amount);
         } else {
             return false;
         }
@@ -130,9 +134,10 @@ public class Bank {
 
     // try to withdraw money into the account (by calling the withdraw method on the
     // BankAccount object)
-    public boolean withdraw(int amount) {
+    public boolean withdraw(BigDecimal amount) {
         if (loggedIn()) {
-            return account.withdraw(amount);
+            return false;
+            // return account.withdraw(amount);
         } else {
             return false;
         }
@@ -142,7 +147,8 @@ public class Bank {
     // BankAccount object)
     public int getBalance() {
         if (loggedIn()) {
-            return account.getBalance();
+            return 0;
+            // return account.getBalance();
         } else {
             return -1; // use -1 as an indicator of an error
         }

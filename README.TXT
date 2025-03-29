@@ -31,6 +31,7 @@ TODO:
 - the controller verify the if the data is valid
 - the model verify if account exist helpfull for: login, creating account 
 - if user click start and is inactive to go back to the welcome page.
+- finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
 
 
 
@@ -82,7 +83,10 @@ For timer:
 Source https://stackoverflow.com/questions/4044726/how-to-set-a-timer-in-java
 Source2 https://stackoverflow.com/questions/26916640/javafx-not-on-fx-application-thread-when-using-timer
 
-
+Currency
+https://stackoverflow.com/questions/34677644/how-to-use-comparison-operators-like-on-bigdecimal
+https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/Currency.html
+"It is recommended to use BigDecimal class while dealing with Currency or monetary values as it provides better handling of floating point numbers and their operations."
 
 
 
