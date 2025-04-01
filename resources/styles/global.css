@@ -14,6 +14,8 @@ v1d84b5
 
 */
 .root {
+    /*Let see if the is ok all to be centered*/
+    -fx-alignment: center;
     -fx-secondary: #759EB8;
     -fx-primary: #C5D5EA;
     -fx-text: #D8E1E9;
@@ -21,6 +23,7 @@ v1d84b5
 
 .root {
     -fx-background-color: -fx-primary;
+    -fx-padding: 0px 0px 20px 0px;
 
 }
 
