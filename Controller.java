@@ -130,6 +130,14 @@ public class Controller {
         view.setLoginUI();
     }
 
+    public void goToPasswordReset() {
+        view.setPasswordResset();
+    }
+
+    public void goToMainMenu() {
+        view.setActiveUI();
+    }
+
     public String login(String accountNumber, String password) {
         // making the security cehck if the fields are only numbers
         int accountNumberInt = 0;
