@@ -61,9 +61,10 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        this.setWelcomingUI();
+        // this.setWelcomingUI();
         // this.setLoginUI();
         // this.setActiveUI2();
+        this.setPasswordResset();
         window.show();
     }
 
@@ -271,6 +272,12 @@ class View implements EventHandler<KeyEvent> {
             }
         });
 
+        passReset.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToPasswordReset();
+            }
+        });
+
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
@@ -279,8 +286,10 @@ class View implements EventHandler<KeyEvent> {
     }
 
     public void setPasswordResset() {
-        GridPane root = new GridPane();
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
+        grid.setId("grid");
         btnContainer.setId("btn-container");
         // Should we add a field for entering the old password
         // for a security reason even though he is already logged in
@@ -289,15 +298,30 @@ class View implements EventHandler<KeyEvent> {
         PasswordField passwordField = new PasswordField();
         Label labelPasswordConfirmation = new Label("Password Confirmation");
         PasswordField passwordConfirmation = new PasswordField();
+        Button btnCancel = new Button("cancel");
         Button btnConfirm = new Button("confirm");
-        btnConfirm.setMinWidth(200);
 
-        root.add(labelPassword, 0, 0);
-        root.add(passwordField, 0, 1);
-        root.add(labelPasswordConfirmation, 0, 2);
-        root.add(passwordConfirmation, 0, 3);
-        root.add(btnConfirm, 0, 5);
+        // Constrains
+        root.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(btnContainer);
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
 
+        grid.add(labelPassword, 0, 0);
+        grid.add(passwordField, 0, 1);
+        grid.add(labelPasswordConfirmation, 0, 2);
+        grid.add(passwordConfirmation, 0, 3);
+
+        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+        // ActionEvent handling
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+
+        });
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -310,6 +334,7 @@ class View implements EventHandler<KeyEvent> {
         });
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("password_reset.css");
         this.window.setScene(scene);
 
