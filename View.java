@@ -150,6 +150,9 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToWelcomeUI();
             }
         });
+
+        // Root Contraints
+        VBox.setVgrow(grid, Priority.ALWAYS); // Making the child to take the full width
         // HBox
         btnContainer.setSpacing(100);
         btnContainer.getChildren().addAll(btnBack, btnLogin);
@@ -169,11 +172,12 @@ class View implements EventHandler<KeyEvent> {
         root.getChildren().addAll(grid, btnContainer);
 
         Scene loginScene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        loginScene.getStylesheets().add(View.class.getResource("login.css").toExternalForm());
+        loginScene.getStylesheets().add("./resources/styles/global.css");
+        loginScene.getStylesheets().add("./resources/styles/login.css");
         this.window.setScene(loginScene);
     }
 
-    public void setActiveUI() {
+    public void setActiveUI2() {
         grid = new GridPane();
         grid.setId("layout"); // assign an id to be used in css file
         buttonPane = new TilePane();
@@ -227,14 +231,15 @@ class View implements EventHandler<KeyEvent> {
 
         // add the complete GUI to the window and display it
         Scene scene = new Scene(grid, this.sceneWidth, this.sceneHeight);
-        // scene.getStylesheets().add("atm.css"); // tell the app to use our css file
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/atm.css"); // tell the app to use our css file
         scene.addEventFilter(KeyEvent.KEY_PRESSED, this);
         // scene.setOnKeyPressed(this);
         this.window.setScene(scene);
 
     }
 
-    public void setActiveUI2() {
+    public void setActiveUI() {
         // Layout
         GridPane root = new GridPane();
         // Controlls
@@ -268,6 +273,7 @@ class View implements EventHandler<KeyEvent> {
 
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/atm.css");
         this.window.setScene(scene);
     }
@@ -342,7 +348,8 @@ class View implements EventHandler<KeyEvent> {
         });
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("welcoming.css");
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/welcoming.css");
         this.window.setScene(scene);
     }
 

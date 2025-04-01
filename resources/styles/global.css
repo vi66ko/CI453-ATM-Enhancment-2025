@@ -1,0 +1,40 @@
+/*
+#C5D5EA
+#759EB8
+#7392B7
+#B3C5D7
+#D8E1E9
+
+Dark mode
+#0a2239
+#53a2be
+v1d84b5
+#132e32
+#176087
+
+*/
+.root {
+    -fx-secondary: #759EB8;
+    -fx-primary: #C5D5EA;
+    -fx-text: #D8E1E9;
+}
+
+.root {
+    -fx-background-color: -fx-primary;
+
+}
+
+.root .button {
+    /*
+     *
+    Removing the outline of a button 
+    -fx-background-insets: 0, 0, 0, 0;
+     * */
+
+    -fx-text-fill: -fx-text;
+    -fx-pref-width: 200px;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-padding: 15px;
+    -fx-background-color: -fx-secondary;
+}

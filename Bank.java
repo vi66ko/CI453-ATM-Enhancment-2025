@@ -62,7 +62,6 @@ public class Bank {
     // methods
     // can have the same name if they take different argument combinations
     public boolean addBankAccount(int accNumber, String accPasswd, BigDecimal balance) {
-
         Debug.trace("Bank::addBankAccount: " + NumberGenerator.getNumberWithLengthOf(6));
         return addBankAccount(makeBankAccount(accNumber, accPasswd, balance));
     }
