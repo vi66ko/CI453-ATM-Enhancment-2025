@@ -1,5 +1,7 @@
 import states.ATM;
 
+import java.math.BigDecimal;
+
 // The model represents all the actual content and functionality of the app
 // For the ATM, it keeps track of the information shown in the display
 // (the title and two message boxes), and the interaction with the bank, executes
@@ -20,6 +22,9 @@ public class Model {
     // variables representing the ATM model
     ATM state = ATM.IDLE; // the state it is currently in
     int number = 0; // current number displayed in GUI (as a number, not a string)
+    
+    BigDecimal numberBd = BigDecimal.valueOf(number);
+    
     Bank bank = null; // The ATM talks to a bank, represented by the Bank object.
     int accNumber = -1; // Account number typed in
     int accPasswd = -1; // Password typed in
@@ -153,7 +158,7 @@ public class Model {
     // the bank (number is the amount showing in the interface display)
     public void processWithdraw() {
         if (state.equals(LOGGED_IN)) {
-            if (bank.withdraw(number)) {
+            if (bank.withdraw(numberBd)) {
                 display2 = "Withdrawn: " + number;
             } else {
                 display2 = "You do not have sufficient funds";
