@@ -246,19 +246,22 @@ class View implements EventHandler<KeyEvent> {
         // Controlls
         Button finish = new Button("finish");
         Button balance = new Button("balance");
-        Button deposit = new Button("deposite");
-        Button withdrow = new Button("withdrow");
-        Button passReset = new Button("password resset");
+        Button deposit = new Button("deposit");
+        Button withdrow = new Button("withdraw");
+        Button passReset = new Button("password reset");
+        Button quickCash = new Button("Quick Cash");
 
         // Constrains
         root.add(balance, 0, 0);
         root.add(passReset, 0, 1);
-        root.add(finish, 0, 2);
+        root.add(finish, 1, 2);
         root.add(deposit, 1, 0);
         root.add(withdrow, 1, 1);
+        root.add(quickCash,0, 2);
 
         GridPane.setHalignment(deposit, HPos.RIGHT);
         GridPane.setHalignment(withdrow, HPos.RIGHT);
+        GridPane.setHalignment(finish, HPos.RIGHT);
         GridPane.setFillWidth(finish, true);
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
@@ -275,6 +278,12 @@ class View implements EventHandler<KeyEvent> {
         passReset.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToPasswordReset();
+            }
+        });
+		
+		quickCash.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToQuickCash();
             }
         });
 
@@ -375,6 +384,50 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/welcoming.css");
+        this.window.setScene(scene);
+    }
+	
+	public void setQuickCashUI() {
+        // Layout
+        GridPane root = new GridPane();
+        // Controlls
+        Button ten = new Button("£10.00");
+        Button thirty = new Button("£30.00");
+        Button fifty = new Button("£50.00");
+        Button hundred = new Button("£100.00");
+        Button twenty = new Button("£20.00");
+        Button finish = new Button("Finish");
+
+        // Constrains
+        root.add(ten, 0, 0);
+        root.add(twenty, 0, 1);
+        root.add(thirty, 0, 2);
+        root.add(fifty, 1, 0);
+        root.add(hundred, 1, 1);
+        root.add(finish, 1, 2);
+
+        GridPane.setHalignment(fifty, HPos.RIGHT);
+        GridPane.setHalignment(hundred, HPos.RIGHT);
+        GridPane.setHalignment(finish, HPos.RIGHT);
+        GridPane.setFillWidth(finish, true);
+        ColumnConstraints col1 = new ColumnConstraints();
+        ColumnConstraints col2 = new ColumnConstraints();
+        col1.setHgrow(Priority.ALWAYS);
+        col2.setHgrow(Priority.ALWAYS);
+        // finish.setMaxWidth(Double.MAX_VALUE);
+
+        // Event Hanler<ActionEvent>
+        finish.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+        });
+
+
+        root.getColumnConstraints().addAll(col1, col2);
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/atm.css");
         this.window.setScene(scene);
     }
 
