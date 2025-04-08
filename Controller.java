@@ -137,6 +137,10 @@ public class Controller {
     public void goToMainMenu() {
         view.setActiveUI();
     }
+	
+	public void goToQuickCash() {
+        view.setQuickCashUI();
+    }
 
     public String login(String accountNumber, String password) {
         // making the security cehck if the fields are only numbers
