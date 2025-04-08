@@ -61,10 +61,10 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        // this.setWelcomingUI();
+        this.setWelcomingUI();
         // this.setLoginUI();
         // this.setActiveUI2();
-        this.setPasswordResset();
+        // this.setPasswordResset();
         window.show();
     }
 

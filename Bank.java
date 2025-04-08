@@ -12,7 +12,7 @@
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-// Custome
+import type.AccountType;
 import type.ErrorType;
 
 public class Bank {
@@ -32,6 +32,60 @@ public class Bank {
 
     }
 
+    public Boolean createBasicAccount(String firstName, String lastName, String address, String email,
+            int accountNumber,
+            String accountPassword, BigDecimal balance) {
+        // Here we can implement soem guard checks before allowing the creation of an
+        // account
+        if (this.numAccounts >= this.maxAccounts) {
+            Debug.trace("Bank::createBasicAccount: can't add bank account - too many accounts");
+            return false;
+        }
+
+        BankAccount basicAccount = new BankAccount(AccountType.BASIC, firstName, lastName, address, email,
+                accountNumber, accountPassword,
+                balance);
+
+        this.accounts.put(basicAccount.getAccNumber(), basicAccount);
+        numAccounts++;
+
+        Debug.trace("Bank::createBasicAccount: added " +
+                basicAccount.getAccNumber() + " " + basicAccount.getAccPasswd() + " $"
+                + basicAccount.getBalance());
+
+        return true;
+
+    }
+
+    public Boolean createPremiumAccount(String firstName, String lastName, String address, String email,
+            int accountNumber,
+            String accountPassword, BigDecimal balance) {
+
+        // Here we can implement some guard checks before allowing the creation of an
+        // account
+
+        if (this.numAccounts >= this.maxAccounts) {
+            Debug.trace("Bank::createPremiumAccount: can't add bank account - too many accounts");
+            return false;
+        }
+
+        BankAccount premiumAccount = new BankAccount(AccountType.PREMIUM, firstName, lastName, address, email,
+                accountNumber,
+                accountPassword,
+                balance);
+
+        premiumAccount.setOverdraftLimit(new BigDecimal(500));
+        this.accounts.put(premiumAccount.getAccNumber(), premiumAccount);
+        numAccounts++;
+
+        Debug.trace("Bank::createPremiumAccount: added " +
+                premiumAccount.getAccNumber() + " " + premiumAccount.getAccPasswd() + " £"
+                + premiumAccount.getBalance());
+
+        return true;
+
+    }
+
     // a method to create new BankAccounts - this is known as a 'factory method' and
     // is a more
     // flexible way to do it than just using the 'new' keyword directly.
@@ -45,10 +99,10 @@ public class Bank {
     public boolean addBankAccount(BankAccount a) {
         if (numAccounts < maxAccounts) {
 
-            accounts.put(a.getaccNumber(), a);
+            accounts.put(a.getAccNumber(), a);
             numAccounts++;
             Debug.trace("Bank::addBankAccount: added " +
-                    a.getaccNumber() + " " + a.getAccPasswd() + " $" + a.getBalance());
+                    a.getAccNumber() + " " + a.getAccPasswd() + " £" + a.getBalance());
             return true;
         } else {
             Debug.trace("Bank::addBankAccount: can't add bank account - too many accounts");
@@ -104,7 +158,7 @@ public class Bank {
     // Reset the bank to a 'logged out' state
     public boolean logout() {
         if (loggedIn()) {
-            Debug.trace("Bank::logout: logging out, accNumber = " + account.getaccNumber());
+            Debug.trace("Bank::logout: logging out, accNumber = " + account.getAccNumber());
             account = null;
             return true;
         }

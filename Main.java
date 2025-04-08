@@ -22,8 +22,14 @@ public class Main extends Application {
         Bank b = new Bank();
         // add some test bank accounts
         b.addBankAccount(101, "1", new BigDecimal(300));
-        b.addBankAccount(10001, "11111", new BigDecimal(300));
-        b.addBankAccount(10002, "22222", new BigDecimal(100));
+        // b.addBankAccount(10001, "11111", new BigDecimal(300));
+        // b.addBankAccount(10002, "22222", new BigDecimal(100));
+        b.createBasicAccount("Emily", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
+                "emily.carter@examplemail.com", 10001, "11", new BigDecimal(300));
+        b.createBasicAccount("David", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
+                "David.carter@examplemail.com", 10002, "11", new BigDecimal(800));
+        b.createPremiumAccount("Mufasa", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
+                "mufass.carter@examplemail.com", 10003, "11", new BigDecimal(400));
 
         // Create the Model, View and Controller objects
         Model model = new Model(b); // the model needs the Bank object to 'talk to' the bank

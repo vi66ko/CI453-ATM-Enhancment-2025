@@ -153,11 +153,11 @@ public class Model {
     // the bank (number is the amount showing in the interface display)
     public void processWithdraw() {
         if (state.equals(LOGGED_IN)) {
-            if (bank.withdraw(number)) {
-                display2 = "Withdrawn: " + number;
-            } else {
-                display2 = "You do not have sufficient funds";
-            }
+            // if (bank.withdraw(number)) {
+            // display2 = "Withdrawn: " + number;
+            // } else {
+            // display2 = "You do not have sufficient funds";
+            // }
             number = 0;
             display1 = "";
         } else {

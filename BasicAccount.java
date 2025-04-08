@@ -1,3 +1,0 @@
-class BasicAccount extends BankAccount {
-
-}

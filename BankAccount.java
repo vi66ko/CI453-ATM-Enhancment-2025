@@ -1,3 +1,4 @@
+
 // BankAccount class
 // This class has instance variables for the account number, password and balance, and methods
 // to withdraw, deposit, check balance etc.
@@ -12,12 +13,14 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 // Custome
+import type.AccountType;
 
 public class BankAccount {
-    private int accNumber = 0;
-    private String accountNumber = null;
+    private AccountType type = null;
+    private int accountNumber = 0;
     private String accPasswd = null;
     private BigDecimal balance = new BigDecimal(0);
+    private BigDecimal overdraftLimit = new BigDecimal(0);
     private String firstName = null;
     private String lastName = null;
     private String address = null;
@@ -29,33 +32,48 @@ public class BankAccount {
     }
 
     public BankAccount(int accountNumber, String password) {
-        this.accNumber = accountNumber;
+        this.accountNumber = accountNumber;
         this.accPasswd = password;
     }
 
     public BankAccount(int accountNumber, String password, BigDecimal balance) {
-        this.accNumber = accountNumber;
+        this.accountNumber = accountNumber;
         this.accPasswd = password;
         this.balance = balance;
     }
 
-    public BankAccount(String firstName, String lastName, String address, String email, String accountNumber,
-            String password, BigDecimal balanc) {
+    public BankAccount(AccountType type, String firstName, String lastName, String address, String email,
+            int accountNumber,
+            String password, BigDecimal balance) {
+        this.type = type;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.emails.add(email);
         this.accountNumber = accountNumber;
         this.accPasswd = password;
-
+        this.balance = balance;
     }
 
-    public int getaccNumber() {
-        return accNumber;
+    // Getters
+    public AccountType getType() {
+        return type;
+    }
+
+    public int getAccNumber() {
+        return this.accountNumber;
+    }
+
+    public String getAccPasswd() {
+        return accPasswd;
     }
 
     public BigDecimal getBalance() {
         return balance;
+    }
+
+    public BigDecimal getOverdraftLimit() {
+        return overdraftLimit;
     }
 
     public ArrayList<String> getEmails() {
@@ -74,17 +92,19 @@ public class BankAccount {
         return lastName;
     }
 
-    public int getAccNumber() {
-        return accNumber;
+    // Setters
+    public void setType(AccountType type) {
+        this.type = type;
     }
 
-    public String getAccPasswd() {
-        return accPasswd;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
 
-    // ===================????????????????????==========================
-    // Where is the beset place to do security password?
-    // here; bank; model; controller?
+    public void setOverdraftLimit(BigDecimal overdraft) {
+        this.overdraftLimit = overdraft;
+    }
+
     public boolean setPassword(String newPasswod) {
         this.accPasswd = newPasswod;
         return true;
@@ -104,10 +124,6 @@ public class BankAccount {
 
     public void addEmail(String email) {
         this.emails.add(email);
-    }
-
-    public void setBalance(BigDecimal balance) {
-        this.balance = balance;
     }
 
 }
