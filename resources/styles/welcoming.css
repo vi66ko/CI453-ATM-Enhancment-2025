@@ -1,0 +1,15 @@
+.root {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.root #greeting-text {
+    -fx-font-size: 50px;
+    -fx-text-alignment: center;
+    -fx-alignment: center-right;
+}
+
+.root #btn-container {
+    -fx-fill: orange;
+    -fx-alignment: center-right;
+}

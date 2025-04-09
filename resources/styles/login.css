@@ -1,0 +1,23 @@
+.root {}
+
+
+#login-grid {
+   -fx-max-width: 300px;
+   /*   -fx-alignment: center; */
+   /*   -fx-padding: 25px; */
+   -fx-hgap: 15px;
+   -fx-vgap: 15px;
+}
+
+#logo {
+   -fx-font-size: 76px;
+}
+
+
+/*
+.button {
+   -fx-pref-width: 200px;
+   -fx-padding: 15px; 
+   -fx-font-size: 30px;
+}
+*/
