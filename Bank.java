@@ -27,14 +27,14 @@ public class Bank {
 
     // Constructor method - this provides a couple of example bank accounts to work
     // with
+    //
     public Bank() {
         Debug.trace("Bank::<constructor>");
 
     }
 
     public Boolean createBasicAccount(String firstName, String lastName, String address, String email,
-            int accountNumber,
-            String accountPassword, BigDecimal balance) {
+            int accountNumber, String accountPassword, BigDecimal balance) {
         // Here we can implement soem guard checks before allowing the creation of an
         // account
         if (this.numAccounts >= this.maxAccounts) {
@@ -43,8 +43,7 @@ public class Bank {
         }
 
         BankAccount basicAccount = new BankAccount(AccountType.BASIC, firstName, lastName, address, email,
-                accountNumber, accountPassword,
-                balance);
+                accountNumber, accountPassword, balance);
 
         this.accounts.put(basicAccount.getAccNumber(), basicAccount);
         numAccounts++;
@@ -58,8 +57,7 @@ public class Bank {
     }
 
     public Boolean createPremiumAccount(String firstName, String lastName, String address, String email,
-            int accountNumber,
-            String accountPassword, BigDecimal balance) {
+            int accountNumber, String accountPassword, BigDecimal balance) {
 
         // Here we can implement some guard checks before allowing the creation of an
         // account
@@ -70,9 +68,7 @@ public class Bank {
         }
 
         BankAccount premiumAccount = new BankAccount(AccountType.PREMIUM, firstName, lastName, address, email,
-                accountNumber,
-                accountPassword,
-                balance);
+                accountNumber, accountPassword, balance);
 
         premiumAccount.setOverdraftLimit(new BigDecimal(500));
         this.accounts.put(premiumAccount.getAccNumber(), premiumAccount);
