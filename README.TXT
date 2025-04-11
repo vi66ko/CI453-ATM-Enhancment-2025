@@ -32,8 +32,7 @@ TODO:
 - the model verify if account exist helpfull for: login, creating account 
 - if user click start and is inactive to go back to the welcome page.
 - finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
-- making the data type (class) address
-- adding overdraft limit to the accounts. 
+- ? making the data type (class) address
 
 
 
@@ -42,6 +41,7 @@ client => controller[ATM] => Bank
 -----------------------------------------------------
 DONE: 
 
+- adding overdraft limit to the accounts. 
 - welcoming page to disapaer 
 button ot the right left corner  START
 - a way to exit from changing a password
