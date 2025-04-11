@@ -3,6 +3,9 @@ import java.math.BigDecimal;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+// Custom
+import type.AccountType;
+
 // atm project Main class
 // The code here creates the ATM GUI interface and model functionality, but the methods
 // in the BankAccount class which actually do the banking functions are incomplete.
@@ -19,20 +22,26 @@ public class Main extends Application {
         Debug.trace("Main::start");
 
         // Create a Bank object for this ATM
-        Bank b = new Bank();
+        Bank bank = new Bank();
+        Database db = new Database();
+        db.loadAcounts(bank);
+
         // add some test bank accounts
-        b.addBankAccount(101, "1", new BigDecimal(300));
+        bank.addBankAccount(101, "1", new BigDecimal(300));
         // b.addBankAccount(10001, "11111", new BigDecimal(300));
         // b.addBankAccount(10002, "22222", new BigDecimal(100));
-        b.createBasicAccount("Emily", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
-                "emily.carter@examplemail.com", 10001, "11", new BigDecimal(300));
-        b.createBasicAccount("David", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
-                "David.carter@examplemail.com", 10002, "11", new BigDecimal(800));
-        b.createPremiumAccount("Mufasa", "Carter", "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
-                "mufass.carter@examplemail.com", 10003, "11", new BigDecimal(400));
+        // bank.createBasicAccount("Emily", "Carter", "12 Rosewood Lane, Worthing, West
+        // Sussex, BN11 1AA, United Kingdom",
+        // "emily.carter@examplemail.com", 10001, "11", new BigDecimal(300));
+        // bank.createBasicAccount("David", "Carter", "12 Rosewood Lane, Worthing, West
+        // Sussex, BN11 1AA, United Kingdom",
+        // "David.carter@examplemail.com", 10002, "11", new BigDecimal(800));
+        // bank.createPremiumAccount("Mufasa", "Carter",
+        // "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
+        // "mufass.carter@examplemail.com", 10003, "11", new BigDecimal(400));
 
         // Create the Model, View and Controller objects
-        Model model = new Model(b); // the model needs the Bank object to 'talk to' the bank
+        Model model = new Model(bank); // the model needs the Bank object to 'talk to' the bank
         View view = new View();
         Controller controller = new Controller();
 

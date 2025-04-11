@@ -1,0 +1,3 @@
+BASIC|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|10001|11|300
+BASIC|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|10002|11|800
+PREMIUM|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|Mufas.carter@examplemail.com|10003|11|400
