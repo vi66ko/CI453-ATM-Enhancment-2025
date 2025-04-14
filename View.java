@@ -257,7 +257,7 @@ class View implements EventHandler<KeyEvent> {
         root.add(finish, 1, 2);
         root.add(deposit, 1, 0);
         root.add(withdrow, 1, 1);
-        root.add(quickCash,0, 2);
+        root.add(quickCash, 0, 2);
 
         GridPane.setHalignment(deposit, HPos.RIGHT);
         GridPane.setHalignment(withdrow, HPos.RIGHT);
@@ -272,6 +272,7 @@ class View implements EventHandler<KeyEvent> {
         // Event Hanler<ActionEvent>
         finish.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                controller.logout();
             }
         });
 
@@ -280,8 +281,8 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToPasswordReset();
             }
         });
-		
-		quickCash.setOnAction(new EventHandler<ActionEvent>() {
+
+        quickCash.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToQuickCash();
             }
@@ -386,8 +387,8 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/welcoming.css");
         this.window.setScene(scene);
     }
-	
-	public void setQuickCashUI() {
+
+    public void setQuickCashUI() {
         // Layout
         GridPane root = new GridPane();
         // Controlls
@@ -422,7 +423,6 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToMainMenu();
             }
         });
-
 
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
