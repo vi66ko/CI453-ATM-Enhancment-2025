@@ -137,8 +137,8 @@ public class Controller {
     public void goToMainMenu() {
         view.setActiveUI();
     }
-	
-	public void goToQuickCash() {
+
+    public void goToQuickCash() {
         view.setQuickCashUI();
     }
 
@@ -147,7 +147,7 @@ public class Controller {
         int accountNumberInt = 0;
         try {
             accountNumberInt = Integer.parseInt(accountNumber);
-        } catch (Exception error) {
+        } catch (NumberFormatException error) {
 
             System.out.println("---- Exception ----");
 
@@ -155,6 +155,7 @@ public class Controller {
             System.out.println(error.getClass());
             System.out.println(error);
             System.out.println("---- / Exception ----");
+
             return "Invalid account number.";
         }
 
