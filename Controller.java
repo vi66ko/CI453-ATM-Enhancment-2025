@@ -141,6 +141,10 @@ public class Controller {
     public void goToQuickCash() {
         view.setQuickCashUI();
     }
+	
+	public void goToWithdraw() {
+        view.setWithdraw();
+    }
 
     public String login(String accountNumber, String password) {
         // making the security cehck if the fields are only numbers

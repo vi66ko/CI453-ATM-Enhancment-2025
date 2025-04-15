@@ -287,6 +287,11 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToQuickCash();
             }
         });
+		withdrow.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToWithdraw();
+            }
+        });
 
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
@@ -429,6 +434,44 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/atm.css");
         this.window.setScene(scene);
+    }
+	
+	public void setWithdraw() {
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
+        HBox btnContainer = new HBox();
+        grid.setId("grid");
+        btnContainer.setId("btn-container");
+        Label labelWithdraw = new Label("Enter the amount you would like to withdraw");
+        TextField withdrawField = new TextField();
+        Button btnCancel = new Button("cancel");
+        Button btnConfirm = new Button("confirm");
+
+        // Constrains
+        root.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(btnContainer);
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
+
+        grid.add(labelWithdraw, 0, 0);
+        grid.add(withdrawField, 0, 1);
+
+        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+        // ActionEvent handling
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+
+        });
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("password_reset.css");
+        this.window.setScene(scene);
+
     }
 
     public void setGoodByeUI() {
