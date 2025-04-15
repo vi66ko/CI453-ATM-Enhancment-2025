@@ -252,4 +252,8 @@ public class Model {
         Debug.trace("Model::display");
         view.update();
     }
+
+    public void save() {
+        bank.saveAll();
+    }
 }

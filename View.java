@@ -18,6 +18,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.*;
 
 import javafx.event.EventHandler;
@@ -65,7 +66,17 @@ class View implements EventHandler<KeyEvent> {
         // this.setLoginUI();
         // this.setActiveUI2();
         // this.setPasswordResset();
+        window.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+            @Override
+            public void handle(WindowEvent event) {
+                controller.save();
+            }
+        });
         window.show();
+        // new EventHandler<ActionEvent>() {
+        // @Override
+        // public void handle(ActionEvent event) {
     }
 
     public void handle(KeyEvent event) {
@@ -495,6 +506,9 @@ class View implements EventHandler<KeyEvent> {
         this.window.setScene(scene);
     }
 
+    public void save() {
+        model.save();
+    }
     // This is how the Model talks to the View
 
     // This method gets called BY THE MODEL, whenever the model changes

@@ -31,8 +31,8 @@ public class Database {
 
     // private ArrayList<String> transactions = null;
     private Bank bank = null;
-    private File accounts = null;
-    private File transactions = null;
+    private File accountsData = null;
+    private File transactionsData = null;
 
     private String rootDir = "db";
 
@@ -68,17 +68,48 @@ public class Database {
      * If there is not any data it will be generate by this method.
      */
     private void initiated() {
-        this.accounts = this.createFile("accounts.txt");
-        this.transactions = this.createFile("transactions.txt");
+        this.accountsData = this.createFile("accounts.txt");
+        this.transactionsData = this.createFile("transactions.txt");
         System.out.println("|||||||||||||||||||||- Database -|||||||||||||||||||||||");
 
-        if ((accounts.length() == 0)) {
+        if ((accountsData.length() == 0)) {
             this.generateAccounts();
         }
-        if (transactions.length() == 0) {
+        if (transactionsData.length() == 0) {
             // generate
         }
 
+    }
+
+    public void save() {
+        try {
+            FileWriter fileWriter = new FileWriter(this.accountsData, true);
+
+        } catch (IOException error) {
+            System.out.println("An IOException error occurred.");
+            error.printStackTrace();
+        }
+    }
+
+    public void saveAll(HashMap<Integer, BankAccount> accounts) {
+        try {
+            FileWriter fileWriter = new FileWriter(this.accountsData);
+
+            String data = "";
+            fileWriter.write(data);
+            for (BankAccount account : accounts.values()) {
+                for (Object field : account.getAllFields()) {
+                    data += field + "|";
+                }
+                data += "\n";
+            }
+            fileWriter.write(data);
+            fileWriter.close();
+        } catch (IOException error) {
+            System.out.println("An IOException error occurred.");
+            error.printStackTrace();
+
+        }
     }
 
     public void loadAcounts(Bank bank) {
@@ -94,7 +125,7 @@ public class Database {
         Byte numberOfLoginTries;
 
         try {
-            Scanner scanner = new Scanner(this.accounts);
+            Scanner scanner = new Scanner(this.accountsData);
 
             while (scanner.hasNextLine()) {
                 String record = scanner.nextLine();
@@ -117,11 +148,15 @@ public class Database {
                                     firstName, lastName, address, email, numberOfLoginTries));
 
                 } else if (AccountType.PREMIUM.toString().equals(accountType)) {
-                    new BankAccount(AccountType.PREMIUM, accountNumber, accountPassword, balance, overdraftLimit,
-                            firstName, lastName, address, email, numberOfLoginTries);
+                    bank.addBankAccount(
+                            new BankAccount(AccountType.PREMIUM, accountNumber, accountPassword, balance,
+                                    overdraftLimit,
+                                    firstName, lastName, address, email, numberOfLoginTries));
+                } else {
+                    Debug.trace(
+                            "Database::loadAccounts:line::154 ### IMPORTANT ###\n if this else run that mean there could be a problem of the data strcuture. ");
                 }
             }
-
             scanner.close();
         } catch (FileNotFoundException error) {
             System.out.println("An File Not dound Exception");
@@ -135,7 +170,7 @@ public class Database {
      */
     private void generateAccounts() {
         try {
-            FileWriter fileWriter = new FileWriter(this.accounts, true);
+            FileWriter fileWriter = new FileWriter(this.accountsData, true);
             fileWriter.write(
                     AccountType.BASIC
                             + "|10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|\n");

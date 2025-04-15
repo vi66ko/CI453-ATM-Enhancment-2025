@@ -26,6 +26,7 @@ public class Bank {
     // BankAccount[] accounts = new BankAccount[maxAccounts]; // array to hold the
     // bank accounts
     BankAccount account = null; // currently logged in acccount ('null' if no-one is logged in)
+    Database db = null;
 
     // Constructor method - this provides a couple of example bank accounts to work
     // with
@@ -206,4 +207,19 @@ public class Bank {
             return -1; // use -1 as an indicator of an error
         }
     }
+
+    public void setDatabase(Database db) {
+        this.db = db;
+    }
+
+    public void save() {
+        for (BankAccount account : this.accounts.values()) {
+            //
+        }
+    }
+
+    public void saveAll() {
+        db.saveAll(this.accounts);
+    }
+
 }

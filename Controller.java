@@ -179,4 +179,8 @@ public class Controller {
     public void logout() {
         model.processFinish();
     }
+
+    public void save() {
+        model.save();
+    }
 }
