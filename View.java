@@ -73,6 +73,7 @@ class View implements EventHandler<KeyEvent> {
                 controller.save();
             }
         });
+        window.setResizable(false);
         window.show();
         // new EventHandler<ActionEvent>() {
         // @Override
@@ -114,7 +115,7 @@ class View implements EventHandler<KeyEvent> {
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
-        Text feedback = new Text(" this text is only of testing purpose");
+        Text feedback = new Text();
         feedback.setId("feedback");
         Button btnBack = new Button("back");
         btnBack.setId("btn-back");
