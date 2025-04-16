@@ -114,7 +114,8 @@ class View implements EventHandler<KeyEvent> {
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
-        Text feedback = new Text();
+        Text feedback = new Text(" this text is only of testing purpose");
+        feedback.setId("feedback");
         Button btnBack = new Button("back");
         btnBack.setId("btn-back");
         Button btnLogin = new Button("login");
@@ -180,6 +181,8 @@ class View implements EventHandler<KeyEvent> {
         grid.add(labelPassword, 0, 3);
         grid.add(passwordField, 0, 4);
         grid.add(feedback, 0, 5);
+
+        GridPane.setHalignment(feedback, HPos.RIGHT);
 
         root.getChildren().addAll(grid, btnContainer);
 
@@ -258,7 +261,7 @@ class View implements EventHandler<KeyEvent> {
         Button finish = new Button("finish");
         Button balance = new Button("balance");
         Button deposit = new Button("deposit");
-        Button withdrow = new Button("withdraw");
+        Button withdraw = new Button("withdraw");
         Button passReset = new Button("password reset");
         Button quickCash = new Button("Quick Cash");
 
@@ -267,11 +270,11 @@ class View implements EventHandler<KeyEvent> {
         root.add(passReset, 0, 1);
         root.add(finish, 1, 2);
         root.add(deposit, 1, 0);
-        root.add(withdrow, 1, 1);
+        root.add(withdraw, 1, 1);
         root.add(quickCash, 0, 2);
 
         GridPane.setHalignment(deposit, HPos.RIGHT);
-        GridPane.setHalignment(withdrow, HPos.RIGHT);
+        GridPane.setHalignment(withdraw, HPos.RIGHT);
         GridPane.setHalignment(finish, HPos.RIGHT);
         GridPane.setFillWidth(finish, true);
         ColumnConstraints col1 = new ColumnConstraints();
@@ -298,7 +301,7 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToQuickCash();
             }
         });
-		withdrow.setOnAction(new EventHandler<ActionEvent>() {
+        withdraw.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToWithdraw();
             }
@@ -446,8 +449,8 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/atm.css");
         this.window.setScene(scene);
     }
-	
-	public void setWithdraw() {
+
+    public void setWithdraw() {
         VBox root = new VBox();
         GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
