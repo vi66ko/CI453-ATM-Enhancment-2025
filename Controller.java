@@ -141,9 +141,17 @@ public class Controller {
     public void goToQuickCash() {
         view.setQuickCashUI();
     }
-	
-	public void goToWithdraw() {
+
+    public void goToWithdraw() {
         view.setWithdraw();
+    }
+
+    public void goToBalance() {
+        view.setBalanceUI();
+    }
+
+    public String getBalance() {
+        return this.model.getBalance();
     }
 
     public String login(String accountNumber, String password) {

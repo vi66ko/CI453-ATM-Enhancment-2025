@@ -62,10 +62,11 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        this.setWelcomingUI();
-        // this.setLoginUI();
+        // this.setWelcomingUI();
+        this.setLoginUI();
         // this.setActiveUI2();
         // this.setPasswordResset();
+        // this.setBalanceUI();
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
             @Override
@@ -284,7 +285,12 @@ class View implements EventHandler<KeyEvent> {
         col2.setHgrow(Priority.ALWAYS);
         // finish.setMaxWidth(Double.MAX_VALUE);
 
-        // Event Hanler<ActionEvent>
+        balance.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToBalance();
+            }
+
+        });
         finish.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.logout();
@@ -485,6 +491,54 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("password_reset.css");
+        this.window.setScene(scene);
+
+    }
+
+    public void setBalanceUI() {
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
+        HBox btnContainer = new HBox();
+
+        String balanceValue = this.controller.getBalance();
+        Text balanceLabel = new Text("Your balance is:");
+        balanceLabel.setId("balance-label");
+        Text balance = new Text("£ " + balanceValue);
+        balance.setId("balance-value");
+
+        grid.setId("grid");
+        btnContainer.setId("btn-container");
+        // Label labelWithdraw = new Label("Enter the amount you would like to
+        // withdraw");
+        Button btnCancel = new Button("cancel");
+
+        // Constrains
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(grid);
+
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
+        root.getChildren().add(btnContainer);
+        ColumnConstraints col1Constrainus = new ColumnConstraints();
+        col1Constrainus.setHalignment(HPos.CENTER);
+        GridPane.setHalignment(balance, HPos.CENTER);
+
+        grid.add(balanceLabel, 0, 0);
+        grid.add(balance, 0, 1);
+
+        btnContainer.getChildren().addAll(btnCancel);
+        // ActionEvent handling
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+
+        });
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/balance.css");
         this.window.setScene(scene);
 
     }

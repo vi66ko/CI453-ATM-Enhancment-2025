@@ -199,12 +199,11 @@ public class Bank {
 
     // get the account balance (by calling the balance method on the
     // BankAccount object)
-    public int getBalance() {
+    public String getBalance() {
         if (loggedIn()) {
-            return 0;
-            // return account.getBalance();
+            return String.valueOf(account.getBalance());
         } else {
-            return -1; // use -1 as an indicator of an error
+            return "-1"; // use -1 as an indicator of an error
         }
     }
 
@@ -219,7 +218,7 @@ public class Bank {
     }
 
     public void saveAll() {
-        db.saveAll(this.accounts);
+        db.saveAll(accounts);
     }
 
 }
