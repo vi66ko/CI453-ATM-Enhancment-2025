@@ -419,25 +419,30 @@ class View implements EventHandler<KeyEvent> {
         // Layout
         GridPane root = new GridPane();
         // Controlls
+        Button five = new Button("£5.00");
         Button ten = new Button("£10.00");
         Button thirty = new Button("£30.00");
         Button fifty = new Button("£50.00");
         Button hundred = new Button("£100.00");
         Button twenty = new Button("£20.00");
-        Button finish = new Button("Finish");
+        Button amount = new Button ("Enter amount");
+        Button cancel = new Button("Cancel");
 
         // Constrains
-        root.add(ten, 0, 0);
-        root.add(twenty, 0, 1);
-        root.add(thirty, 0, 2);
-        root.add(fifty, 1, 0);
-        root.add(hundred, 1, 1);
-        root.add(finish, 1, 2);
+        root.add(five, 0, 0);
+        root.add(ten, 0, 1);
+        root.add(twenty, 0, 2);
+        root.add(cancel, 0, 3);
+        root.add(thirty, 1, 0);
+        root.add(fifty, 1, 1);
+        root.add(hundred, 1, 2);
+        root.add(amount, 1, 3);
 
         GridPane.setHalignment(fifty, HPos.RIGHT);
         GridPane.setHalignment(hundred, HPos.RIGHT);
-        GridPane.setHalignment(finish, HPos.RIGHT);
-        GridPane.setFillWidth(finish, true);
+        GridPane.setHalignment(amount, HPos.RIGHT);
+        GridPane.setHalignment(thirty, HPos.RIGHT);
+        GridPane.setFillWidth(amount, true);
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
         col1.setHgrow(Priority.ALWAYS);
@@ -445,9 +450,15 @@ class View implements EventHandler<KeyEvent> {
         // finish.setMaxWidth(Double.MAX_VALUE);
 
         // Event Hanler<ActionEvent>
-        finish.setOnAction(new EventHandler<ActionEvent>() {
+        cancel.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToMainMenu();
+            }
+        });
+		
+		amount.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToWithdraw();
             }
         });
 
