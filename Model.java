@@ -188,14 +188,19 @@ public class Model {
 
     // Balance button - check we are logged in and if so access the current balance
     // and display it
-    public void processBalance() {
+    public int processBalance() { //returns int now so it can display the balance
         if (state.equals(LOGGED_IN)) {
             number = 0;
             display2 = "Your balance is: " + bank.getBalance();
+            
+            display(); // update the GUI
+            return bank.getBalance();
         } else {
             initialise("You are not logged in");
+            
+            
+            return -1;
         }
-        display(); // update the GUI
     }
 
     // Finish button - check we are logged in and if so log out

@@ -134,11 +134,20 @@ public class Controller {
         view.setPasswordResset();
     }
 
+    public void goToBalance() { 
+        
+        
+        System.out.println("going to balance");
+        
+        view.showBalance(); 
+
+    } 
+    
     public void goToMainMenu() {
         view.setActiveUI();
     }
-	
-	public void goToQuickCash() {
+    
+    public void goToQuickCash() {
         view.setQuickCashUI();
     }
 

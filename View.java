@@ -40,7 +40,7 @@ class View implements EventHandler<KeyEvent> {
     // The other parts of the model-view-controller setup
     public Model model;
     public Controller controller;
-
+    
     // we don't really need a constructor method, but include one to print a
     // debugging message if required
     public View() {
@@ -65,6 +65,7 @@ class View implements EventHandler<KeyEvent> {
         // this.setLoginUI();
         // this.setActiveUI2();
         // this.setPasswordResset();
+        // this.showBalance(); 
         window.show();
     }
 
@@ -275,13 +276,27 @@ class View implements EventHandler<KeyEvent> {
             }
         });
 
+        
+        
+        
+        balance.setOnAction(new EventHandler<ActionEvent>() { 
+            public void handle(ActionEvent event) { 
+
+                controller.goToBalance(); 
+
+            } 
+        }); 
+        
+        
+        
+        
         passReset.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToPasswordReset();
             }
         });
-		
-		quickCash.setOnAction(new EventHandler<ActionEvent>() {
+        
+        quickCash.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToQuickCash();
             }
@@ -291,9 +306,73 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/atm.css");
+        
+        
+        scene.getStylesheets().add("Balance.css"); 
+        
+        
         this.window.setScene(scene);
     }
 
+    
+    
+    public void showBalance(){ 
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
+        HBox btnContainer = new HBox();
+        grid.setId("grid");
+        btnContainer.setId("btn-container");
+        
+        int number = model.processBalance(); 
+        
+        Label labelbalance = new Label("Balance = " + number);
+        
+        //TextArea balanceDisplay = new TextArea(); //Need to add balance display here
+        //balanceDisplay.setText("£ " + "100");
+        
+        Button btnContinue = new Button("Continue");
+        
+               
+        
+        // Constrains
+        root.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(btnContainer);
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
+    
+            
+        grid.add(labelbalance, 0, 0);
+        GridPane.setHalignment(labelbalance, HPos.LEFT);
+        
+        
+        
+        //grid.add(balanceDisplay, 0, 1);
+        grid.add(btnContinue, 0, 3);
+        GridPane.setHalignment(btnContinue, HPos.RIGHT);
+        
+        btnContainer.getChildren().addAll(btnContinue);
+        
+        btnContinue.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+        });
+        
+        
+        
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        
+        
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("Balance.css");
+        
+        this.window.setScene(scene);
+    } 
+    
+    
+        
     public void setPasswordResset() {
         VBox root = new VBox();
         GridPane grid = new GridPane();
@@ -345,10 +424,15 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("password_reset.css");
+        
         this.window.setScene(scene);
 
     }
 
+    
+    
+    
+    
     public void setWelcomingUI() {
         GridPane root = new GridPane();
         HBox btnContainer = new HBox();
@@ -386,8 +470,8 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/welcoming.css");
         this.window.setScene(scene);
     }
-	
-	public void setQuickCashUI() {
+    
+    public void setQuickCashUI() {
         // Layout
         GridPane root = new GridPane();
         // Controlls
