@@ -62,11 +62,12 @@ class View implements EventHandler<KeyEvent> {
         // of buttons
 
         // layout objects
-        // this.setWelcomingUI();
-        this.setLoginUI();
+        this.setWelcomingUI();
+        // this.setLoginUI();
         // this.setActiveUI2();
         // this.setPasswordResset();
         // this.setBalanceUI();
+        // this.setGoodByeUI();
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
             @Override
@@ -559,8 +560,19 @@ class View implements EventHandler<KeyEvent> {
         goodbyeText.setId("goodbye-text");
         root.add(goodbyeText, 0, 0);
 
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                Platform.runLater(() -> {
+                    setWelcomingUI();
+                });
+            }
+        }, 1500);
+
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("goodbye.css");
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/goodbye.css");
         this.window.setScene(scene);
     }
 
