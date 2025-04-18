@@ -19,5 +19,5 @@
 
 .root #btn-container {
     -fx-fill: orange;
-    -fx-alignment: center-right;
+    -fx-alignment: center-left;
 }
