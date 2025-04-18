@@ -309,9 +309,16 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToQuickCash();
             }
         });
+		
         withdraw.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToWithdraw();
+            }
+        });
+		
+		deposit.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                controller.goToDeposit();
             }
         });
 
@@ -551,6 +558,44 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/balance.css");
+        this.window.setScene(scene);
+
+    }
+	
+	public void setDepositUI() {
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
+        HBox btnContainer = new HBox();
+        grid.setId("grid");
+        btnContainer.setId("btn-container");
+        Label labelDeposit = new Label("How much is being deposited?");
+        TextField depositField = new TextField();
+        Button btnCancel = new Button("cancel");
+        Button btnConfirm = new Button("confirm");
+
+        // Constrains
+        root.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(btnContainer);
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
+
+        grid.add(labelDeposit, 0, 0);
+        grid.add(depositField, 0, 1);
+
+        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+        // ActionEvent handling
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+
+        });
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("password_reset.css");
         this.window.setScene(scene);
 
     }
