@@ -121,8 +121,6 @@ public class Bank {
         return addBankAccount(makeBankAccount(accNumber, accPasswd, balance));
     }
 
-    public int user = -1;
-
     // Check whether the current saved account and password correspond to
     // an actual bank account, and if so login to it (by setting 'account' to it)
     // and return true. Otherwise, reset the account to null and return false
