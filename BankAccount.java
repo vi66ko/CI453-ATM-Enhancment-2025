@@ -18,14 +18,14 @@ import type.AccountType;
 public class BankAccount {
     private AccountType type = null;
     private int accountNumber = 0;
-    private String accPasswd = null;
+    private String accountPassword = null;
     private BigDecimal balance = new BigDecimal(0);
     private BigDecimal overdraftLimit = new BigDecimal(0);
     private String firstName = null;
     private String lastName = null;
     private String address = null;
-
-    private ArrayList<String> emails = new ArrayList<>();
+    private String email = null;
+    private byte numberOfLoginTries = 3;
 
     public BankAccount() { // an empty construtor
 
@@ -33,12 +33,12 @@ public class BankAccount {
 
     public BankAccount(int accountNumber, String password) {
         this.accountNumber = accountNumber;
-        this.accPasswd = password;
+        this.accountPassword = password;
     }
 
     public BankAccount(int accountNumber, String password, BigDecimal balance) {
         this.accountNumber = accountNumber;
-        this.accPasswd = password;
+        this.accountPassword = password;
         this.balance = balance;
     }
 
@@ -49,10 +49,49 @@ public class BankAccount {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.emails.add(email);
+        this.email = email;
         this.accountNumber = accountNumber;
-        this.accPasswd = password;
+        this.accountPassword = password;
         this.balance = balance;
+    }
+
+    /**
+     * This life purpose if this constructor is only to populating the data from the
+     * Database
+     */
+    public BankAccount(AccountType type, int accountNumber, String accountPassword, BigDecimal balance,
+            BigDecimal overdraftLimit, String firstName, String lastName, String address, String email,
+            Byte numberOfLoginTries) {
+        this.type = type;
+        this.accountNumber = accountNumber;
+        this.accountPassword = accountPassword;
+        this.balance = balance;
+        this.overdraftLimit = overdraftLimit;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.numberOfLoginTries = numberOfLoginTries;
+    }
+
+    /**
+     * I need a method that return all the fields & method that accept all the
+     * fields
+     * to poplulate the object
+     */
+    public Object[] getAllFields() {
+        return new Object[] {
+                this.type,
+                this.accountNumber,
+                this.accountPassword,
+                this.balance,
+                this.overdraftLimit,
+                this.firstName,
+                this.lastName,
+                this.address,
+                this.email,
+                this.numberOfLoginTries
+        };
     }
 
     // Getters
@@ -60,12 +99,12 @@ public class BankAccount {
         return type;
     }
 
-    public int getAccNumber() {
+    public int getAccountNumber() {
         return this.accountNumber;
     }
 
-    public String getAccPasswd() {
-        return accPasswd;
+    public String getAccountPassword() {
+        return accountPassword;
     }
 
     public BigDecimal getBalance() {
@@ -76,8 +115,8 @@ public class BankAccount {
         return overdraftLimit;
     }
 
-    public ArrayList<String> getEmails() {
-        return emails;
+    public String getEmail() {
+        return email;
     }
 
     public String getAddress() {
@@ -90,6 +129,10 @@ public class BankAccount {
 
     public String getLastName() {
         return lastName;
+    }
+
+    public byte getNumberOfLoginTries() {
+        return numberOfLoginTries;
     }
 
     // Setters
@@ -106,7 +149,7 @@ public class BankAccount {
     }
 
     public boolean setPassword(String newPasswod) {
-        this.accPasswd = newPasswod;
+        this.accountPassword = newPasswod;
         return true;
     }
 
@@ -122,8 +165,12 @@ public class BankAccount {
         this.address = address;
     }
 
-    public void addEmail(String email) {
-        this.emails.add(email);
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setNumberOfLoginTries(byte numberOfLoginTrys) {
+        this.numberOfLoginTries = numberOfLoginTrys;
     }
 
 }
