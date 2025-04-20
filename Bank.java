@@ -33,7 +33,6 @@ public class Bank {
     //
     public Bank() {
         Debug.trace("Bank::<constructor>");
-
     }
 
     public Boolean createBasicAccount(String firstName, String lastName, String address, String email,
@@ -175,10 +174,11 @@ public class Bank {
 
     // try to deposit money into the account (by calling the deposit method on the
     // BankAccount object)
-    public boolean deposit(int amount) {
+    public boolean deposit(BigDecimal amount) {
         if (loggedIn()) {
-            return false;
-            // return account.deposit(amount);
+            BigDecimal total = account.getBalance().add(amount);
+            account.setBalance(total);
+            return true;
         } else {
             return false;
         }
@@ -188,8 +188,12 @@ public class Bank {
     // BankAccount object)
     public boolean withdraw(BigDecimal amount) {
         if (loggedIn()) {
-            return false;
-            // return account.withdraw(amount);
+            BigDecimal newBalance = account.getBalance().add(account.getOverdraftLimit()).subtract(amount);
+
+            if (newBalance.compareTo(BigDecimal.ZERO) >= 0) {
+                account.setBalance(account.getBalance().subtract(amount));
+            }
+            return true;
         } else {
             return false;
         }

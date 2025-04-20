@@ -1,4 +1,7 @@
 import javafx.scene.input.KeyEvent;
+
+import java.math.BigDecimal;
+
 import javafx.scene.input.KeyCode;
 
 // The ATM controller is quite simple - the process method is passed
@@ -21,43 +24,70 @@ public class Controller {
     // statement to select the right method in the Model
     public void process(String action) {
         Debug.trace("Controller::process: action = " + action);
-        switch (action) {
-            case "1":
-            case "2":
-            case "3":
-            case "4":
-            case "5":
-            case "6":
-            case "7":
-            case "8":
-            case "9":
-            case "0":
-                model.processNumber(action);
-                break;
-            case "CLR":
-                model.processClear();
-                break;
-            case "Ent":
-                model.processEnter();
-                break;
-            case "W/D":
-                model.processWithdraw();
-                break;
-            case "Dep":
-                model.processDeposit();
-                break;
-            case "Bal":
-                model.processBalance();
-                break;
-            case "Fin":
-                model.processFinish();
-                break;
-            case "del":
-                model.clearCharacter();
-                break;
-            default:
-                model.processUnknownKey(action);
-                break;
+        // switch (action) {
+        // case "1":
+        // case "2":
+        // case "3":
+        // case "4":
+        // case "5":
+        // case "6":
+        // case "7":
+        // case "8":
+        // case "9":
+        // case "0":
+        // model.processNumber(action);
+        // break;
+        // case "CLR":
+        // model.processClear();
+        // break;
+        // case "Ent":
+        // model.processEnter();
+        // break;
+        // case "W/D":
+        // model.processWithdraw();
+        // break;
+        // case "Dep":
+        // model.processDeposit();
+        // break;
+        // case "Bal":
+        // model.processBalance();
+        // break;
+        // case "Fin":
+        // model.processFinish();
+        // break;
+        // case "del":
+        // model.clearCharacter();
+        // break;
+        // default:
+        // model.processUnknownKey(action);
+        // break;
+        // }
+    }
+
+    public void deposite(String amoutn) {
+        try {
+            BigDecimal amountToBigDecimal = new BigDecimal(amoutn);
+            model.processDeposit(amountToBigDecimal);
+
+        } catch (NumberFormatException error) {
+            System.out.println("The amount for deposite cant be converted to BigDecimal");
+            if (Debug.getDebugState()) {
+                error.printStackTrace();
+            }
+
+        }
+    }
+
+    public void withdraw(String amount) {
+        try {
+            BigDecimal amountToBigDecimal = new BigDecimal(amount);
+            model.processWithdraw(amountToBigDecimal);
+
+        } catch (NumberFormatException error) {
+            System.out.println("The amount for withdraw cant be converted to BigDecimal");
+            if (Debug.getDebugState()) {
+                error.printStackTrace();
+            }
         }
     }
 

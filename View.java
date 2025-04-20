@@ -506,6 +506,12 @@ class View implements EventHandler<KeyEvent> {
             }
 
         });
+        btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.withdraw(withdrawField.getText());
+            }
+        });
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
@@ -529,7 +535,7 @@ class View implements EventHandler<KeyEvent> {
         btnContainer.setId("btn-container");
         // Label labelWithdraw = new Label("Enter the amount you would like to
         // withdraw");
-        Button btnCancel = new Button("cancel");
+        Button btnCancel = new Button("back");
 
         // Constrains
         VBox.setVgrow(grid, Priority.ALWAYS);

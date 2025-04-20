@@ -25,6 +25,7 @@ public class Model {
 
     BigDecimal numberBd = BigDecimal.valueOf(number);
 
+    BigDecimal atmAvaiableCash = new BigDecimal(4000);
     Bank bank = null; // The ATM talks to a bank, represented by the Bank object.
     int accNumber = -1; // Account number typed in
     int accPasswd = -1; // Password typed in
@@ -156,34 +157,22 @@ public class Model {
     // Withdraw button - check we are logged in and if so try and withdraw some
     // money from
     // the bank (number is the amount showing in the interface display)
-    public void processWithdraw() {
-        if (state.equals(LOGGED_IN)) {
-            if (bank.withdraw(numberBd)) {
-                display2 = "Withdrawn: " + number;
-            } else {
-                display2 = "You do not have sufficient funds";
-            }
-            number = 0;
-            display1 = "";
+    public void processWithdraw(BigDecimal amount) {
+        this.atmAvaiableCash.subtract(amount);
+        if (bank.withdraw(amount)) {
+            controller.goToBalance();
+            Debug.trace("Withdrawn: " + amount);
         } else {
-            initialise("You are not logged in");
+            Debug.trace("You do not have sufficient funds");
         }
-        display(); // update the GUI
     }
 
     // Deposit button - check we are logged in and if so try and deposit some money
     // into
     // the bank (number is the amount showing in the interface display)
-    public void processDeposit() {
-        if (state.equals(LOGGED_IN)) {
-            bank.deposit(number);
-            display1 = "";
-            display2 = "Deposited: " + number;
-            number = 0;
-        } else {
-            initialise("You are not logged in");
-        }
-        display(); // update the GUI
+    public void processDeposit(BigDecimal amount) {
+        this.atmAvaiableCash.add(amount);
+        bank.deposit(amount);
     }
 
     // Balance button - check we are logged in and if so access the current balance
@@ -254,7 +243,6 @@ public class Model {
     // screen
     public void display() {
         Debug.trace("Model::display");
-        view.update();
     }
 
     public void save() {
