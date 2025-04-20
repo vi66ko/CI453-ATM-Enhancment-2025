@@ -179,7 +179,7 @@ public class Database {
                             + "|10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|\n");
             fileWriter.write(
                     AccountType.PREMIUM
-                            + "|10003|11|800|0|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|\n");
+                            + "|10003|11|800|500|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|\n");
 
             fileWriter.close();
             Debug.trace("Successfully generated dummy data");
