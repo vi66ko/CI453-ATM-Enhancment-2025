@@ -90,4 +90,5 @@ https://stackoverflow.com/questions/34677644/how-to-use-comparison-operators-lik
 https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/Currency.html
 "It is recommended to use BigDecimal class while dealing with Currency or monetary values as it provides better handling of floating point numbers and their operations."
 
-
+Returning a mixed types of an array
+https://stackoverflow.com/questions/22553549/mixed-type-and-mixed-array-type-array-object-in-java-not-compiling

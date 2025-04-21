@@ -1,0 +1,23 @@
+.root {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+#grid {
+    -fx-alignment: center;
+    -fx-vgap: 40px;
+}
+
+.root #balance-value,
+.root #balance-label {
+    -fx-font-size: 30px;
+}
+
+.root #balance-value {
+    -fx-font-weight: 700;
+}
+
+.root #btn-container {
+    -fx-fill: orange;
+    -fx-alignment: center-left;
+}

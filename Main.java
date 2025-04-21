@@ -21,13 +21,14 @@ public class Main extends Application {
         Debug.trace("atm starting");
         Debug.trace("Main::start");
 
-        // Create a Bank object for this ATM
+        // Create a Bank object for this ATM
         Bank bank = new Bank();
         Database db = new Database();
+        bank.setDatabase(db);
         db.loadAcounts(bank);
 
         // add some test bank accounts
-        bank.addBankAccount(101, "1", new BigDecimal(300));
+        // bank.addBankAccount(101, "1", new BigDecimal(300));
         // b.addBankAccount(10001, "11111", new BigDecimal(300));
         // b.addBankAccount(10002, "22222", new BigDecimal(100));
         // bank.createBasicAccount("Emily", "Carter", "12 Rosewood Lane, Worthing, West

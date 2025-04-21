@@ -10,7 +10,10 @@
 // the system yourself, based on similar examples we will cover in lectures and labs.
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
+import java.lang.reflect.Field;
 
 import type.AccountType;
 import type.ErrorType;
@@ -19,11 +22,11 @@ public class Bank {
     // Instance variables containing the bank information
     int maxAccounts = 10; // maximum number of accounts the bank can hold
     int numAccounts = 0; // the number of accounts currently in the bank
-    int numberOfLoginTrys = 3;
     HashMap<Integer, BankAccount> accounts = new HashMap<Integer, BankAccount>();
     // BankAccount[] accounts = new BankAccount[maxAccounts]; // array to hold the
     // bank accounts
     BankAccount account = null; // currently logged in acccount ('null' if no-one is logged in)
+    Database db = null;
 
     // Constructor method - this provides a couple of example bank accounts to work
     // with
@@ -45,11 +48,11 @@ public class Bank {
         BankAccount basicAccount = new BankAccount(AccountType.BASIC, firstName, lastName, address, email,
                 accountNumber, accountPassword, balance);
 
-        this.accounts.put(basicAccount.getAccNumber(), basicAccount);
+        this.accounts.put(basicAccount.getAccountNumber(), basicAccount);
         numAccounts++;
 
         Debug.trace("Bank::createBasicAccount: added " +
-                basicAccount.getAccNumber() + " " + basicAccount.getAccPasswd() + " $"
+                basicAccount.getAccountNumber() + " " + basicAccount.getAccountPassword() + " $"
                 + basicAccount.getBalance());
 
         return true;
@@ -71,11 +74,11 @@ public class Bank {
                 accountNumber, accountPassword, balance);
 
         premiumAccount.setOverdraftLimit(new BigDecimal(500));
-        this.accounts.put(premiumAccount.getAccNumber(), premiumAccount);
+        this.accounts.put(premiumAccount.getAccountNumber(), premiumAccount);
         numAccounts++;
 
         Debug.trace("Bank::createPremiumAccount: added " +
-                premiumAccount.getAccNumber() + " " + premiumAccount.getAccPasswd() + " £"
+                premiumAccount.getAccountNumber() + " " + premiumAccount.getAccountPassword() + " £"
                 + premiumAccount.getBalance());
 
         return true;
@@ -86,7 +89,9 @@ public class Bank {
     // is a more
     // flexible way to do it than just using the 'new' keyword directly.
     public BankAccount makeBankAccount(int accNumber, String accPasswd, BigDecimal balance) {
-        return new BankAccount(accNumber, accPasswd, balance);
+        BankAccount temp = new BankAccount(accNumber, accPasswd, balance);
+        // List<Field> fields = Arrays.asList(BankAccount.class.getDeclaredFields());
+        return temp;
     }
 
     // a method to add a new bank account to the bank - it returns true if it
@@ -95,10 +100,10 @@ public class Bank {
     public boolean addBankAccount(BankAccount a) {
         if (numAccounts < maxAccounts) {
 
-            accounts.put(a.getAccNumber(), a);
+            accounts.put(a.getAccountNumber(), a);
             numAccounts++;
             Debug.trace("Bank::addBankAccount: added " +
-                    a.getAccNumber() + " " + a.getAccPasswd() + " £" + a.getBalance());
+                    a.getAccountNumber() + " " + a.getAccountPassword() + " £" + a.getBalance());
             return true;
         } else {
             Debug.trace("Bank::addBankAccount: can't add bank account - too many accounts");
@@ -116,8 +121,6 @@ public class Bank {
         return addBankAccount(makeBankAccount(accNumber, accPasswd, balance));
     }
 
-    public int user = -1;
-
     // Check whether the current saved account and password correspond to
     // an actual bank account, and if so login to it (by setting 'account' to it)
     // and return true. Otherwise, reset the account to null and return false
@@ -134,27 +137,27 @@ public class Bank {
             return new Response(false, "The accoount does not exist", ErrorType.WRONG_PASSWORD);
         }
 
-        if (this.numberOfLoginTrys == 0) {
+        if (this.account.getNumberOfLoginTries() == 0) {
             // blok the user
         }
 
-        if (!this.account.getAccPasswd().equals(newAccPasswd)) {
-            this.numberOfLoginTrys -= 1;
-            return new Response(false, "wrong password " + this.numberOfLoginTrys + " of trys");
+        if (!this.account.getAccountPassword().equals(newAccPasswd)) {
+            this.account.setNumberOfLoginTries((byte) (this.account.getNumberOfLoginTries() - 1));
+            return new Response(false, "wrong password - " + this.account.getNumberOfLoginTries() + " tries left");
         }
         // search the array to find a bank account with matching account and password.
         // If you find it, store it in the variable currentAccount and return true.
         // If you don't find it, reset everything and return false
 
         // resetting the number of try in case of successful login
-        this.numberOfLoginTrys = 3;
+        this.account.setNumberOfLoginTries((byte) 3);
         return new Response(true, "Welcome");
     }
 
     // Reset the bank to a 'logged out' state
     public boolean logout() {
         if (loggedIn()) {
-            Debug.trace("Bank::logout: logging out, accNumber = " + account.getAccNumber());
+            Debug.trace("Bank::logout: logging out, accNumber = " + account.getAccountNumber());
             account = null;
             return true;
         }
@@ -194,12 +197,26 @@ public class Bank {
 
     // get the account balance (by calling the balance method on the
     // BankAccount object)
-    public int getBalance() {
+    public String getBalance() {
         if (loggedIn()) {
-            return 0;
-            // return account.getBalance();
+            return String.valueOf(account.getBalance());
         } else {
-            return -1; // use -1 as an indicator of an error
+            return "-1"; // use -1 as an indicator of an error
         }
     }
+
+    public void setDatabase(Database db) {
+        this.db = db;
+    }
+
+    public void save() {
+        for (BankAccount account : this.accounts.values()) {
+            //
+        }
+    }
+
+    public void saveAll() {
+        db.saveAll(accounts);
+    }
+
 }
