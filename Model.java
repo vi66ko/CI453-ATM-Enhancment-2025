@@ -172,7 +172,12 @@ public class Model {
     // the bank (number is the amount showing in the interface display)
     public void processDeposit(BigDecimal amount) {
         this.atmAvaiableCash.add(amount);
-        bank.deposit(amount);
+        if (bank.deposit(amount)) {
+            controller.goToBalance();
+            Debug.trace("Deposited: " + amount);
+        } else {
+            Debug.trace("For some reason you can't comlete the deposite.");
+        }
     }
 
     // Balance button - check we are logged in and if so access the current balance

@@ -180,6 +180,10 @@ public class Controller {
         view.setDepositUI();
     }
 
+    public void gotToDeposit() {
+        view.setDepositUI();
+    }
+
     public void goToBalance() {
         view.setBalanceUI();
     }

@@ -309,14 +309,14 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToQuickCash();
             }
         });
-		
+
         withdraw.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToWithdraw();
             }
         });
-		
-		deposit.setOnAction(new EventHandler<ActionEvent>() {
+
+        deposit.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToDeposit();
             }
@@ -432,7 +432,7 @@ class View implements EventHandler<KeyEvent> {
         Button fifty = new Button("£50.00");
         Button hundred = new Button("£100.00");
         Button twenty = new Button("£20.00");
-        Button amount = new Button ("Enter amount");
+        Button amount = new Button("Enter amount");
         Button cancel = new Button("Cancel");
 
         // Constrains
@@ -462,8 +462,8 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToMainMenu();
             }
         });
-		
-		amount.setOnAction(new EventHandler<ActionEvent>() {
+
+        amount.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToWithdraw();
             }
@@ -480,8 +480,10 @@ class View implements EventHandler<KeyEvent> {
         VBox root = new VBox();
         GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
+
         grid.setId("grid");
         btnContainer.setId("btn-container");
+
         Label labelWithdraw = new Label("Enter the amount you would like to withdraw");
         TextField withdrawField = new TextField();
         Button btnCancel = new Button("cancel");
@@ -567,8 +569,8 @@ class View implements EventHandler<KeyEvent> {
         this.window.setScene(scene);
 
     }
-	
-	public void setDepositUI() {
+
+    public void setDepositUI() {
         VBox root = new VBox();
         GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
@@ -598,10 +600,16 @@ class View implements EventHandler<KeyEvent> {
             }
 
         });
+        btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.deposite(depositField.getText());
+            }
+        });
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("password_reset.css");
+        scene.getStylesheets().add("./resources/styles/deposit.css");
         this.window.setScene(scene);
 
     }

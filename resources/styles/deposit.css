@@ -1,0 +1,5 @@
+.root #grid {
+    -fx-max-width: 300px;
+    -fx-alignment: center;
+    -fx-vgap: 15px;
+}
