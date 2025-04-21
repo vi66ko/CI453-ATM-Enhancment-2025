@@ -153,10 +153,6 @@ public class Controller {
     public void goToWithdraw() {
         view.setWithdraw();
     }
-	
-	public void goToDeposit() {
-        view.setDepositUI();
-    }
 
     public void goToBalance() {
         view.setBalanceUI();
