@@ -11,28 +11,13 @@ import java.util.HashMap;
 // Custom
 import type.AccountType;
 
-/**
- * * File structure
- * type,
- * accountNumber,
- * accountPassword,
- * balance,
- * overdraftLimit,
- * firstName,
- * lastName,
- * address,
- * email,
- * numberOfLoginTries
- * 
- *
- */
 public class Database {
     private final String delimiter = "|";
 
     // private ArrayList<String> transactions = null;
     private Bank bank = null;
-    private File accountsData = null;
-    private File transactionsData = null;
+    private File accounts = null;
+    private File transactions = null;
 
     private String rootDir = "db";
 
@@ -68,97 +53,43 @@ public class Database {
      * If there is not any data it will be generate by this method.
      */
     private void initiated() {
-        this.accountsData = this.createFile("accounts.txt");
-        this.transactionsData = this.createFile("transactions.txt");
-        System.out.println("|||||||||||||||||||||- Database -|||||||||||||||||||||||");
+        this.accounts = this.createFile("accounts.txt");
+        this.transactions = this.createFile("transactions.txt");
+        System.out.println("|||||||||||||||||||||||||||||||||||||||||||||||||||||");
 
-        if ((accountsData.length() == 0)) {
+        if ((accounts.length() == 0)) {
             this.generateAccounts();
         }
-        if (transactionsData.length() == 0) {
+        if (transactions.length() == 0) {
             // generate
         }
 
     }
 
-    public void save() {
-        try {
-            FileWriter fileWriter = new FileWriter(this.accountsData, true);
-
-        } catch (IOException error) {
-            System.out.println("An IOException error occurred.");
-            error.printStackTrace();
-        }
-    }
-
-    public void saveAll(HashMap<Integer, BankAccount> accounts) {
-        try {
-            FileWriter fileWriter = new FileWriter(this.accountsData);
-
-            String data = "";
-            fileWriter.write(data);
-            for (BankAccount account : accounts.values()) {
-                for (Object field : account.getAllFields()) {
-                    data += field + "|";
-                }
-                data += "\n";
-            }
-            fileWriter.write(data);
-            fileWriter.close();
-        } catch (IOException error) {
-            System.out.println("An IOException error occurred.");
-            error.printStackTrace();
-
-        }
-    }
-
     public void loadAcounts(Bank bank) {
-        String accountType; // This type is only to find out the what is the type in if statment
-        int accountNumber;
-        String accountPassword;
-        BigDecimal balance;
-        BigDecimal overdraftLimit;
-        String firstName;
-        String lastName;
-        String address;
-        String email;
-        Byte numberOfLoginTries;
-
         try {
-            Scanner scanner = new Scanner(this.accountsData);
+            Scanner scanner = new Scanner(this.accounts);
 
             while (scanner.hasNextLine()) {
                 String record = scanner.nextLine();
                 String[] fields = record.split("\\|");
-
-                accountType = fields[0];
-                accountNumber = Integer.valueOf(fields[1]);
-                accountPassword = fields[2];
-                balance = new BigDecimal(fields[3]);
-                overdraftLimit = new BigDecimal(fields[4]);
-                firstName = fields[5];
-                lastName = fields[6];
-                address = fields[7];
-                email = fields[8];
-                numberOfLoginTries = Byte.valueOf(fields[9]);
+                String accountType = fields[0];
+                int accountNumber = Integer.valueOf(fields[5]);
 
                 if (AccountType.BASIC.toString().equals(accountType)) {
-                    bank.addBankAccount(
-                            new BankAccount(AccountType.BASIC, accountNumber, accountPassword, balance, overdraftLimit,
-                                    firstName, lastName, address, email, numberOfLoginTries));
+                    bank.createBasicAccount(fields[1], fields[2], fields[3], fields[4], accountNumber, fields[6],
+                            new BigDecimal(fields[7]));
 
                 } else if (AccountType.PREMIUM.toString().equals(accountType)) {
-                    bank.addBankAccount(
-                            new BankAccount(AccountType.PREMIUM, accountNumber, accountPassword, balance,
-                                    overdraftLimit,
-                                    firstName, lastName, address, email, numberOfLoginTries));
-                } else {
-                    Debug.trace(
-                            "Database::loadAccounts:line::154 ### IMPORTANT ###\n if this else run that mean there could be a problem of the data strcuture. ");
+                    bank.createBasicAccount(fields[1], fields[2], fields[3], fields[4], accountNumber, fields[6],
+                            new BigDecimal(fields[7]));
                 }
             }
+
             scanner.close();
-        } catch (FileNotFoundException error) {
+        } catch (
+
+        FileNotFoundException error) {
             System.out.println("An File Not dound Exception");
             error.printStackTrace();
         }
@@ -170,19 +101,18 @@ public class Database {
      */
     private void generateAccounts() {
         try {
-            FileWriter fileWriter = new FileWriter(this.accountsData, true);
+            FileWriter fileWriter = new FileWriter(this.accounts, true);
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|\n");
+                            + "|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|10001|11|300\n");
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|\n");
+                            + "|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|10002|11|800\n");
             fileWriter.write(
                     AccountType.PREMIUM
-                            + "|10003|11|800|0|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|\n");
+                            + "|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|Mufas.carter@examplemail.com|10003|11|400\n");
 
             fileWriter.close();
-            Debug.trace("Successfully generated dummy data");
         } catch (IOException error) {
             System.out.println("An IOException error occurred.");
             error.printStackTrace();

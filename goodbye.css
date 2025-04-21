@@ -3,7 +3,6 @@
     -fx-alignment: center;
 }
 
-.root #goodbye-text {
+.root #goodbyeText {
     -fx-font-size: 50px;
-    -fx-text-alignment: center;
 }

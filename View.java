@@ -18,7 +18,6 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.*;
 
 import javafx.event.EventHandler;
@@ -67,20 +66,7 @@ class View implements EventHandler<KeyEvent> {
         // this.setActiveUI2();
         // this.setPasswordResset();
         // this.showBalance(); 
-        // this.setBalanceUI();
-        // this.setGoodByeUI();
-        window.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
-            @Override
-            public void handle(WindowEvent event) {
-                controller.save();
-            }
-        });
-        window.setResizable(false);
         window.show();
-        // new EventHandler<ActionEvent>() {
-        // @Override
-        // public void handle(ActionEvent event) {
     }
 
     public void handle(KeyEvent event) {
@@ -119,7 +105,6 @@ class View implements EventHandler<KeyEvent> {
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
         Text feedback = new Text();
-        feedback.setId("feedback");
         Button btnBack = new Button("back");
         btnBack.setId("btn-back");
         Button btnLogin = new Button("login");
@@ -185,8 +170,6 @@ class View implements EventHandler<KeyEvent> {
         grid.add(labelPassword, 0, 3);
         grid.add(passwordField, 0, 4);
         grid.add(feedback, 0, 5);
-
-        GridPane.setHalignment(feedback, HPos.RIGHT);
 
         root.getChildren().addAll(grid, btnContainer);
 
@@ -265,7 +248,7 @@ class View implements EventHandler<KeyEvent> {
         Button finish = new Button("finish");
         Button balance = new Button("balance");
         Button deposit = new Button("deposit");
-        Button withdraw = new Button("withdraw");
+        Button withdrow = new Button("withdraw");
         Button passReset = new Button("password reset");
         Button quickCash = new Button("Quick Cash");
 
@@ -274,11 +257,11 @@ class View implements EventHandler<KeyEvent> {
         root.add(passReset, 0, 1);
         root.add(finish, 1, 2);
         root.add(deposit, 1, 0);
-        root.add(withdraw, 1, 1);
-        root.add(quickCash, 0, 2);
+        root.add(withdrow, 1, 1);
+        root.add(quickCash,0, 2);
 
         GridPane.setHalignment(deposit, HPos.RIGHT);
-        GridPane.setHalignment(withdraw, HPos.RIGHT);
+        GridPane.setHalignment(withdrow, HPos.RIGHT);
         GridPane.setHalignment(finish, HPos.RIGHT);
         GridPane.setFillWidth(finish, true);
         ColumnConstraints col1 = new ColumnConstraints();
@@ -287,15 +270,9 @@ class View implements EventHandler<KeyEvent> {
         col2.setHgrow(Priority.ALWAYS);
         // finish.setMaxWidth(Double.MAX_VALUE);
 
-        balance.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                controller.goToBalance();
-            }
-
-        });
+        // Event Hanler<ActionEvent>
         finish.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
-                controller.logout();
             }
         });
 
@@ -318,21 +295,10 @@ class View implements EventHandler<KeyEvent> {
                 controller.goToPasswordReset();
             }
         });
+        
         quickCash.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToQuickCash();
-            }
-        });
-		
-        withdraw.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                controller.goToWithdraw();
-            }
-        });
-		
-		deposit.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                controller.goToDeposit();
             }
         });
 
@@ -362,7 +328,7 @@ class View implements EventHandler<KeyEvent> {
         Label labelbalance = new Label("Balance = " + number);
         
         //TextArea balanceDisplay = new TextArea(); //Need to add balance display here
-        //balanceDisplay.setText("� " + "100");
+        //balanceDisplay.setText("� " + "100");
         
         Button btnContinue = new Button("Continue");
         
@@ -504,34 +470,30 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/welcoming.css");
         this.window.setScene(scene);
     }
+    
     public void setQuickCashUI() {
         // Layout
         GridPane root = new GridPane();
         // Controlls
-        Button five = new Button("£5.00");
         Button ten = new Button("£10.00");
         Button thirty = new Button("£30.00");
         Button fifty = new Button("£50.00");
         Button hundred = new Button("£100.00");
         Button twenty = new Button("£20.00");
-        Button amount = new Button ("Enter amount");
-        Button cancel = new Button("Cancel");
+        Button finish = new Button("Finish");
 
         // Constrains
-        root.add(five, 0, 0);
-        root.add(ten, 0, 1);
-        root.add(twenty, 0, 2);
-        root.add(cancel, 0, 3);
-        root.add(thirty, 1, 0);
-        root.add(fifty, 1, 1);
-        root.add(hundred, 1, 2);
-        root.add(amount, 1, 3);
+        root.add(ten, 0, 0);
+        root.add(twenty, 0, 1);
+        root.add(thirty, 0, 2);
+        root.add(fifty, 1, 0);
+        root.add(hundred, 1, 1);
+        root.add(finish, 1, 2);
 
         GridPane.setHalignment(fifty, HPos.RIGHT);
         GridPane.setHalignment(hundred, HPos.RIGHT);
-        GridPane.setHalignment(amount, HPos.RIGHT);
-        GridPane.setHalignment(thirty, HPos.RIGHT);
-        GridPane.setFillWidth(amount, true);
+        GridPane.setHalignment(finish, HPos.RIGHT);
+        GridPane.setFillWidth(finish, true);
         ColumnConstraints col1 = new ColumnConstraints();
         ColumnConstraints col2 = new ColumnConstraints();
         col1.setHgrow(Priority.ALWAYS);
@@ -539,147 +501,18 @@ class View implements EventHandler<KeyEvent> {
         // finish.setMaxWidth(Double.MAX_VALUE);
 
         // Event Hanler<ActionEvent>
-        cancel.setOnAction(new EventHandler<ActionEvent>() {
+        finish.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToMainMenu();
             }
         });
-		
-		amount.setOnAction(new EventHandler<ActionEvent>() {
-            public void handle(ActionEvent event) {
-                controller.goToWithdraw();
-            }
-        });
+
 
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/atm.css");
         this.window.setScene(scene);
-    }
-
-    public void setWithdraw() {
-        VBox root = new VBox();
-        GridPane grid = new GridPane();
-        HBox btnContainer = new HBox();
-        grid.setId("grid");
-        btnContainer.setId("btn-container");
-        Label labelWithdraw = new Label("Enter the amount you would like to withdraw");
-        TextField withdrawField = new TextField();
-        Button btnCancel = new Button("cancel");
-        Button btnConfirm = new Button("confirm");
-
-        // Constrains
-        root.getChildren().add(grid);
-        VBox.setVgrow(grid, Priority.ALWAYS);
-        root.getChildren().add(btnContainer);
-        HBox.setHgrow(btnContainer, Priority.ALWAYS);
-        btnContainer.setSpacing(100);
-
-        grid.add(labelWithdraw, 0, 0);
-        grid.add(withdrawField, 0, 1);
-
-        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
-        // ActionEvent handling
-        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.goToMainMenu();
-            }
-
-        });
-
-        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("password_reset.css");
-        this.window.setScene(scene);
-
-    }
-
-    public void setBalanceUI() {
-        VBox root = new VBox();
-        GridPane grid = new GridPane();
-        HBox btnContainer = new HBox();
-
-        String balanceValue = this.controller.getBalance();
-        Text balanceLabel = new Text("Your balance is:");
-        balanceLabel.setId("balance-label");
-        Text balance = new Text("£ " + balanceValue);
-        balance.setId("balance-value");
-
-        grid.setId("grid");
-        btnContainer.setId("btn-container");
-        // Label labelWithdraw = new Label("Enter the amount you would like to
-        // withdraw");
-        Button btnCancel = new Button("cancel");
-
-        // Constrains
-        VBox.setVgrow(grid, Priority.ALWAYS);
-        root.getChildren().add(grid);
-
-        HBox.setHgrow(btnContainer, Priority.ALWAYS);
-        btnContainer.setSpacing(100);
-        root.getChildren().add(btnContainer);
-        ColumnConstraints col1Constrainus = new ColumnConstraints();
-        col1Constrainus.setHalignment(HPos.CENTER);
-        GridPane.setHalignment(balance, HPos.CENTER);
-
-        grid.add(balanceLabel, 0, 0);
-        grid.add(balance, 0, 1);
-
-        btnContainer.getChildren().addAll(btnCancel);
-        // ActionEvent handling
-        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.goToMainMenu();
-            }
-
-        });
-
-        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("./resources/styles/balance.css");
-        this.window.setScene(scene);
-
-    }
-	
-	public void setDepositUI() {
-        VBox root = new VBox();
-        GridPane grid = new GridPane();
-        HBox btnContainer = new HBox();
-        grid.setId("grid");
-        btnContainer.setId("btn-container");
-        Label labelDeposit = new Label("How much is being deposited?");
-        TextField depositField = new TextField();
-        Button btnCancel = new Button("cancel");
-        Button btnConfirm = new Button("confirm");
-
-        // Constrains
-        root.getChildren().add(grid);
-        VBox.setVgrow(grid, Priority.ALWAYS);
-        root.getChildren().add(btnContainer);
-        HBox.setHgrow(btnContainer, Priority.ALWAYS);
-        btnContainer.setSpacing(100);
-
-        grid.add(labelDeposit, 0, 0);
-        grid.add(depositField, 0, 1);
-
-        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
-        // ActionEvent handling
-        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.goToMainMenu();
-            }
-
-        });
-
-        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("password_reset.css");
-        this.window.setScene(scene);
-
     }
 
     public void setGoodByeUI() {
@@ -698,25 +531,11 @@ class View implements EventHandler<KeyEvent> {
         goodbyeText.setId("goodbye-text");
         root.add(goodbyeText, 0, 0);
 
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                Platform.runLater(() -> {
-                    setWelcomingUI();
-                });
-            }
-        }, 1500);
-
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("./resources/styles/goodbye.css");
+        scene.getStylesheets().add("goodbye.css");
         this.window.setScene(scene);
     }
 
-    public void save() {
-        model.save();
-    }
     // This is how the Model talks to the View
 
     // This method gets called BY THE MODEL, whenever the model changes

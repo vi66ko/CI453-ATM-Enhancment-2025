@@ -146,24 +146,9 @@ public class Controller {
     public void goToMainMenu() {
         view.setActiveUI();
     }
+    
     public void goToQuickCash() {
         view.setQuickCashUI();
-    }
-
-    public void goToWithdraw() {
-        view.setWithdraw();
-    }
-	
-	public void goToDeposit() {
-        view.setDepositUI();
-    }
-
-    public void goToBalance() {
-        view.setBalanceUI();
-    }
-
-    public String getBalance() {
-        return this.model.getBalance();
     }
 
     public String login(String accountNumber, String password) {
@@ -171,7 +156,7 @@ public class Controller {
         int accountNumberInt = 0;
         try {
             accountNumberInt = Integer.parseInt(accountNumber);
-        } catch (NumberFormatException error) {
+        } catch (Exception error) {
 
             System.out.println("---- Exception ----");
 
@@ -179,7 +164,6 @@ public class Controller {
             System.out.println(error.getClass());
             System.out.println(error);
             System.out.println("---- / Exception ----");
-
             return "Invalid account number.";
         }
 
@@ -198,9 +182,5 @@ public class Controller {
 
     public void logout() {
         model.processFinish();
-    }
-
-    public void save() {
-        model.save();
     }
 }

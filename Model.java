@@ -249,10 +249,6 @@ public class Model {
         display();
     }
 
-    public String getBalance() {
-        return this.bank.getBalance();
-    }
-
     // This is where the Model talks to the View, by calling the View's update
     // method
     // The view will call back to the model to get new information to display on the
@@ -260,9 +256,5 @@ public class Model {
     public void display() {
         Debug.trace("Model::display");
         view.update();
-    }
-
-    public void save() {
-        bank.saveAll();
     }
 }
