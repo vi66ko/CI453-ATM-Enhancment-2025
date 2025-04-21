@@ -196,7 +196,7 @@ public class Bank {
     // BankAccount object)
     public int getBalance() {
         if (loggedIn()) {
-            return 100;
+            return 0;
             // return account.getBalance();
         } else {
             return -1; // use -1 as an indicator of an error
