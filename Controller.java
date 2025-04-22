@@ -64,7 +64,7 @@ public class Controller {
         // }
     }
 
-    public void deposite(String amoutn) {
+    public void deposit(String amoutn) {
         try {
             BigDecimal amountToBigDecimal = new BigDecimal(amoutn);
             model.processDeposit(amountToBigDecimal);
@@ -180,7 +180,7 @@ public class Controller {
         view.setDepositUI();
     }
 
-    public void gotToDeposit() {
+    public void goToDeposit() {
         view.setDepositUI();
     }
 
@@ -220,6 +220,17 @@ public class Controller {
         Debug.trace("Controller::login():isSuccessful: " + response.isSuccessful());
         Debug.trace("Controller::login():getMessage: " + response.getMessage());
         return response.getMessage();
+    }
+
+    public Response passwordReset(String newPassword, String passwordConfirmation) {
+        // We can make requirment checksm, for exmaple specific lenght characters
+        if (!newPassword.equals(passwordConfirmation)) {
+            Debug.trace("The password does not match");
+            return new Response(false, "The password does not match");
+        }
+
+        model.processPasswordReset(newPassword);
+        return new Response(true, "Bravo");
     }
 
     public void logout() {

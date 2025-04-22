@@ -33,7 +33,7 @@ TODO:
 - if user click start and is inactive to go back to the welcome page.
 - finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
 - ? making the data type (class) address
-
+- max amount to widhraw from ATM
 
 
 client => controller[ATM] => Bank
@@ -51,6 +51,9 @@ buttons: left(cancel) right(login)
 
 -----------------------------------------------------
 Questions:
+
+- should we add 3th field for the old password before changing to the new. 
+this was no one can easily change the pass if the app is opne. Improve sec
 
 login || password resset
 1. gui =>

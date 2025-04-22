@@ -199,6 +199,10 @@ public class Model {
         view.setGoodByeUI();
     }
 
+    public void processPasswordReset(String newPassword) {
+        bank.passwordReset(newPassword);
+    }
+
     public void clearCharacter() {
 
         if (!this.display1.isEmpty()) {

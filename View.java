@@ -333,6 +333,7 @@ class View implements EventHandler<KeyEvent> {
         VBox root = new VBox();
         GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
+
         grid.setId("grid");
         btnContainer.setId("btn-container");
         // Should we add a field for entering the old password
@@ -342,6 +343,8 @@ class View implements EventHandler<KeyEvent> {
         PasswordField passwordField = new PasswordField();
         Label labelPasswordConfirmation = new Label("Password Confirmation");
         PasswordField passwordConfirmation = new PasswordField();
+        Text feedbackMessage = new Text();
+        feedbackMessage.setId("feedback-message");
         Button btnCancel = new Button("cancel");
         Button btnConfirm = new Button("confirm");
 
@@ -356,6 +359,7 @@ class View implements EventHandler<KeyEvent> {
         grid.add(passwordField, 0, 1);
         grid.add(labelPasswordConfirmation, 0, 2);
         grid.add(passwordConfirmation, 0, 3);
+        grid.add(feedbackMessage, 0, 4);
 
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
         // ActionEvent handling
@@ -366,14 +370,18 @@ class View implements EventHandler<KeyEvent> {
             }
 
         });
+
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // got to the controller to reset password
                 // controller verift if the password is valid base on the criterias
                 // after that going to the Controller.(passworedResset) => ATM.passwordReset =>
-                // Bank.paaswordRest()
-                //
+
+                Response response = controller.passwordReset(passwordField.getText(), passwordConfirmation.getText());
+                if (!response.isSuccessful()) {
+                    feedbackMessage.setText(response.getMessage());
+                }
             }
         });
 
@@ -476,6 +484,50 @@ class View implements EventHandler<KeyEvent> {
         this.window.setScene(scene);
     }
 
+    public void setDepositUI() {
+        VBox root = new VBox();
+        GridPane grid = new GridPane();
+        HBox btnContainer = new HBox();
+        grid.setId("grid");
+        btnContainer.setId("btn-container");
+
+        Label labelDeposit = new Label("Enter the amount you would like to deposit");
+        TextField depositField = new TextField();
+        Button btnCancel = new Button("cancel");
+        Button btnConfirm = new Button("confirm");
+        // Constrains
+        root.getChildren().add(grid);
+        VBox.setVgrow(grid, Priority.ALWAYS);
+        root.getChildren().add(btnContainer);
+        HBox.setHgrow(btnContainer, Priority.ALWAYS);
+        btnContainer.setSpacing(100);
+
+        grid.add(labelDeposit, 0, 0);
+        grid.add(depositField, 0, 1);
+
+        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+        // ActionEvent handling
+        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.goToMainMenu();
+            }
+
+        });
+        btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.deposit(depositField.getText());
+            }
+        });
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/styles/deposit.css");
+        this.window.setScene(scene);
+
+    }
+
     public void setWithdraw() {
         VBox root = new VBox();
         GridPane grid = new GridPane();
@@ -566,50 +618,6 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/balance.css");
-        this.window.setScene(scene);
-
-    }
-
-    public void setDepositUI() {
-        VBox root = new VBox();
-        GridPane grid = new GridPane();
-        HBox btnContainer = new HBox();
-        grid.setId("grid");
-        btnContainer.setId("btn-container");
-        Label labelDeposit = new Label("How much is being deposited?");
-        TextField depositField = new TextField();
-        Button btnCancel = new Button("cancel");
-        Button btnConfirm = new Button("confirm");
-
-        // Constrains
-        root.getChildren().add(grid);
-        VBox.setVgrow(grid, Priority.ALWAYS);
-        root.getChildren().add(btnContainer);
-        HBox.setHgrow(btnContainer, Priority.ALWAYS);
-        btnContainer.setSpacing(100);
-
-        grid.add(labelDeposit, 0, 0);
-        grid.add(depositField, 0, 1);
-
-        btnContainer.getChildren().addAll(btnCancel, btnConfirm);
-        // ActionEvent handling
-        btnCancel.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.goToMainMenu();
-            }
-
-        });
-        btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                controller.deposite(depositField.getText());
-            }
-        });
-
-        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("./resources/styles/deposit.css");
         this.window.setScene(scene);
 
     }

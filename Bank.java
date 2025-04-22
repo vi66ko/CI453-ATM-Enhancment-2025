@@ -153,6 +153,10 @@ public class Bank {
         return new Response(true, "Welcome");
     }
 
+    public void passwordReset(String newPassword) {
+        this.account.setPassword(newPassword);
+    }
+
     // Reset the bank to a 'logged out' state
     public boolean logout() {
         if (loggedIn()) {
