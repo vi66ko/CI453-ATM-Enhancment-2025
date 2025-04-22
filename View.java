@@ -654,6 +654,27 @@ class View implements EventHandler<KeyEvent> {
         this.window.setScene(scene);
     }
 
+    public void setFeedbackMessageUI(String argument) {
+        GridPane root = new GridPane();
+        Text message = new Text(argument);
+        Button btn = new Button("OK");
+
+        btn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                setActiveUI();
+            }
+        });
+
+        root.add(message, 0, 0);
+        root.add(btn, 0, 1);
+
+        Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
+        scene.getStylesheets().add("./resources/styles/global.css");
+        scene.getStylesheets().add("./resources/style/feedbackMessage.css");
+        this.window.setScene(scene);
+    }
+
     public void save() {
         model.save();
     }
