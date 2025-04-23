@@ -17,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.*;
@@ -379,7 +380,10 @@ class View implements EventHandler<KeyEvent> {
                 // after that going to the Controller.(passworedResset) => ATM.passwordReset =>
 
                 Response response = controller.passwordReset(passwordField.getText(), passwordConfirmation.getText());
-                if (!response.isSuccessful()) {
+
+                if (response.isSuccessful()) {
+                    setFeedbackMessageUI("Your password was successfully changed.");
+                } else {
                     feedbackMessage.setText(response.getMessage());
                 }
             }
@@ -673,6 +677,27 @@ class View implements EventHandler<KeyEvent> {
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/style/feedbackMessage.css");
         this.window.setScene(scene);
+    }
+
+    public void showPopupMessage(String argmunet) {
+        Popup popup = new Popup();
+        GridPane grid = new GridPane();
+        grid.setId("popup-grid");
+        Text message = new Text(argmunet);
+        Button button = new Button("OK");
+
+        grid.add(message, 0, 0);
+        grid.add(button, 0, 2);
+
+        popup.getContent().add(grid);
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Debug.trace("View::showPopupMessage: Has been clicked");
+                popup.hide();
+            }
+        });
+        popup.show(this.window);
     }
 
     public void save() {

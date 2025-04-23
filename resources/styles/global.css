@@ -40,3 +40,12 @@ v1d84b5
     -fx-padding: 15px;
     -fx-background-color: -fx-secondary;
 }
+
+
+/*
+ *-------------------
+ * Popup*/
+
+#popup-grid {
+    -fx-background-color: lime;
+}
