@@ -16,9 +16,9 @@ v1d84b5
 .root {
     /*Let see if the is ok all to be centered*/
     -fx-alignment: center;
-    -fx-secondary: #759EB8;
-    -fx-primary: #C5D5EA;
-    -fx-text: #D8E1E9;
+    -fx-secondary: #759eb8;
+    -fx-primary: rgb(209, 229, 240);
+    -fx-text: #0a2239;
 }
 
 .root {
@@ -27,11 +27,38 @@ v1d84b5
 }
 
 .root .button {
+
+    -fx-background-color: 
+        
+        #3c7fb1,
+        linear-gradient(#fafdfe, #e8f5fc, #d4eefd),
+        linear-gradient(#eaf6fd 30%, #d9f0fc 49%, #bee6fd 50%, #70b9e4 100%);
+        
+
+        
+
+
+    -fx-background-insets: 0,1;
+    -fx-background-radius: 3,2;
+    -fx-padding: 7px;
+
+    -fx-font-family: "Arial";
+    -fx-font-size: 17px;
+    -fx-text-fill: -fx-text;
+
+    -fx-pref-width: 200px;
+    
     /*
      *
     Removing the outline of a button 
     -fx-background-insets: 0, 0, 0, 0;
      * */
+
+/*
+    -fx-background-color: 
+        #3c7fb1,
+        linear-gradient(#fafdfe, #e8f5fc),
+        linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);
 
     -fx-text-fill: -fx-text;
     -fx-pref-width: 200px;
@@ -39,7 +66,20 @@ v1d84b5
     -fx-font-weight: bold;
     -fx-padding: 15px;
     -fx-background-color: -fx-secondary;
+    */
+
+/*
+ Experimental purple color scheme 
+
+    linear-gradient(rgb(252, 251, 254), rgb(240, 232, 255), rgb(219, 200, 255)),
+    linear-gradient(rgb(252, 251, 254) 25%, rgb(229, 212, 232) 49%, rgb(209, 180, 218) 50%, rgb(195, 164, 207) 100%);
+*/
 }
+
+
+
+
+
 
 
 /*
