@@ -5,6 +5,7 @@ class Response {
     private Boolean status = false;
     private String message = null;
     private ErrorType errorType = null;
+    private String data = null;
 
     public Response(Boolean status, String message) {
         this.status = status;
@@ -17,6 +18,12 @@ class Response {
         this.errorType = type;
     }
 
+    public Response(Boolean status, String message, String data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     public Boolean isSuccessful() {
         return this.status;
     }
@@ -27,5 +34,9 @@ class Response {
 
     public ErrorType getErrorType() {
         return errorType;
+    }
+
+    public String getData() {
+        return data;
     }
 }

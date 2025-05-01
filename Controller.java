@@ -78,10 +78,11 @@ public class Controller {
         }
     }
 
-    public void withdraw(String amount) {
+    public Response withdraw(String amount) {
+        BigDecimal amountToBigDecimal = null;
+        // Should handle if the user type any character rather then number
         try {
-            BigDecimal amountToBigDecimal = new BigDecimal(amount);
-            model.processWithdraw(amountToBigDecimal);
+            amountToBigDecimal = new BigDecimal(amount);
 
         } catch (NumberFormatException error) {
             System.out.println("The amount for withdraw cant be converted to BigDecimal");
@@ -89,6 +90,8 @@ public class Controller {
                 error.printStackTrace();
             }
         }
+
+        return model.processWithdraw(amountToBigDecimal);
     }
 
     public void userKeyInput(KeyEvent event) {
@@ -173,7 +176,7 @@ public class Controller {
     }
 
     public void goToWithdraw() {
-        view.setWithdraw();
+        view.setWithdraw(model.getAvailableToWithdraw());
     }
 
     public void goToDeposit() {
@@ -236,4 +239,5 @@ public class Controller {
     public void save() {
         model.save();
     }
+
 }

@@ -25,7 +25,7 @@ public class Model {
 
     BigDecimal numberBd = BigDecimal.valueOf(number);
 
-    BigDecimal atmAvaiableCash = new BigDecimal(4000);
+    BigDecimal atmAvaiableCash = new BigDecimal(400000);
     Bank bank = null; // The ATM talks to a bank, represented by the Bank object.
     int accNumber = -1; // Account number typed in
     int accPasswd = -1; // Password typed in
@@ -157,14 +157,26 @@ public class Model {
     // Withdraw button - check we are logged in and if so try and withdraw some
     // money from
     // the bank (number is the amount showing in the interface display)
-    public void processWithdraw(BigDecimal amount) {
-        this.atmAvaiableCash.subtract(amount);
-        if (bank.withdraw(amount)) {
-            controller.goToBalance();
-            Debug.trace("Withdrawn: " + amount);
+    public Response processWithdraw(BigDecimal amount) {
+        Boolean isEnoguthATM_Cash = this.atmAvaiableCash.subtract(amount).compareTo(BigDecimal.ZERO) >= 0;
+
+        Response response;
+        /*
+         * What happend when there is not enough money for the currecnt withraw, but
+         * there are more money from the daly limit
+         *
+         * how to inform the user that he can withdraw no more then the amount available
+         * on the ATM
+         *
+         * How to inform the user the amount he can withdraw currently
+         */
+        if (isEnoguthATM_Cash) {
+            response = bank.withdraw(amount);
         } else {
-            Debug.trace("You do not have sufficient funds");
+            response = new Response(false, "The ATM is out of cash");
         }
+
+        return response;
     }
 
     // Deposit button - check we are logged in and if so try and deposit some money
@@ -244,6 +256,15 @@ public class Model {
 
     public String getBalance() {
         return this.bank.getBalance();
+    }
+
+    public String getAvailableToWithdraw() {
+        if (bank.account.getDailyLimitWithdrawLeft().compareTo(this.atmAvaiableCash) <= 0) {
+            return "Daily limit left: £ "
+                    + bank.account.getDailyLimitWithdrawLeft();
+        } else {
+            return "ATM availble cash: £ " + this.atmAvaiableCash;
+        }
     }
 
     // This is where the Model talks to the View, by calling the View's update

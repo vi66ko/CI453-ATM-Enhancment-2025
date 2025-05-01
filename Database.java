@@ -123,6 +123,8 @@ public class Database {
         String address;
         String email;
         Byte numberOfLoginTries;
+        BigDecimal DAILY_LIMIT_WITHDRAW;
+        BigDecimal dailyLimitWithdraw;
 
         try {
             Scanner scanner = new Scanner(this.accountsData);
@@ -141,17 +143,21 @@ public class Database {
                 address = fields[7];
                 email = fields[8];
                 numberOfLoginTries = Byte.valueOf(fields[9]);
+                DAILY_LIMIT_WITHDRAW = new BigDecimal(fields[10]);
+                dailyLimitWithdraw = new BigDecimal(fields[11]);
 
                 if (AccountType.BASIC.toString().equals(accountType)) {
                     bank.addBankAccount(
                             new BankAccount(AccountType.BASIC, accountNumber, accountPassword, balance, overdraftLimit,
-                                    firstName, lastName, address, email, numberOfLoginTries));
+                                    firstName, lastName, address, email, numberOfLoginTries, DAILY_LIMIT_WITHDRAW,
+                                    dailyLimitWithdraw));
 
                 } else if (AccountType.PREMIUM.toString().equals(accountType)) {
                     bank.addBankAccount(
                             new BankAccount(AccountType.PREMIUM, accountNumber, accountPassword, balance,
                                     overdraftLimit,
-                                    firstName, lastName, address, email, numberOfLoginTries));
+                                    firstName, lastName, address, email, numberOfLoginTries, DAILY_LIMIT_WITHDRAW,
+                                    dailyLimitWithdraw));
                 } else {
                     Debug.trace(
                             "Database::loadAccounts:line::154 ### IMPORTANT ###\n if this else run that mean there could be a problem of the data strcuture. ");
@@ -173,13 +179,13 @@ public class Database {
             FileWriter fileWriter = new FileWriter(this.accountsData, true);
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|\n");
+                            + "|10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|300|300\n");
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|\n");
+                            + "|10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|300|300\n");
             fileWriter.write(
                     AccountType.PREMIUM
-                            + "|10003|11|800|500|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|\n");
+                            + "|10003|11|800|500|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|500|500\n");
 
             fileWriter.close();
             Debug.trace("Successfully generated dummy data");

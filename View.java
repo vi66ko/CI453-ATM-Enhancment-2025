@@ -469,6 +469,12 @@ class View implements EventHandler<KeyEvent> {
         // finish.setMaxWidth(Double.MAX_VALUE);
 
         // Event Hanler<ActionEvent>
+        five.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                controller.withdraw("5");
+            }
+        });
         cancel.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
                 controller.goToMainMenu();
@@ -532,7 +538,7 @@ class View implements EventHandler<KeyEvent> {
 
     }
 
-    public void setWithdraw() {
+    public void setWithdraw(String argAvailableToWithdraw) {
         VBox root = new VBox();
         GridPane grid = new GridPane();
         HBox btnContainer = new HBox();
@@ -544,7 +550,11 @@ class View implements EventHandler<KeyEvent> {
         TextField withdrawField = new TextField();
         Button btnCancel = new Button("cancel");
         Button btnConfirm = new Button("confirm");
+        Text availableToWithdraw = new Text(argAvailableToWithdraw);
+        availableToWithdraw.setId("available-to-withdraw");
+        Text feedback = new Text("");
 
+        feedback.setId("feedback");
         // Constrains
         root.getChildren().add(grid);
         VBox.setVgrow(grid, Priority.ALWAYS);
@@ -552,8 +562,13 @@ class View implements EventHandler<KeyEvent> {
         HBox.setHgrow(btnContainer, Priority.ALWAYS);
         btnContainer.setSpacing(100);
 
-        grid.add(labelWithdraw, 0, 0);
-        grid.add(withdrawField, 0, 1);
+        grid.add(availableToWithdraw, 0, 0);
+        grid.add(labelWithdraw, 0, 1);
+        grid.add(withdrawField, 0, 2);
+        grid.add(feedback, 0, 3);
+
+        GridPane.setHalignment(availableToWithdraw, HPos.RIGHT);
+        GridPane.setHalignment(feedback, HPos.CENTER);
 
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
         // ActionEvent handling
@@ -562,18 +577,34 @@ class View implements EventHandler<KeyEvent> {
             public void handle(ActionEvent event) {
                 controller.goToMainMenu();
             }
-
         });
+
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.withdraw(withdrawField.getText());
+                Response response = controller.withdraw(withdrawField.getText());
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        Platform.runLater(() -> {
+                            feedback.setText("");
+                        });
+                    }
+                }, 4000);
+
             }
         });
 
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("password_reset.css");
+        scene.getStylesheets().add("./resources/styles/withdraw.css");
         this.window.setScene(scene);
 
     }

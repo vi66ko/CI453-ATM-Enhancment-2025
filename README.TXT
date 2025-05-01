@@ -46,6 +46,8 @@ DONE:
 button ot the right left corner  START
 - a way to exit from changing a password
 buttons: left(cancel) right(login)
+- Out of service page ( adding contanct number for service or information)
+- feat: withdraw daily limit 
 
 -----------------------------------------------------
 
@@ -82,7 +84,14 @@ UI/UX Case Study: ATM machines and mobile application of Financial entities.
 https://medium.com/@UltimateMachineUi/1-ui-ux-case-study-atm-machines-and-mobile-application-of-financial-entities-e6191de7680a
 ATM UI for Banking Self-Service System
 https://right.studio/projects/atm-interface/
+What’s the ATM Withdrawal Limit in the UK?
+https://review42.com/uk/resources/how-much-can-you-withdraw-from-atm/
+
+
 # Reference
+
+Popup:
+https://www.geeksforgeeks.org/javafx-popup-class/
 
 For timer: 
 Source https://stackoverflow.com/questions/4044726/how-to-set-a-timer-in-java
@@ -95,3 +104,6 @@ https://docs.oracle.com/en/java/javase/19/docs/api/java.base/java/util/Currency.
 
 Returning a mixed types of an array
 https://stackoverflow.com/questions/22553549/mixed-type-and-mixed-array-type-array-object-in-java-not-compiling
+
+Git:: Branch renaming
+https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/renaming-a-branch

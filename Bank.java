@@ -190,17 +190,32 @@ public class Bank {
 
     // try to withdraw money into the account (by calling the withdraw method on the
     // BankAccount object)
-    public boolean withdraw(BigDecimal amount) {
+    public Response withdraw(BigDecimal amount) {
+        Response response = new Response(false, "Wtf how you are here if you are not logged in");
         if (loggedIn()) {
-            BigDecimal newBalance = account.getBalance().add(account.getOverdraftLimit()).subtract(amount);
+            /* newBalance is the combination of avaiable balance and overdraft limit */
 
-            if (newBalance.compareTo(BigDecimal.ZERO) >= 0) {
-                account.setBalance(account.getBalance().subtract(amount));
+            BigDecimal amAbleToWithrall = account.getBalance().add(account.getOverdraftLimit()).subtract(amount);
+
+            // Cheking for the Daily Limit
+            if (account.getDailyLimitWithdrawLeft().compareTo(amount) < 0) {
+                response = new Response(false, "You can't withdraw more then your daily limit");
+            } else {
+                if (amAbleToWithrall.compareTo(BigDecimal.ZERO) > 0) {
+                    account.setBalance(account.getBalance().subtract(amount));
+
+                    account.setDailyLimitWithdrawLeft(account.getDailyLimitWithdrawLeft().subtract(amount));
+                    response = new Response(true, "Transactiona was successfull");
+                    Debug.trace("Withdrawn: " + amount);
+                } else {
+                    response = new Response(false,
+                            "You have only: £" + account.getBalance().add(account.getOverdraftLimit())
+                                    + "\nincluding the overdraft");
+                }
             }
-            return true;
-        } else {
-            return false;
         }
+
+        return response;
     }
 
     // get the account balance (by calling the balance method on the
@@ -211,6 +226,10 @@ public class Bank {
         } else {
             return "-1"; // use -1 as an indicator of an error
         }
+    }
+
+    public String getDailyLimitWithdrawLeft() {
+        return account.getDailyLimitWithdrawLeft().toString();
     }
 
     public void setDatabase(Database db) {

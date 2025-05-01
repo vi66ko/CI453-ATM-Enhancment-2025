@@ -26,6 +26,8 @@ public class BankAccount {
     private String address = null;
     private String email = null;
     private byte numberOfLoginTries = 3;
+    private BigDecimal DAILY_LIMIT_WITHDRAW = new BigDecimal(300);
+    private BigDecimal dailyLimitWithdrawLeft = new BigDecimal(300);
 
     public BankAccount() { // an empty construtor
 
@@ -61,7 +63,7 @@ public class BankAccount {
      */
     public BankAccount(AccountType type, int accountNumber, String accountPassword, BigDecimal balance,
             BigDecimal overdraftLimit, String firstName, String lastName, String address, String email,
-            Byte numberOfLoginTries) {
+            Byte numberOfLoginTries, BigDecimal DAILY_LIMIT_WITHDRAW, BigDecimal dailyLimitWithdraw) {
         this.type = type;
         this.accountNumber = accountNumber;
         this.accountPassword = accountPassword;
@@ -72,6 +74,8 @@ public class BankAccount {
         this.address = address;
         this.email = email;
         this.numberOfLoginTries = numberOfLoginTries;
+        this.DAILY_LIMIT_WITHDRAW = DAILY_LIMIT_WITHDRAW;
+        this.dailyLimitWithdrawLeft = dailyLimitWithdraw;
     }
 
     /**
@@ -90,7 +94,10 @@ public class BankAccount {
                 this.lastName,
                 this.address,
                 this.email,
-                this.numberOfLoginTries
+                this.numberOfLoginTries,
+                this.DAILY_LIMIT_WITHDRAW,
+                this.dailyLimitWithdrawLeft
+
         };
     }
 
@@ -135,6 +142,10 @@ public class BankAccount {
         return numberOfLoginTries;
     }
 
+    public BigDecimal getDailyLimitWithdrawLeft() {
+        return dailyLimitWithdrawLeft;
+    }
+
     // Setters
     public void setType(AccountType type) {
         this.type = type;
@@ -171,6 +182,10 @@ public class BankAccount {
 
     public void setNumberOfLoginTries(byte numberOfLoginTrys) {
         this.numberOfLoginTries = numberOfLoginTrys;
+    }
+
+    public void setDailyLimitWithdrawLeft(BigDecimal dailyLimitWithdraw) {
+        this.dailyLimitWithdrawLeft = dailyLimitWithdraw;
     }
 
 }
