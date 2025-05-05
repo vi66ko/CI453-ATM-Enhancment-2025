@@ -136,13 +136,14 @@ public class Bank {
             return new Response(false, "The accoount does not exist", ErrorType.WRONG_PASSWORD);
         }
 
-        if (this.account.getNumberOfLoginTries() == 0) {
-            // blok the user
+        if (this.account.getNumberOfLoginTries() <= 0) {
+            this.account.block(true);
+            return new Response(false, "You accoutn is blocked.\nPlease contact the bank to unblock your account.");
         }
 
         if (!this.account.getAccountPassword().equals(newAccPasswd)) {
             this.account.setNumberOfLoginTries((byte) (this.account.getNumberOfLoginTries() - 1));
-            return new Response(false, "wrong password - " + this.account.getNumberOfLoginTries() + " tries left");
+            return new Response(false, "wrong password: " + this.account.getNumberOfLoginTries() + " tries left");
         }
         // search the array to find a bank account with matching account and password.
         // If you find it, store it in the variable currentAccount and return true.

@@ -23,8 +23,11 @@ import type.AccountType;
  * address,
  * email,
  * numberOfLoginTries
- * 
+ * DAILY_LIMIT_WITHDRAW;
+ * dailyLimitWithdraw;
+ * blocked;
  *
+ * 
  */
 public class Database {
     private final String delimiter = "|";
@@ -125,6 +128,7 @@ public class Database {
         Byte numberOfLoginTries;
         BigDecimal DAILY_LIMIT_WITHDRAW;
         BigDecimal dailyLimitWithdraw;
+        Boolean blocked;
 
         try {
             Scanner scanner = new Scanner(this.accountsData);
@@ -145,19 +149,20 @@ public class Database {
                 numberOfLoginTries = Byte.valueOf(fields[9]);
                 DAILY_LIMIT_WITHDRAW = new BigDecimal(fields[10]);
                 dailyLimitWithdraw = new BigDecimal(fields[11]);
+                blocked = Boolean.valueOf(fields[12]);
 
                 if (AccountType.BASIC.toString().equals(accountType)) {
                     bank.addBankAccount(
                             new BankAccount(AccountType.BASIC, accountNumber, accountPassword, balance, overdraftLimit,
                                     firstName, lastName, address, email, numberOfLoginTries, DAILY_LIMIT_WITHDRAW,
-                                    dailyLimitWithdraw));
+                                    dailyLimitWithdraw, blocked));
 
                 } else if (AccountType.PREMIUM.toString().equals(accountType)) {
                     bank.addBankAccount(
                             new BankAccount(AccountType.PREMIUM, accountNumber, accountPassword, balance,
                                     overdraftLimit,
                                     firstName, lastName, address, email, numberOfLoginTries, DAILY_LIMIT_WITHDRAW,
-                                    dailyLimitWithdraw));
+                                    dailyLimitWithdraw, blocked));
                 } else {
                     Debug.trace(
                             "Database::loadAccounts:line::154 ### IMPORTANT ###\n if this else run that mean there could be a problem of the data strcuture. ");

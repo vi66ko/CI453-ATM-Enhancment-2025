@@ -172,6 +172,7 @@ public class Model {
          */
         if (isEnoguthATM_Cash) {
             response = bank.withdraw(amount);
+            controller.goToBalance();
         } else {
             response = new Response(false, "The ATM is out of cash");
         }

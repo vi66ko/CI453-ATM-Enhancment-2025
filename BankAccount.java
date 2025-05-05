@@ -28,6 +28,7 @@ public class BankAccount {
     private byte numberOfLoginTries = 3;
     private BigDecimal DAILY_LIMIT_WITHDRAW = new BigDecimal(300);
     private BigDecimal dailyLimitWithdrawLeft = new BigDecimal(300);
+    private Boolean blocked = false;
 
     public BankAccount() { // an empty construtor
 
@@ -63,7 +64,7 @@ public class BankAccount {
      */
     public BankAccount(AccountType type, int accountNumber, String accountPassword, BigDecimal balance,
             BigDecimal overdraftLimit, String firstName, String lastName, String address, String email,
-            Byte numberOfLoginTries, BigDecimal DAILY_LIMIT_WITHDRAW, BigDecimal dailyLimitWithdraw) {
+            Byte numberOfLoginTries, BigDecimal DAILY_LIMIT_WITHDRAW, BigDecimal dailyLimitWithdraw, Boolean blocked) {
         this.type = type;
         this.accountNumber = accountNumber;
         this.accountPassword = accountPassword;
@@ -76,6 +77,7 @@ public class BankAccount {
         this.numberOfLoginTries = numberOfLoginTries;
         this.DAILY_LIMIT_WITHDRAW = DAILY_LIMIT_WITHDRAW;
         this.dailyLimitWithdrawLeft = dailyLimitWithdraw;
+        this.blocked = blocked;
     }
 
     /**
@@ -96,9 +98,18 @@ public class BankAccount {
                 this.email,
                 this.numberOfLoginTries,
                 this.DAILY_LIMIT_WITHDRAW,
-                this.dailyLimitWithdrawLeft
+                this.dailyLimitWithdrawLeft,
+                this.blocked
 
         };
+    }
+
+    public void block(Boolean arg) {
+        this.blocked = true;
+    }
+
+    public Boolean isBlocked() {
+        return this.blocked;
     }
 
     // Getters
