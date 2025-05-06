@@ -114,7 +114,7 @@ class View implements EventHandler<KeyEvent> {
         Text logo = new Text("ATM");
         logo.setId("logo");
         GridPane.setHalignment(logo, HPos.CENTER);
-        Label labelAccountNumber = new Label("Account Numbers");
+        Label labelAccountNumber = new Label("Account Number");
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
@@ -135,7 +135,7 @@ class View implements EventHandler<KeyEvent> {
                 });
 
             }
-        }, 4000);
+        }, 10000);
 
         // User input
         btnLogin.setOnAction(
@@ -262,11 +262,11 @@ class View implements EventHandler<KeyEvent> {
         // Layout
         GridPane root = new GridPane();
         // Controlls
-        Button finish = new Button("finish");
-        Button balance = new Button("balance");
-        Button deposit = new Button("deposit");
-        Button withdraw = new Button("withdraw");
-        Button passReset = new Button("password reset");
+        Button finish = new Button("Finish");
+        Button balance = new Button("Balance");
+        Button deposit = new Button("Deposit");
+        Button withdraw = new Button("Withdraw");
+        Button passReset = new Button("Password Reset");
         Button quickCash = new Button("Quick Cash");
 
         // Constrains
