@@ -202,7 +202,7 @@ public class Bank {
             if (account.getDailyLimitWithdrawLeft().compareTo(amount) < 0) {
                 response = new Response(false, "You can't withdraw more then your daily limit");
             } else {
-                if (amAbleToWithrall.compareTo(BigDecimal.ZERO) > 0) {
+                if (amAbleToWithrall.compareTo(BigDecimal.ZERO) >= 0) {
                     account.setBalance(account.getBalance().subtract(amount));
 
                     account.setDailyLimitWithdrawLeft(account.getDailyLimitWithdrawLeft().subtract(amount));
