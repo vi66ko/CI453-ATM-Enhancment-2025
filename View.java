@@ -114,7 +114,7 @@ class View implements EventHandler<KeyEvent> {
         Text logo = new Text("ATM");
         logo.setId("logo");
         GridPane.setHalignment(logo, HPos.CENTER);
-        Label labelAccountNumber = new Label("Account Numbers");
+        Label labelAccountNumber = new Label("Account Number");
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
@@ -135,7 +135,7 @@ class View implements EventHandler<KeyEvent> {
                 });
 
             }
-        }, 4000);
+        }, 10000);
 
         // User input
         btnLogin.setOnAction(
@@ -262,11 +262,11 @@ class View implements EventHandler<KeyEvent> {
         // Layout
         GridPane root = new GridPane();
         // Controlls
-        Button finish = new Button("finish");
-        Button balance = new Button("balance");
-        Button deposit = new Button("deposit");
-        Button withdraw = new Button("withdraw");
-        Button passReset = new Button("password reset");
+        Button finish = new Button("Finish");
+        Button balance = new Button("Balance");
+        Button deposit = new Button("Deposit");
+        Button withdraw = new Button("Withdraw");
+        Button passReset = new Button("Password Reset");
         Button quickCash = new Button("Quick Cash");
 
         // Constrains
@@ -447,15 +447,19 @@ class View implements EventHandler<KeyEvent> {
         Button amount = new Button("Enter amount");
         Button cancel = new Button("Cancel");
 
+        //Feedback
+        Text feedback = new Text("");
+        feedback.setId("feedback");
+        root.add(feedback, 0, 0);
         // Constrains
-        root.add(five, 0, 0);
-        root.add(ten, 0, 1);
-        root.add(twenty, 0, 2);
-        root.add(cancel, 0, 3);
-        root.add(thirty, 1, 0);
-        root.add(fifty, 1, 1);
-        root.add(hundred, 1, 2);
-        root.add(amount, 1, 3);
+        root.add(five, 0, 1);
+        root.add(ten, 0, 2);
+        root.add(twenty, 0, 3);
+        root.add(cancel, 0, 4);
+        root.add(thirty, 1, 1);
+        root.add(fifty, 1, 2);
+        root.add(hundred, 1, 3);
+        root.add(amount, 1, 4);
 
         GridPane.setHalignment(fifty, HPos.RIGHT);
         GridPane.setHalignment(hundred, HPos.RIGHT);
@@ -472,7 +476,67 @@ class View implements EventHandler<KeyEvent> {
         five.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                controller.withdraw("5");
+                Response response = controller.withdraw("5");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+            }
+        });
+        ten.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Response response = controller.withdraw("10");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+            }
+        });
+        twenty.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Response response = controller.withdraw("20");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+            }
+        });
+        thirty.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Response response = controller.withdraw("30");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+            }
+        });
+        fifty.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Response response = controller.withdraw("50");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
+            }
+        });
+        hundred.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Response response = controller.withdraw("100");
+                if (response.isSuccessful()) {
+                    setBalanceUI();
+                } else {
+                    feedback.setText(response.getMessage());
+                }
             }
         });
         cancel.setOnAction(new EventHandler<ActionEvent>() {
@@ -490,7 +554,7 @@ class View implements EventHandler<KeyEvent> {
         root.getColumnConstraints().addAll(col1, col2);
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("./resources/styles/atm.css");
+        scene.getStylesheets().add("./resources/styles/quick.css");
         this.window.setScene(scene);
     }
 
