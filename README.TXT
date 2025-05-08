@@ -33,7 +33,6 @@ TODO:
 - if user click start and is inactive to go back to the welcome page.
 - finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
 - ? making the data type (class) address
-- max amount to widhraw from ATM
 
 
 client => controller[ATM] => Bank
@@ -48,6 +47,7 @@ button ot the right left corner  START
 buttons: left(cancel) right(login)
 - Out of service page ( adding contanct number for service or information)
 - feat: withdraw daily limit 
+- max amount to widhraw from ATM
 
 -----------------------------------------------------
 
@@ -107,3 +107,10 @@ https://stackoverflow.com/questions/22553549/mixed-type-and-mixed-array-type-arr
 
 Git:: Branch renaming
 https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/renaming-a-branch
+
+Numeric TextField:
+https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx/36436243#36436243
+
+
+
+

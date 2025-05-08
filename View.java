@@ -11,6 +11,8 @@ import java.util.TimerTask;
 
 import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 // JavaFx
 import javafx.event.ActionEvent;
 import javafx.scene.Scene;
@@ -447,7 +449,7 @@ class View implements EventHandler<KeyEvent> {
         Button amount = new Button("Enter amount");
         Button cancel = new Button("Cancel");
 
-        //Feedback
+        // Feedback
         Text feedback = new Text("");
         feedback.setId("feedback");
         root.add(feedback, 0, 0);
@@ -636,6 +638,42 @@ class View implements EventHandler<KeyEvent> {
 
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
         // ActionEvent handling
+
+        /**
+         * I ca do a method that return new ChangeListener<String>()
+         *
+         */
+        withdrawField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                String hasCharactersRegEx = ".*[a-zA-Z].*";
+                System.out.println("11111111111111");
+
+                if (newValue.matches(hasCharactersRegEx)) {
+                    System.out.println("22222222222222");
+                    withdrawField.setText(newValue.replaceAll("[\\D]", ""));
+
+                }
+            }
+        });
+
+        /**
+         * This is being activated durrign the bubling phase
+         *
+         */
+        // withdrawField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+        // @Override
+        // public void handle(KeyEvent keyEvent) {
+        // keyEvent.consume();
+        // String character = keyEvent.getText();
+        // String hasCharactersRegEx = ".*[a-zA-Z].*";
+        // if (character.matches(hasCharactersRegEx)) {
+        // System.out.println("Is noooo0ooot a 888888888888888888888");
+        // keyEvent.consume();
+        // }
+        // }
+        // });
+
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
