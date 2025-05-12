@@ -71,6 +71,7 @@ class View implements EventHandler<KeyEvent> {
         // this.setPasswordResset();
         // this.setBalanceUI();
         // this.setGoodByeUI();
+
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
             @Override
@@ -771,7 +772,7 @@ class View implements EventHandler<KeyEvent> {
          */
         GridPane root = new GridPane();
 
-        Text goodbyeText = new Text("Fareway\nmy friend!");
+        Text goodbyeText = new Text("Fareway\nmy\nfriend!");
         goodbyeText.setId("goodbye-text");
         root.add(goodbyeText, 0, 0);
 
@@ -788,6 +789,7 @@ class View implements EventHandler<KeyEvent> {
         Scene scene = new Scene(root, this.sceneWidth, this.sceneHeight);
         scene.getStylesheets().add("./resources/styles/global.css");
         scene.getStylesheets().add("./resources/styles/goodbye.css");
+
         this.window.setScene(scene);
     }
 

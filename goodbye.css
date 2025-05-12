@@ -1,8 +1,19 @@
 /* Is .root class base on the name of the variable or based on its role ??*/
 .root {
-    -fx-alignment: center;
+    /*-fx-alignment: center;*/
+    -fx-background-color: #fff00f;
 }
 
-.root #goodbyeText {
+.root #goodbye-text {
     -fx-font-size: 50px;
+    -fx-font-weight: 800;
+    -fx-fill: -fx-secondary;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 3);
+}
+
+#goodbye-text {
+    -fx-font-size: 10px;
+    -fx-font-weight: 800;
+    -fx-fill: -fx-secondary;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 3);
 }

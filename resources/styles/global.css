@@ -28,18 +28,18 @@ v1d84b5
 
 .root .button {
 
-    -fx-background-color: 
-        
+    -fx-background-color:
+
         #3c7fb1,
         linear-gradient(#fafdfe, #e8f5fc, #d4eefd),
         linear-gradient(#eaf6fd 30%, #d9f0fc 49%, #bee6fd 50%, #70b9e4 100%);
-        
-
-        
 
 
-    -fx-background-insets: 0,1;
-    -fx-background-radius: 3,2;
+
+
+
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 3, 2;
     -fx-padding: 7px;
 
     -fx-font-family: "Arial";
@@ -47,14 +47,14 @@ v1d84b5
     -fx-text-fill: -fx-text;
 
     -fx-pref-width: 200px;
-    
+
     /*
      *
     Removing the outline of a button 
     -fx-background-insets: 0, 0, 0, 0;
      * */
 
-/*
+    /*
     -fx-background-color: 
         #3c7fb1,
         linear-gradient(#fafdfe, #e8f5fc),
@@ -68,7 +68,7 @@ v1d84b5
     -fx-background-color: -fx-secondary;
     */
 
-/*
+    /*
  Experimental purple color scheme 
 
     linear-gradient(rgb(252, 251, 254), rgb(240, 232, 255), rgb(219, 200, 255)),
@@ -78,6 +78,14 @@ v1d84b5
 
 
 
+/* Goodbye UI
+*****************/
+.root #goodbye-text {
+    -fx-font-size: 50px;
+    -fx-font-weight: 800;
+    -fx-fill: -fx-secondary;
+    -fx-effect: innershadow(three-pass-box, rgba(0, 0, 0, 0.7), 5, 0.0, 0, 3);
+}
 
 
 
