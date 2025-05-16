@@ -33,6 +33,7 @@ TODO:
 - if user click start and is inactive to go back to the welcome page.
 - finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
 - ? making the data type (class) address
+- why character restriction allow first symbow to be anything
 
 
 client => controller[ATM] => Bank
@@ -111,6 +112,7 @@ https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-
 Numeric TextField:
 https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-a-numeric-textfield-in-javafx/36436243#36436243
 
-
+Media could not run:
+https://stackoverflow.com/questions/62171410/error-package-javafx-scene-media-does-not-exist
 
 

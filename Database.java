@@ -40,7 +40,6 @@ public class Database {
     private String rootDir = "db";
 
     public Database() {
-        System.out.println("DATABASE");
         this.initiated();
     }
 
@@ -65,15 +64,13 @@ public class Database {
         return false;
     }
 
-    // public BankAccount getAccounts() { }
-
     /**
      * If there is not any data it will be generate by this method.
      */
     private void initiated() {
+        System.out.println("|||||||||||||||||||||- Database -|||||||||||||||||||||||");
         this.accountsData = this.createFile("accounts.txt");
         this.transactionsData = this.createFile("transactions.txt");
-        System.out.println("|||||||||||||||||||||- Database -|||||||||||||||||||||||");
 
         if ((accountsData.length() == 0)) {
             this.generateAccounts();
@@ -97,15 +94,15 @@ public class Database {
     public void saveAll(HashMap<Integer, BankAccount> accounts) {
         try {
             FileWriter fileWriter = new FileWriter(this.accountsData);
-
             String data = "";
-            fileWriter.write(data);
+
             for (BankAccount account : accounts.values()) {
                 for (Object field : account.getAllFields()) {
-                    data += field + "|";
+                    data += field + this.delimiter;
                 }
                 data += "\n";
             }
+
             fileWriter.write(data);
             fileWriter.close();
         } catch (IOException error) {
@@ -116,7 +113,7 @@ public class Database {
     }
 
     public void loadAcounts(Bank bank) {
-        String accountType; // This type is only to find out the what is the type in if statment
+        String accountType;
         int accountNumber;
         String accountPassword;
         BigDecimal balance;
@@ -135,7 +132,7 @@ public class Database {
 
             while (scanner.hasNextLine()) {
                 String record = scanner.nextLine();
-                String[] fields = record.split("\\|");
+                String[] fields = record.split("\\" + this.delimiter);
 
                 accountType = fields[0];
                 accountNumber = Integer.valueOf(fields[1]);
@@ -184,16 +181,17 @@ public class Database {
             FileWriter fileWriter = new FileWriter(this.accountsData, true);
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|300|300\n");
+                            + "10001|11|300|0|Emiliy|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|emily.carter@examplemail.com|3|300|300\n");
             fileWriter.write(
                     AccountType.BASIC
-                            + "|10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|300|300\n");
+                            + "10002|11|100|0|David|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|david.carter@examplemail.com|3|300|300\n");
             fileWriter.write(
                     AccountType.PREMIUM
-                            + "|10003|11|800|500|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|500|500\n");
+                            + "10003|11|800|500|Mufasa|Carter|12 Rosewood Lane, Brighton, West Sussex, BN11 1AA, United Kingdom|mufasa.carter@examplemail.com|3|500|500\n");
 
             fileWriter.close();
             Debug.trace("Successfully generated dummy data");
+
         } catch (IOException error) {
             System.out.println("An IOException error occurred.");
             error.printStackTrace();

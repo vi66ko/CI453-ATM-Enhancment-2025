@@ -3,9 +3,6 @@ import java.math.BigDecimal;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-// Custom
-import type.AccountType;
-
 // atm project Main class
 // The code here creates the ATM GUI interface and model functionality, but the methods
 // in the BankAccount class which actually do the banking functions are incomplete.
@@ -23,23 +20,10 @@ public class Main extends Application {
 
         // Create a Bank object for this ATM
         Bank bank = new Bank();
-        Database db = new Database();
-        bank.setDatabase(db);
-        db.loadAcounts(bank);
 
-        // add some test bank accounts
-        // bank.addBankAccount(101, "1", new BigDecimal(300));
-        // b.addBankAccount(10001, "11111", new BigDecimal(300));
-        // b.addBankAccount(10002, "22222", new BigDecimal(100));
-        // bank.createBasicAccount("Emily", "Carter", "12 Rosewood Lane, Worthing, West
-        // Sussex, BN11 1AA, United Kingdom",
-        // "emily.carter@examplemail.com", 10001, "11", new BigDecimal(300));
-        // bank.createBasicAccount("David", "Carter", "12 Rosewood Lane, Worthing, West
-        // Sussex, BN11 1AA, United Kingdom",
-        // "David.carter@examplemail.com", 10002, "11", new BigDecimal(800));
-        // bank.createPremiumAccount("Mufasa", "Carter",
-        // "12 Rosewood Lane, Worthing, West Sussex, BN11 1AA, United Kingdom",
-        // "mufass.carter@examplemail.com", 10003, "11", new BigDecimal(400));
+        Database db = new Database();
+        bank.setDatabase(db); // Connecting the Database instance to the bank
+        db.loadAcounts(bank); // Loading the persistent data
 
         // Create the Model, View and Controller objects
         Model model = new Model(bank); // the model needs the Bank object to 'talk to' the bank

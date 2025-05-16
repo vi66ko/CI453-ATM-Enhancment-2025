@@ -6,10 +6,10 @@
 // We import lots of JavaFX libraries (we may not use them all, but it
 // saves us having to thinkabout them if we add new code)
 // Java
+import java.io.File;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,15 +18,14 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
 import javafx.scene.text.*;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.*;
 
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
-import javafx.geometry.Pos;
 import javafx.scene.input.KeyEvent;
 
 class View implements EventHandler<KeyEvent> {
@@ -34,14 +33,6 @@ class View implements EventHandler<KeyEvent> {
     int sceneWidth = 500; // Width of window pixels
     Stage window = null;
     // variables for components of the user interface
-    Label title; // Title area (not the window title)
-    TextField message; // Message area, where numbers appear
-    TextArea reply; // Reply area where results or info are shown
-    ScrollPane scrollPane; // scrollbars around the TextArea object
-    GridPane grid; // main layout grid
-    TilePane buttonPane; // tiled area for buttons
-
-    // The other parts of the model-view-controller setup
     public Model model;
     public Controller controller;
 
@@ -59,8 +50,14 @@ class View implements EventHandler<KeyEvent> {
         Debug.trace("View::start");
         this.window = window;
 
+        String inputButtonPath = "resources/media/audio/input_button.mp3";
+        File inputButtonFile = new File(inputButtonPath);
+
+        AudioClip plonkSound = new AudioClip(inputButtonFile.toURI().toString());
+        plonkSound.play();
+
         // create the user interface component objects
-        // The ATM is a vertical grid of four components -
+        // The ATM is a vertical filterNonDigitCharactersgrid of four components -
         // label, two text boxes, and a tiled panel
         // of buttons
 
@@ -73,7 +70,6 @@ class View implements EventHandler<KeyEvent> {
         // this.setGoodByeUI();
 
         window.setOnCloseRequest(new EventHandler<WindowEvent>() {
-
             @Override
             public void handle(WindowEvent event) {
                 controller.save();
@@ -109,23 +105,24 @@ class View implements EventHandler<KeyEvent> {
         // Layout
         VBox root = new VBox();
         GridPane grid = new GridPane();
-        grid.setId("login-grid");
         HBox btnContainer = new HBox();
-        btnContainer.setId("btn-container");
 
         // Controls
         Text logo = new Text("ATM");
-        logo.setId("logo");
-        GridPane.setHalignment(logo, HPos.CENTER);
         Label labelAccountNumber = new Label("Account Number");
         TextField accountNumberField = new TextField();
         Label labelPassword = new Label("Password");
         PasswordField passwordField = new PasswordField();
         Text feedback = new Text();
-        feedback.setId("feedback");
         Button btnBack = new Button("back");
-        btnBack.setId("btn-back");
         Button btnLogin = new Button("login");
+
+        // Setting up ids
+        grid.setId("login-grid");
+        btnContainer.setId("btn-container");
+        logo.setId("logo");
+        feedback.setId("feedback");
+        btnBack.setId("btn-back");
         btnLogin.setId("btn-login");
 
         // Timer
@@ -140,7 +137,6 @@ class View implements EventHandler<KeyEvent> {
             }
         }, 10000);
 
-        // User input
         btnLogin.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -148,10 +144,6 @@ class View implements EventHandler<KeyEvent> {
                         timer.cancel();
                         String accountNumerInput = accountNumberField.getText();
                         String passwordInput = passwordField.getText();
-                        // ################
-                        // moving the check to the controller so here will be not any validation or
-                        // verification
-                        // it will just the visual representation of the app
 
                         if (accountNumerInput.length() == 0 || passwordInput.length() == 0) {
                             return;
@@ -159,7 +151,8 @@ class View implements EventHandler<KeyEvent> {
                         Debug.trace("View::setOnAction: " + accountNumerInput.length());
                         Debug.trace("View::setOnAction: " + accountNumerInput);
                         String message = controller.login(accountNumerInput, passwordInput);
-                        feedback.setText(message);
+
+                        feedback.setText(message); // display error message to the user
                         Debug.trace("View::setOnAction: " + event);
                     }
                 });
@@ -172,16 +165,18 @@ class View implements EventHandler<KeyEvent> {
         });
 
         // Root Contraints
-        VBox.setVgrow(grid, Priority.ALWAYS); // Making the child to take the full width
+        VBox.setVgrow(grid, Priority.ALWAYS); // Make the child to take the full width
+
         // HBox
         btnContainer.setSpacing(100);
         btnContainer.getChildren().addAll(btnBack, btnLogin);
 
         // Grid constraints
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setHgrow(Priority.ALWAYS);
-        grid.getColumnConstraints().add(col1);
+        col1.setHgrow(Priority.ALWAYS); // Setting up a rule constraint. To the first column to take full width.
+        grid.getColumnConstraints().add(col1); // Aplly the constraints
 
+        // Position the controls to the grid
         grid.add(logo, 0, 0);
         grid.add(labelAccountNumber, 0, 1);
         grid.add(accountNumberField, 0, 2);
@@ -189,6 +184,7 @@ class View implements EventHandler<KeyEvent> {
         grid.add(passwordField, 0, 4);
         grid.add(feedback, 0, 5);
 
+        GridPane.setHalignment(logo, HPos.CENTER);
         GridPane.setHalignment(feedback, HPos.RIGHT);
 
         root.getChildren().addAll(grid, btnContainer);
@@ -196,69 +192,8 @@ class View implements EventHandler<KeyEvent> {
         Scene loginScene = new Scene(root, this.sceneWidth, this.sceneHeight);
         loginScene.getStylesheets().add("./resources/styles/global.css");
         loginScene.getStylesheets().add("./resources/styles/login.css");
+
         this.window.setScene(loginScene);
-    }
-
-    public void setActiveUI2() {
-        grid = new GridPane();
-        grid.setId("layout"); // assign an id to be used in css file
-        buttonPane = new TilePane();
-        buttonPane.setId("buttons"); // assign an id to be used in css file
-
-        // controls
-        this.title = new Label("Best ATM"); // Message bar at the top for the title
-        grid.add(title, 0, 0); // Add to GUI at the top
-
-        message = new TextField(); // text field for numbers and error messages
-        message.setEditable(false); // Read only (user can't type in)
-        grid.add(message, 0, 1); // Add to GUI on second row
-
-        reply = new TextArea(); // multi-line text area for instructions
-        reply.setEditable(false); // Read only (user can't type in)
-        scrollPane = new ScrollPane(); // create a scrolling window
-        scrollPane.setContent(reply); // put the text area 'inside' the scrolling window
-        grid.add(scrollPane, 0, 2); // add the scrolling window to GUI on third row
-
-        // Buttons - these are laid out on a tiled pane, then
-        // the whole pane is added to the main grid as the fourth row
-
-        // Button labels - empty strings are for blank spaces
-        // The number of button per row should match what is set in
-        // the css file
-        String labels[][] = {
-                { "7", "8", "9", "", "Dep", "" },
-                { "4", "5", "6", "", "W/D", "" },
-                { "1", "2", "3", "", "Bal", "Fin" },
-                { "CLR", "0", "del", "", "", "Ent" } };
-
-        // loop through the array, making a Button object for each label
-        // (and an empty text label for each blank space) and adding them to the
-        // buttonPane
-        // The number of button per row is set in the css file, not the array.
-        for (String[] row : labels) {
-            for (String label : row) {
-                if (label.length() >= 1) {
-                    // non-empty string - make a button
-                    Button b = new Button(label);
-                    b.setOnAction(this::buttonClicked); // set the method to call when pressed
-                    buttonPane.getChildren().add(b); // and add to tiled pane
-                } else {
-                    // empty string - add an empty text element as a spacer
-                    buttonPane.getChildren().add(new Text());
-
-                }
-            }
-        }
-        grid.add(buttonPane, 0, 3); // add the tiled pane of buttons to the grid
-
-        // add the complete GUI to the window and display it
-        Scene scene = new Scene(grid, this.sceneWidth, this.sceneHeight);
-        scene.getStylesheets().add("./resources/styles/global.css");
-        scene.getStylesheets().add("./resources/styles/atm.css"); // tell the app to use our css file
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, this);
-        // scene.setOnKeyPressed(this);
-        this.window.setScene(scene);
-
     }
 
     public void setActiveUI() {
@@ -640,40 +575,7 @@ class View implements EventHandler<KeyEvent> {
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
         // ActionEvent handling
 
-        /**
-         * I ca do a method that return new ChangeListener<String>()
-         *
-         */
-        withdrawField.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                String hasCharactersRegEx = ".*[a-zA-Z].*";
-                System.out.println("11111111111111");
-
-                if (newValue.matches(hasCharactersRegEx)) {
-                    System.out.println("22222222222222");
-                    withdrawField.setText(newValue.replaceAll("[\\D]", ""));
-
-                }
-            }
-        });
-
-        /**
-         * This is being activated durrign the bubling phase
-         *
-         */
-        // withdrawField.setOnKeyTyped(new EventHandler<KeyEvent>() {
-        // @Override
-        // public void handle(KeyEvent keyEvent) {
-        // keyEvent.consume();
-        // String character = keyEvent.getText();
-        // String hasCharactersRegEx = ".*[a-zA-Z].*";
-        // if (character.matches(hasCharactersRegEx)) {
-        // System.out.println("Is noooo0ooot a 888888888888888888888");
-        // keyEvent.consume();
-        // }
-        // }
-        // });
+        this.filterNonDigitSymbols(withdrawField);
 
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -685,7 +587,14 @@ class View implements EventHandler<KeyEvent> {
         btnConfirm.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Response response = controller.withdraw(withdrawField.getText());
+                String withdrawValue = withdrawField.getText();
+
+                // Restricting going further if the input is empty
+                if (withdrawValue.length() == 0) {
+                    return;
+                }
+
+                Response response = controller.withdraw(withdrawValue);
                 if (response.isSuccessful()) {
                     setBalanceUI();
                 } else {
@@ -853,6 +762,21 @@ class View implements EventHandler<KeyEvent> {
         // String message3 = model.display2; // get the new message2 from the model
         // reply.setText(message3); // add it as text of GUI control output2
         // }
+    }
+
+    private void filterNonDigitSymbols(TextField inputField) {
+        inputField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // String hasCharactersRegEx = ".*[a-zA-Z].*";
+
+                if (!newValue.matches("[\\D]")) {
+                    // replacing any non digit symbol
+                    inputField.setText(newValue.replaceAll("[\\D]", ""));
+                }
+            }
+        });
+
     }
 
 }

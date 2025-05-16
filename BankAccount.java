@@ -81,9 +81,8 @@ public class BankAccount {
     }
 
     /**
-     * I need a method that return all the fields & method that accept all the
-     * fields
-     * to poplulate the object
+     * The field here are monually type.
+     * The order is important because base on it the data saved or load
      */
     public Object[] getAllFields() {
         return new Object[] {
@@ -100,7 +99,6 @@ public class BankAccount {
                 this.DAILY_LIMIT_WITHDRAW,
                 this.dailyLimitWithdrawLeft,
                 this.blocked
-
         };
     }
 

@@ -25,7 +25,7 @@ public class Model {
 
     BigDecimal numberBd = BigDecimal.valueOf(number);
 
-    BigDecimal atmAvaiableCash = new BigDecimal(400000);
+    private BigDecimal atmAvaiableCash = new BigDecimal(4000);
     Bank bank = null; // The ATM talks to a bank, represented by the Bank object.
     int accNumber = -1; // Account number typed in
     int accPasswd = -1; // Password typed in
@@ -216,7 +216,6 @@ public class Model {
     }
 
     public void clearCharacter() {
-
         if (!this.display1.isEmpty()) {
             if (display1.length() == 1) {
                 this.display1 = "";
@@ -231,11 +230,10 @@ public class Model {
         System.out.println("clearCharacter is pressed");
     }
 
-    // reduce the number of try
     public Response login(int newAccNumber, String newAccPasswd) {
-
         Response response = this.bank.authenticate(newAccNumber, newAccPasswd);
-        Debug.trace("Modell::login:223:response.getMessage(): " + response.getMessage());
+
+        Debug.trace("Modell::login: response.getMessage(): " + response.getMessage());
 
         if (response.isSuccessful()) {
             this.setState(ATM.LOGED_IN);
