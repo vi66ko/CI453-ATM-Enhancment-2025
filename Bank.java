@@ -73,6 +73,7 @@ public class Bank {
                 accountNumber, accountPassword, balance);
 
         premiumAccount.setOverdraftLimit(new BigDecimal(500));
+        premiumAccount.setDailyLimitWithdrawLeft(new BigDecimal(500));
         this.accounts.put(premiumAccount.getAccountNumber(), premiumAccount);
         numAccounts++;
 
