@@ -137,6 +137,9 @@ class View implements EventHandler<KeyEvent> {
             }
         }, 10000);
 
+        this.filterNonDigitSymbols(accountNumberField);
+        this.filterNonDigitSymbols(passwordField);
+
         btnLogin.setOnAction(
                 new EventHandler<ActionEvent>() {
                     @Override
@@ -301,6 +304,10 @@ class View implements EventHandler<KeyEvent> {
         grid.add(feedbackMessage, 0, 4);
 
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+
+        this.filterNonDigitSymbols(passwordField);
+        this.filterNonDigitSymbols(passwordConfirmation);
+
         // ActionEvent handling
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -518,6 +525,9 @@ class View implements EventHandler<KeyEvent> {
         grid.add(depositField, 0, 1);
 
         btnContainer.getChildren().addAll(btnCancel, btnConfirm);
+
+        this.filterNonDigitSymbols(depositField);
+
         // ActionEvent handling
         btnCancel.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -770,7 +780,7 @@ class View implements EventHandler<KeyEvent> {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 // String hasCharactersRegEx = ".*[a-zA-Z].*";
 
-                if (!newValue.matches("[\\D]")) {
+                if (!newValue.matches("[\\D]") || !oldValue.matches("[\\D]")) {
                     // replacing any non digit symbol
                     inputField.setText(newValue.replaceAll("[\\D]", ""));
                 }
