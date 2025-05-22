@@ -36,6 +36,9 @@ class View implements EventHandler<KeyEvent> {
     public Model model;
     public Controller controller;
 
+    // Sound
+    AudioClip buttonSound = new AudioClip(new File("resources/media/audio/input_button.mp3").toURI().toString());
+
     // we don't really need a constructor method, but include one to print a
     // debugging message if required
     public View() {
@@ -50,18 +53,12 @@ class View implements EventHandler<KeyEvent> {
         Debug.trace("View::start");
         this.window = window;
 
-        String inputButtonPath = "resources/media/audio/input_button.mp3";
-        File inputButtonFile = new File(inputButtonPath);
-
-        AudioClip plonkSound = new AudioClip(inputButtonFile.toURI().toString());
-        plonkSound.play();
-
         // create the user interface component objects
         // The ATM is a vertical filterNonDigitCharactersgrid of four components -
         // label, two text boxes, and a tiled panel
         // of buttons
 
-        // layout objects
+        // :layout objects
         this.setWelcomingUI();
         // this.setLoginUI();
         // this.setActiveUI2();
@@ -75,6 +72,12 @@ class View implements EventHandler<KeyEvent> {
                 controller.save();
             }
         });
+        window.sceneProperty().addListener((observable, oldScene, newScene) -> {
+            newScene.addEventFilter(KeyEvent.KEY_PRESSED, this);
+        });
+
+        // window.getScene().setOnKeyPressed(this);
+        window.getScene().addEventFilter(KeyEvent.KEY_PRESSED, this);
         window.setResizable(false);
         window.show();
         // new EventHandler<ActionEvent>() {
@@ -83,6 +86,7 @@ class View implements EventHandler<KeyEvent> {
     }
 
     public void handle(KeyEvent event) {
+
         this.controller.userKeyInput(event);
     }
 
@@ -141,9 +145,11 @@ class View implements EventHandler<KeyEvent> {
         this.filterNonDigitSymbols(passwordField);
 
         btnLogin.setOnAction(
+
                 new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent event) {
+                        playSound("resources/media/audio/input_button.mp3");
                         timer.cancel();
                         String accountNumerInput = accountNumberField.getText();
                         String passwordInput = passwordField.getText();
@@ -236,6 +242,7 @@ class View implements EventHandler<KeyEvent> {
         });
         finish.setOnAction(new EventHandler<ActionEvent>() {
             public void handle(ActionEvent event) {
+                playSound("./resources/media/audio/Goodbye 1.mp3");
                 controller.logout();
             }
         });
@@ -606,6 +613,7 @@ class View implements EventHandler<KeyEvent> {
 
                 Response response = controller.withdraw(withdrawValue);
                 if (response.isSuccessful()) {
+                    playSound("./resources/media/audio/Success 10.mp3");
                     setBalanceUI();
                 } else {
                     feedback.setText(response.getMessage());
@@ -780,12 +788,35 @@ class View implements EventHandler<KeyEvent> {
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
                 // String hasCharactersRegEx = ".*[a-zA-Z].*";
 
-                if (!newValue.matches("[\\D]") || !oldValue.matches("[\\D]")) {
-                    // replacing any non digit symbol
-                    inputField.setText(newValue.replaceAll("[\\D]", ""));
-                }
+                // replacing any non digit symbol
+                inputField.setText(newValue.replaceAll("[\\D]", ""));
+
+                System.out.println("NEW VALUE: => " + newValue);
+
+                // if (newValue.matches("[\\d]")) {
+                // System.out.println("Saaaaaund");
+                // buttonSound.play();
+                // }
+                //
+                // buttonSound.play();
+                // // playSound("resources/media/audio/input_button.mp3");
+                // }
+
             }
         });
+
+    }
+
+    /**
+     *
+     * @param path relative path of the audio file
+     */
+    public void playSound(String path) {
+        System.out.println("*******************");
+        File file = new File(path);
+
+        AudioClip audioclip = new AudioClip(file.toURI().toString());
+        audioclip.play();
 
     }
 

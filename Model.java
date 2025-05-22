@@ -185,6 +185,7 @@ public class Model {
     public void processDeposit(BigDecimal amount) {
         this.atmAvaiableCash.add(amount);
         if (bank.deposit(amount)) {
+            view.playSound("./resources/media/audio/Success 8.mp3");
             controller.goToBalance();
             Debug.trace("Deposited: " + amount);
         } else {

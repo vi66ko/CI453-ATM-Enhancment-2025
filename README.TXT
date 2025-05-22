@@ -34,7 +34,7 @@ TODO:
 - finding how we are going to remove or chagne email as they are inside ArraList that mean user can have couple emails.
 - ? making the data type (class) address
 - why character restriction allow first symbow to be anything
-
+- delimiter into dummy data to used as a variable not a literal
 
 client => controller[ATM] => Bank
 
@@ -115,4 +115,5 @@ https://stackoverflow.com/questions/7555564/what-is-the-recommended-way-to-make-
 Media could not run:
 https://stackoverflow.com/questions/62171410/error-package-javafx-scene-media-does-not-exist
 
-
+When scene change: # JavaFX: Listen to Scene changes
+https://stackoverflow.com/questions/59686969/javafx-listen-to-scene-changes

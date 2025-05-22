@@ -3,6 +3,9 @@ import javafx.scene.input.KeyEvent;
 import java.math.BigDecimal;
 
 import javafx.scene.input.KeyCode;
+import java.io.File;
+
+import javafx.scene.media.AudioClip;
 
 // The ATM controller is quite simple - the process method is passed
 // the label on the button that was pressed, and it calls different
@@ -103,47 +106,34 @@ public class Controller {
         KeyCode pressedKey = event.getCode();
         System.out.println("Displaying the type of the variable");
         System.out.println(event.getCode().getClass().getName());
-
         switch (pressedKey) {
             case NUMPAD1:
             case DIGIT1:
-                this.process("1");
-                break;
             case NUMPAD2:
             case DIGIT2:
-                this.process("2");
-                break;
             case NUMPAD3:
             case DIGIT3:
-                this.process("3");
-                break;
             case NUMPAD4:
             case DIGIT4:
-                this.process("4");
-                break;
             case NUMPAD5:
             case DIGIT5:
-                this.process("5");
-                break;
             case NUMPAD6:
             case DIGIT6:
-                this.process("6");
-                break;
             case NUMPAD7:
             case DIGIT7:
-                this.process("7");
-                break;
             case NUMPAD8:
             case DIGIT8:
-                this.process("8");
-                break;
             case NUMPAD9:
             case DIGIT9:
-                this.process("9");
-                break;
             case NUMPAD0:
             case DIGIT0:
-                this.process("0");
+                // String inputButtonPath = "resources/media/audio/input_button.wav";
+                String inputButtonPath = "resources/media/audio/Button 9.mp3";
+                File inputButtonFile = new File(inputButtonPath);
+
+                AudioClip plonkSound = new AudioClip(inputButtonFile.toURI().toString());
+                plonkSound.play();
+
                 break;
             default:
                 break;
